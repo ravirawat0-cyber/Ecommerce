@@ -41,6 +41,9 @@
         {
             public Data Data { get; set; }
         }
-
+    }
+    public class PasswordResponse
+    {
+        public string Message { get; set; }
     }
 }

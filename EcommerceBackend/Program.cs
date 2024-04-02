@@ -52,6 +52,7 @@ namespace EcommerceBackend
             builder.Services.AddScoped<IAccountServices, AccountServices>();
             builder.Services.AddScoped<ICartRepository, CartRepository>();
             builder.Services.AddScoped<ICartServices, CartServices>();
+
     
 
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

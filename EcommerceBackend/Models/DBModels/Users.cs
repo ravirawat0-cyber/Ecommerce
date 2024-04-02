@@ -10,4 +10,12 @@
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
     }
+
+    public class UsersResetToken
+    { 
+        public int Id { get; set; }
+        public int UserId { get; set; }
+        public byte[] ResetToken { get; set; }
+        public DateTime ExpiryDate { get; set; } 
+    }
 }

@@ -15,13 +15,11 @@ namespace EcommerceBackend.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        public static Users user = new Users();
-        private readonly IConfiguration _congfiguration;
         private readonly IAccountServices _accountServices;
 
-        public AccountController(IConfiguration configuration, IAccountServices accountServices)
+        public AccountController(IAccountServices accountServices)
         {
-            _congfiguration = configuration;
+       
             _accountServices = accountServices;
         }
 
@@ -40,46 +38,19 @@ namespace EcommerceBackend.Controllers
             return Ok(userDetails);
         }
 
-
-        private string CreateToken(Users user)
+        [HttpPost("forgot-password")]
+        public IActionResult ForgotPassword(ForgotPasswordRequest request)
         {
-            List<Claim> claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Name, user.UserName),
-            };
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
-                _congfiguration.GetSection("AppSettings:Token").Value!
-                ));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
-         
-            var token = new JwtSecurityToken(
-                 claims : claims,
-                 expires: DateTime.Now.AddDays(1),
-                 signingCredentials : creds
-                );
-
-            var jwt = new JwtSecurityTokenHandler().WriteToken(token);
-            return jwt;
+            var message = _accountServices.ForgotUserPassword(request);
+            return Ok(message);
         }
 
-        private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
+        [HttpPost("update-password")]
+        public IActionResult UpdatePassword(UpdatePasswordRequest request)
         {
-            using (var hmac = new HMACSHA512())
-            {
-                passwordSalt = hmac.Key;
-                passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-            }
+            var message = _accountServices.UpdatePassword(request);
+            return Ok(message);
         }
 
-
-        private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
-        {
-            using (var hmac = new HMACSHA512(passwordSalt))
-            {
-                var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-                return computedHash.SequenceEqual(passwordHash);
-            }
-        }
     }
-
 }

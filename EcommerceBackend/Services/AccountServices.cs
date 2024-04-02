@@ -60,7 +60,7 @@ namespace EcommerceBackend.Services
             var userId = _accountRepository.Register(users);
             var userDetails = _accountRepository.GetById(userId);
 
-            var userReponse = new UserResponse
+            var userResponse = new UserResponse
             {
                 Data = new Data
                 {
@@ -79,18 +79,18 @@ namespace EcommerceBackend.Services
                 }
             };
 
-            return userReponse;
+            return userResponse;
         }
 
         public UserResponse UserLogin(UserLoginRequest request)
         {
-            var userDetails = _accountRepository.GetUserDetailByUserName(request.UserName);
+            var userDetails = _accountRepository.GetUserDetailByColumnName("UserName",request.UserName);
             if (userDetails == null)
             {
                 throw new ArgumentException("User does not exist.Please register.");
             }
-            var verfiyPass = VerifyPasswordHash(request.Password, userDetails.PasswordHash, userDetails.PasswordSalt);
-            if (!verfiyPass) 
+            var verifyPass = VerifyPasswordHash(request.Password, userDetails.PasswordHash, userDetails.PasswordSalt);
+            if (!verifyPass) 
             {
                 throw new ArgumentException("Wrong Password");
             }
@@ -98,7 +98,7 @@ namespace EcommerceBackend.Services
             var cart = CartDetails(userDetails);
 
 
-            var userReponse = new UserResponse 
+            var userResponse = new UserResponse 
             {
                 Data = new Data
                 {
@@ -117,14 +117,78 @@ namespace EcommerceBackend.Services
                     Cart = cart
                 }
             };
-            return userReponse;
+            return userResponse;
         }
+
+
+        public PasswordResponse ForgotUserPassword(ForgotPasswordRequest request)
+        {
+            var userDetails = _accountRepository.GetUserDetailByColumnName("Email", request.Email);
+            if (userDetails == null)
+            {
+                throw new ArgumentException("User does not exist. Please register.");
+            }
+
+            var resetToken = GeneratePasswordResetToken();
+
+            _accountRepository.AddUserResetToken(userDetails.Id, Encoding.UTF8.GetBytes(resetToken), DateTime.Now.AddDays(1));
+
+            SendPasswordResetLinkToEmail(userDetails.Email, resetToken);
+
+            var resetPasswordResponse = new PasswordResponse
+            {
+                Message = "A password reset link has been sent to your email."
+            };
+
+            return resetPasswordResponse;
+        }
+
+        public PasswordResponse UpdatePassword(UpdatePasswordRequest request)
+        {
+            var userId = _accountRepository.GetUserIdByToken(Encoding.UTF8.GetBytes(request.resetToken));
+            if (userId == null)
+            {
+                throw new ArgumentException("Invalid or expired reset token.");
+            }
+
+            var userDetails = _accountRepository.GetById(userId);
+            CreatePasswordHash(request.NewPassword, out byte[] passwordHash, out byte[] passwordSalt);
+
+            userDetails.PasswordHash = passwordHash;
+            userDetails.PasswordSalt = passwordSalt;
+            _accountRepository.UpdateUserDetails(userId, userDetails);
+
+            return new PasswordResponse
+            {
+                Message = "Your password has been successfully reset."
+            };
+
+        }
+
+
+        private void SendPasswordResetLinkToEmail(string email, string resetToken)
+        {
+            var resetLink = $"http://{resetToken}";
+
+            var emailService = new EmailServices();
+            emailService.Send(email, "Password Reset",
+                $"Please click the following link to reset your password: {resetLink}");
+        }
+
+        private string GeneratePasswordResetToken()
+        {
+            var rngCryptoServiceProvider = new RNGCryptoServiceProvider();
+            byte[] randBytes = new byte[32];
+            rngCryptoServiceProvider.GetBytes(randBytes);
+            return Convert.ToBase64String(randBytes);
+        }
+
 
         private Cart CartDetails(Users userDetails)
         {
-            var UserItemsFromDb = _cartServices.GetItemsByUserId(userDetails.Id);
+            var userItemsFromDb = _cartServices.GetItemsByUserId(userDetails.Id);
 
-            var items = UserItemsFromDb.Select(u => new Item
+            var items = userItemsFromDb.Select(u => new Item
             {
                 ProductId = u.ProductId,
                 ProductName = u.ProductName,
@@ -132,9 +196,9 @@ namespace EcommerceBackend.Services
                 Quantity = u.Quantity,
             }).ToList();
 
-            int totalItems = items.Sum(i => i.Quantity);
+            var totalItems = items.Sum(i => i.Quantity);
 
-            Cart cart = new Cart
+            var cart = new Cart
             {
                 Items = items,
                 TotalItems = totalItems
@@ -145,11 +209,9 @@ namespace EcommerceBackend.Services
 
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
-            using (var hmac = new HMACSHA512())
-            {
-                passwordSalt = hmac.Key;
-                passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-            }
+            var hmac = new HMACSHA512();
+            passwordSalt = hmac.Key;
+            passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
         }
 
         private string CreateToken(Users user)
@@ -173,11 +235,9 @@ namespace EcommerceBackend.Services
         }
         private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
         {
-            using (var hmac = new HMACSHA512(passwordSalt))
-            {
-                var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-                return computedHash.SequenceEqual(passwordHash);
-            }
+            var hmac = new HMACSHA512(passwordSalt);
+            var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+            return computedHash.SequenceEqual(passwordHash);
         }
 
     }
