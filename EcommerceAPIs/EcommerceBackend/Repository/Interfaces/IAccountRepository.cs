@@ -12,5 +12,6 @@ namespace EcommerceBackend.Repository.Interfaces
         void AddUserResetToken(int userId, byte[] resetToken, DateTime expiryDate);
         void UpdateUserDetails(int userId, Users request);
         int GetUserIdByToken(byte[] resetToken);
+        void RemovePasswordResetToken(byte[] resetToken);
     }
 }

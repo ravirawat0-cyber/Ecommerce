@@ -145,7 +145,8 @@ namespace EcommerceBackend.Services
 
         public PasswordResponse UpdatePassword(UpdatePasswordRequest request)
         {
-            var userId = _accountRepository.GetUserIdByToken(Encoding.UTF8.GetBytes(request.resetToken));
+            var resetToken = Encoding.UTF8.GetBytes(request.resetToken);
+            var userId = _accountRepository.GetUserIdByToken(resetToken);
             if (userId == null)
             {
                 throw new ArgumentException("Invalid or expired reset token.");
@@ -157,7 +158,7 @@ namespace EcommerceBackend.Services
             userDetails.PasswordHash = passwordHash;
             userDetails.PasswordSalt = passwordSalt;
             _accountRepository.UpdateUserDetails(userId, userDetails);
-
+            _accountRepository.RemovePasswordResetToken(resetToken);
             return new PasswordResponse
             {
                 Message = "Your password has been successfully reset."

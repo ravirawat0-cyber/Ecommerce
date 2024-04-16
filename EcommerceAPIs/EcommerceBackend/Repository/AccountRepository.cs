@@ -98,6 +98,13 @@ namespace EcommerceBackend.Repository
             return userId;
         }
 
+        public void RemovePasswordResetToken(byte[] resetToken)
+        {
+            var query = @"DELETE FROM UsersRestToken
+                          WHERE ResetToken = @resetToken";
+            var value = new { ResetToken = resetToken };
+            DeleteDb(query, value);
+        }
 
 
         public void UpdateUserDetails(int userId, Users request)
