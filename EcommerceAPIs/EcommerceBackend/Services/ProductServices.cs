@@ -26,11 +26,10 @@ namespace EcommerceBackend.Services
                 Name = request.Name,
                 Description = request.Description,
                 Price = request.Price,
+                SubcategoryId = request.SubCategoryId,
                 CompanyName = request.CompanyName,
-                Sold = request.Sold,
-                IsCustomized = request.IsCustomized,
                 KeyFeature = request.KeyFeature,
-                IsActive = request.IsActive,
+                CoverImage = request.CoverImage,
                 ImageUrls = request.ImageUrls,
             };
             var id = _productRepository.Create(product);
@@ -53,14 +52,14 @@ namespace EcommerceBackend.Services
                 .GroupBy(p => new { p.ProductID, p.ProductName, p.Description, p.Price })
                 .Select(g => new ProductInfo
                 {
-                    ProductID = g.Key.ProductID,
+                    ProductId = g.Key.ProductID,
                     ProductName = g.Key.ProductName,
                     Description = g.Key.Description,
                     Price = g.Key.Price,
                     Categories = g.GroupBy(c => new { c.CategoryName })
-                                 .Select(cg => new CategoryInfo
+                                 .Select(cg => new Categories
                                  {
-                                     CategoryName = cg.Key.CategoryName,
+                                     CategoryNames = cg.Key.CategoryName,
                                      SubCategories = cg.Select(sc => new SubCategoryInfo
                                      {
                                          SubCategoryID = sc.SubCategoryID,

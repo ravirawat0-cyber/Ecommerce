@@ -52,8 +52,14 @@ namespace EcommerceBackend
             builder.Services.AddScoped<IAccountServices, AccountServices>();
             builder.Services.AddScoped<ICartRepository, CartRepository>();
             builder.Services.AddScoped<ICartServices, CartServices>();
-
-    
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigin",
+                    builder => builder.WithOrigins("http://localhost:4200")
+                        .AllowAnyMethod().
+                        AllowAnyHeader().
+                        AllowCredentials());
+            });
 
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                      .AddJwtBearer(options =>
@@ -71,6 +77,7 @@ namespace EcommerceBackend
 
             var app = builder.Build();
 
+            app.UseCors("AllowSpecificOrigin");
             // Configure the HTTP request pipeline.
             app.UseMiddleware<ExceptionHandlingMiddleware>();
             if (app.Environment.IsDevelopment())

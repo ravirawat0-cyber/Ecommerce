@@ -2,25 +2,30 @@
 
 namespace EcommerceBackend.Models.Response
 {
-    public class SubCategoryInfo
-    {
-        public int SubCategoryID { get; set; }
-        public string SubCategoryName { get; set; }
-    }
     public class CategoryInfo
     {
+        public int CategoryID { get; set; }
         public string CategoryName { get; set; }
-        public List<SubCategoryInfo> SubCategories { get; set; }
+    }
+    public class Categories
+    {
+        public List<CategoryInfo> CategoryNames { get; set; }
+        public string SubCategories { get; set; }
     }
 
     public class ProductInfo
     {
-        public int ProductID { get; set; }
+        public int ProductId { get; set; }
         public string ProductName { get; set; }
+        public List<Categories> Categories { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }
-        public int Quantity { get; set; }
-        public List<CategoryInfo> Categories { get; set; }
+        public string CompanyName { get; set; }
+        public bool Sold { get; set; }
+        public string Keyfeature { get; set; }
+        public string CoverImage { get; set; }
+        public string ImageUrls { get; set; }
+        
     }
 
     public class ProductResponse

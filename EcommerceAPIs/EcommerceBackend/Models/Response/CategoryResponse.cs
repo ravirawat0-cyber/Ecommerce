@@ -1,8 +1,11 @@
-﻿namespace EcommerceBackend.Models.Response
+﻿using EcommerceBackend.Models.DBModels;
+
+namespace EcommerceBackend.Models.Response
 {
+    
     public class CategoryResponse
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
+        public IEnumerable<Category> Data { get; set; }
+        public string StatusMessage { get; set; }
     }
 }

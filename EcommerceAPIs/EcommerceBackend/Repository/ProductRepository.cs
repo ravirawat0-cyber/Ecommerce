@@ -22,23 +22,23 @@ namespace EcommerceBackend.Repository
                 INSERT INTO Products (
                     Name,
                     Description,
+                    SubcategoryId,
                     Price,
                     CompanyName,
                     Sold,
-                    IsCustomized,
                     KeyFeature,
-                    IsActive,
+                    CoverImage,
                     ImageUrls
                 )
                 VALUES (
                     @Name,
                     @Description,
+                    @SubcategoryId
                     @Price,
                     @CompanyName,
                     @Sold,
-                    @IsCustomized,
                     @KeyFeature,
-                    @IsActive,
+                    @CoverImage,
                     @ImageUrls
                 );
                 SELECT SCOPE_IDENTITY()
@@ -47,12 +47,12 @@ namespace EcommerceBackend.Repository
             {
                 Name = entity.Name,
                 Description = entity.Description,
+                SubcategoryId = entity.SubcategoryId,
                 Price = entity.Price,
                 CompanyName = entity.CompanyName,
                 Sold = entity.Sold,
-                IsCustomized = entity.IsCustomized,
                 KeyFeature = entity.KeyFeature,
-                IsActive = entity.IsActive,
+                CoverImage = entity.CoverImage,
                 ImageUrls = entity.ImageUrls
             };
 
@@ -83,9 +83,8 @@ namespace EcommerceBackend.Repository
                 p.Price,
                 p.CompanyName,
                 p.Sold,
-                p.IsCustomized,
                 p.KeyFeature,
-                p.IsActive,
+                p.CoverImage,
                 p.ImageUrls,
                 c.Name AS CategoryName,
                 sc.Id AS SubCategoryID,
@@ -113,11 +112,10 @@ namespace EcommerceBackend.Repository
                    Description = @description,
                    Price = @price,
                    CompanyName = @companyName,
-        
+                   SubcategoryId = @subcategoryId,
                    Sold = @sold,
-                   IsCustomized = @isCustomized,
                    KeyFeature = @keyFeature,
-                   IsActive @isActive,
+                   CoverImage = @coverImage
                    ImageUrls = @imageUrls
                  WHERE Id = @id";
                    
@@ -128,10 +126,10 @@ namespace EcommerceBackend.Repository
                 Description = entity.Description,
                 Price = entity.Price,
                 CompanyName = entity.CompanyName,
+                SubcategoryId = entity.SubcategoryId,
                 Sold = entity.Sold,
-                IsCustomized = entity.IsCustomized,
                 KeyFeature = entity.KeyFeature,
-                IsActive = entity.IsActive,
+                CoverImage = entity.CoverImage,
                 ImageUrls = entity.ImageUrls
             };
             UpdateDb(query, values);      

@@ -1,0 +1,10 @@
+<div class="grid grid-cols-4 gap-8 m-auto w-11/12 h-full my-6">
+  <div class="col-span-1 border-r-4 p-4">
+    <app-productform *ngIf="selectedService === 'products'"></app-productform>
+    <app-subcategoryform
+      *ngIf="selectedService === 'subcategory'"
+    ></app-subcategoryform>
+    <app-categoryform *ngIf="selectedService === 'category'"></app-categoryform>
+  </div>
+  <div class="col-span-2">{{ selectedService }}</div>
+</div>

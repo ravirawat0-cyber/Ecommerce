@@ -29,31 +29,34 @@ namespace EcommerceBackend.Services
             _categoryRepository.Delete(id);
         }
 
-        public IEnumerable<CategoryResponse> GetAll()
+        public CategoryResponse GetAll()
         {
             var categorylist = _categoryRepository.GetAll();
-            List<CategoryResponse> categoryResponseList = new List<CategoryResponse>(); 
-            foreach(var category in categorylist)
+            var categoryResponse = new CategoryResponse
             {
-                var categoryList = new CategoryResponse
-                {
-                    Id = category.Id,
-                    Name = category.Name,
-                };
-                categoryResponseList.Add(categoryList);
-            
-            }
-            return categoryResponseList;    
+                Data = categorylist,
+                StatusMessage = "Success"
+
+            };
+            return categoryResponse;
 
         }
+
 
         public CategoryResponse GetById(int id)
         {
             var category = _categoryRepository.GetById(id); 
             var categoryResponse = new CategoryResponse
             {
-                Id = category.Id,
-                Name = category.Name,
+                Data = new[]
+                {
+                    new Category
+                    {
+                        Id = category.Id,
+                        Name = category.Name,
+                    }
+                },
+                StatusMessage = "Success"
             };
             return categoryResponse;
         }

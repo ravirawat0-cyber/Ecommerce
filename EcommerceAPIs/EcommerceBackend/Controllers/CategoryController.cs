@@ -1,13 +1,15 @@
 ﻿using EcommerceBackend.Models.Request;
 using EcommerceBackend.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EcommerceBackend.Controllers
 {
-    [Route("Category")]
+    [Route("category")]
     [ApiController]
+    // [EnableCors("AllowSpecificOrigin")]
     public class CategoryController : ControllerBase
     {
         private readonly ICategoryServices _categoryServices;
@@ -24,7 +26,7 @@ namespace EcommerceBackend.Controllers
             return Ok(id);
         }
 
-        [HttpGet(""), Authorize]
+        [HttpGet("")]
         public IActionResult GetAll() {
             var category = _categoryServices.GetAll();
             return Ok(category);

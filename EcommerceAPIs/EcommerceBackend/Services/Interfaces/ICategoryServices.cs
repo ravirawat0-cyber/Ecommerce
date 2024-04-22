@@ -7,7 +7,7 @@ namespace EcommerceBackend.Services.Interfaces
     {
         int Create(CategoryRequest request);
         void Delete(int id);
-        IEnumerable<CategoryResponse> GetAll();
+        CategoryResponse GetAll();
 
         CategoryResponse GetById(int id);
         void Update(int id, CategoryRequest request);
