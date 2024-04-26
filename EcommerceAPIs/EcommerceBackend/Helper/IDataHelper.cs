@@ -2,7 +2,7 @@
 {
     public interface IDataHelper
     {
-        void DeleteFromProductSubCategoryTable(int productId);
-        void AddIntoProductSubCategoryTable(int productId, string subCategoryIds);
+        void DeleteFromProductCategoryTable(int productId);
+        void AddIntoProductCategoryTable(int productId, string categoryIds);
     }
 }

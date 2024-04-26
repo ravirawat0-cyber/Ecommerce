@@ -48,6 +48,14 @@ namespace EcommerceBackend.Repository
             return GetByCredDb(query, values);
         }
 
+        public int CheckCategoryByName(string name)
+        {
+            var query = @"SELECT COUNT(*) FROM Category (NOLOCK)
+                          WHERE Name = @name";
+            var value = new { Name = name };
+            return GetCountFromDb(query, value);
+        }
+        
         public void Update(int id, Category entity)
         {
             var query = @"UPDATE Category

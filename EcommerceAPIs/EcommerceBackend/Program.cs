@@ -79,7 +79,7 @@ namespace EcommerceBackend
 
             app.UseCors("AllowSpecificOrigin");
             // Configure the HTTP request pipeline.
-            app.UseMiddleware<ExceptionHandlingMiddleware>();
+
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
@@ -87,6 +87,8 @@ namespace EcommerceBackend
             }
 
             app.UseHttpsRedirection();
+
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
 
             app.UseAuthentication();
 

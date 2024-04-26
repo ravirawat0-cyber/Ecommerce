@@ -16,22 +16,24 @@ namespace EcommerceBackend.Repository
         {
             string query = @"INSERT INTO SubCategory (
                          Name,
-                         ParentCategoryId
+                         ParentCategoryId,
+                         ImageUrl
                      )
                      VALUES (
                        @Name, 
-                       @ParentCategoryId
+                       @ParentCategoryId,
+                       @ImageUrl
                      );
                    SELECT SCOPE_IDENTITY()";
             var values = new
             {
                 Name = entity.Name,
                 ParentCategoryId = entity.ParentCategoryId,
+                ImageUrl = entity.ImageUrl
             };
             var id = CreateDb(query, values);
             return id;
         }
-
 
         public void Delete(int id)
         {
@@ -41,37 +43,22 @@ namespace EcommerceBackend.Repository
             DeleteDb(query, values);
         }
 
+        public int IsDataExists(string name)
+        {
+            var query = @"SELECT COUNT(*)
+                          FROM SubCategory
+                          WHERE Name = @name";
+            var values = new { Name = name };
+            var count = GetCountFromDb(query, values);
+            return count;
+        }
+
         public IEnumerable<SubCategory> GetAll()
         {
             var query = @"SELECT * 
                           FROM SubCategory (NOLOCK)";
             var subCategoryList = GetAllDb(query);
             return subCategoryList;
-        }
-
-        public SubCategory GetById(int id)
-        {
-            var query = @"SELECT * FROM SubCategory (NOLOCK)
-                       WHERE Id = @id";
-            var values = new { Id = id };
-            return GetByCredDb(query, values);
-        }
-
-        public void Update(int id, SubCategory entity)
-        {
-            var query = @"UPDATE SubCategory
-                        SET
-                            Name = @name,
-                            ParentCategoryId = @parentCategoryId
-                        WHERE Id = @id";
-            var values = new
-            {
-                Id = id,
-                Name = entity.Name,
-                ParentCategoryId = entity.ParentCategoryId
-     
-            };
-            UpdateDb(query, values);
         }
     }
 }

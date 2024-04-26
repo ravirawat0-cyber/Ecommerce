@@ -1,9 +1,10 @@
-﻿namespace EcommerceBackend.Models.Response
+﻿using EcommerceBackend.Models.DBModels;
+
+namespace EcommerceBackend.Models.Response
 {
     public class SubCategoryResponse
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public int ParentCategoryId { get; set; }
+       public IEnumerable<SubCategory> Data { get; set; }
+       public string StatusMessage { get; set; }
     }
 }

@@ -12,25 +12,25 @@ namespace EcommerceBackend.Helper
         {
             _dbContext = context;
         }
-        public void AddIntoProductSubCategoryTable(int productId, string subCategoryIds)
+        public void AddIntoProductCategoryTable(int productId, string categoryIds)
         {
-            string query = @"INSERT INTO Product_Subcategories 
-                            (ProductID, SubCategoryId)
-                            VALUES (@ProductId, @SubCategoryId)";
-            string[] subcategoryArray = subCategoryIds.Split(',');
-            foreach (string subcategoryIdString in subcategoryArray)
+            string query = @"INSERT INTO Product_Categories 
+                            (ProductID, CategoryId)
+                            VALUES (@ProductId, @CategoryId)";
+            string[] categoryArray = categoryIds.Split(',');
+            foreach (string categoryIdString in categoryArray)
             {
-                if (int.TryParse(subcategoryIdString, out int subcategoryId))
+                if (int.TryParse(categoryIdString, out int categoryId))
                 {
-                    var values = new { ProductId = productId, SubCategoryId = subcategoryId };
+                    var values = new { ProductId = productId, categoryId = categoryId };
                     using var connection = _dbContext.CreateConnection();
                     connection.Execute(query, values);
                 }
             }
         }
-        public void DeleteFromProductSubCategoryTable(int productId)
+        public void DeleteFromProductCategoryTable(int productId)
         {
-            string query = @"DELETE FROM Product_Subcategories 
+            string query = @"DELETE FROM Product_Categories  
                      WHERE ProductID = @ProductId";
             var values = new { ProductId = productId };
             using var connection = _dbContext.CreateConnection();

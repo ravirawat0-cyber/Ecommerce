@@ -1,0 +1,20 @@
+<div class="grid grid-cols-[1fr,3fr] m-auto w-screen my-6 gap-4 px-4" *ngIf="selectedService">
+    <div class="px-16 ">
+        <app-productform *ngIf="selectedService === 'products'"></app-productform>
+        <app-subcategoryform
+            *ngIf="selectedService === 'subcategory'"
+        ></app-subcategoryform>
+        <app-categoryform *ngIf="selectedService === 'category'"></app-categoryform>
+
+    </div>
+    <div class="overflow-auto px-4 ">
+
+        <app-product-details *ngIf="selectedService === 'products'"></app-product-details>
+        <app-category-details *ngIf="selectedService === 'category'"></app-category-details>
+        <app-subcategory-details *ngIf="selectedService === 'subcategory'"></app-subcategory-details>
+    </div>
+</div>
+
+<div class="flex flex-col justify-center items-center h-full" *ngIf="!selectedService">
+    <p class="mb-4 text-xl font-medium text-gray-600 dark:text-gray-400 ">Please select a service to continue....</p>
+</div>

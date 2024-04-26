@@ -10,5 +10,7 @@ namespace EcommerceBackend.Repository.Interfaces
         IEnumerable<Category> GetAll();
 
         Category GetById(int id);
+
+        int CheckCategoryByName(string name);
     }
 }

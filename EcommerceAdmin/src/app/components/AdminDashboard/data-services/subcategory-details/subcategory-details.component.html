@@ -1,0 +1,40 @@
+<div >
+    <table class="w-full">
+        <thead>
+        <tr >
+            <th class="border bg-slate-300">SubCategoryID</th>
+            <th class="border bg-slate-300">Name</th>
+            <th class="border bg-slate-300">CategoryId</th>
+            <th class="border bg-slate-300">SubCatgory Image</th>
+            <th class="border bg-slate-300">Action</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr *ngFor = "let subCategory of subCategories" class="text-center">
+            <td class="border">{{subCategory.id}}</td>
+            <td class="border">{{subCategory.name}}</td>
+            <td class="border">{{subCategory.parentCategoryId}}</td>
+            <td class="border align-center">
+                <div class="inline-block">
+
+                    <img
+                        src="{{subCategory.imageUrl}}"
+                        alt="{{subCategory.name}}"
+                        class="h-10 w-10 rounded-full"
+                    />
+                </div>
+
+            </td>
+            <td class = "border px-4 py-2">
+                <button
+                    class="bg-red-500 hover:bg-red-700 text-white font-normal py-1 px-2 rounded"
+                    (click)="deleteSubCategory(subCategory.id)"
+                >
+                    Delete
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

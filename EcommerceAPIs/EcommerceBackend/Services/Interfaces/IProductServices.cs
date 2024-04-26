@@ -11,6 +11,5 @@ namespace EcommerceBackend.Services.Interfaces
 
         ProductResponse GetAll();
 
-        void Update(int id, ProductRequest request);
     }
 }

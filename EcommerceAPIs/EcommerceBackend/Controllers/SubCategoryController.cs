@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EcommerceBackend.Controllers
 {
-    [Route("SubCategory")]
+    [Route("subcategory")]
     [ApiController]
     public class SubCategoryController : ControllerBase
     {
@@ -28,20 +28,6 @@ namespace EcommerceBackend.Controllers
         {
             var subCategory = _subcategoryServices.GetAll();
             return Ok(subCategory);
-        }
-
-        [HttpGet("{id:int}")]
-        public IActionResult GetById(int id)
-        {
-            var subCategory = _subcategoryServices.GetById(id);
-            return Ok(subCategory);
-        }
-
-        [HttpPut("{id:int}")]
-        public IActionResult Update(int id, SubCategoryRequest request)
-        {
-            _subcategoryServices.Update(id, request);
-            return Ok();
         }
 
         [HttpDelete("{id:int}")]

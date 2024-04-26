@@ -1,8 +1,0 @@
-.button-click {
-  transition: transform 0.1s ease-in-out; /* Transition for smooth animation */
-}
-
-.button-click:active {
-  /* Apply styles on button press (active state) */
-  transform: translateY(2px); /* Move the button down slightly */
-}

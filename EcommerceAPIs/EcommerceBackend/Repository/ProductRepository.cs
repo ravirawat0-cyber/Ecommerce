@@ -33,7 +33,7 @@ namespace EcommerceBackend.Repository
                 VALUES (
                     @Name,
                     @Description,
-                    @SubcategoryId
+                    @SubcategoryId,
                     @Price,
                     @CompanyName,
                     @Sold,
@@ -76,63 +76,30 @@ namespace EcommerceBackend.Repository
         public IEnumerable<DbProductResponse> GetProductInfo()
         {
             string query = @"
-            SELECT 
-                p.Id AS ProductID,
-                p.Name AS ProductName,
-                p.Description,
-                p.Price,
-                p.CompanyName,
-                p.Sold,
-                p.KeyFeature,
-                p.CoverImage,
-                p.ImageUrls,
-                c.Name AS CategoryName,
-                sc.Id AS SubCategoryID,
-                sc.Name AS SubCategoryName
-            FROM 
-                Products p
-            INNER JOIN 
-                Product_SubCategories psc ON p.Id = psc.ProductId
-            INNER JOIN 
-                SubCategory sc ON psc.SubCategoryId = sc.Id
-            INNER JOIN 
-                Category c ON sc.ParentCategoryId = c.Id";
-
+                      SELECT 
+                          p.Id AS ProductId,
+                          p.Name AS ProductName,
+                          p.Description,
+                          p.Price,
+                          p.CompanyName,
+                          p.Sold,
+                          p.KeyFeature,
+                          p.ImageUrls,
+                          p.CoverImage,
+                          sc.Id AS SubCategoryId,
+                          sc.Name AS SubCategoryName,
+                          c.Id AS CategoryId,
+                          c.Name AS CategoryName
+                      FROM 
+                          Products p
+                      INNER JOIN 
+                          SubCategory sc ON p.SubcategoryId = sc.Id
+                      INNER JOIN 
+                          Category c ON sc.ParentCategoryId = c.Id";
             using var connection = _dbContext.CreateConnection();
             var ProductInfo = connection.Query<DbProductResponse>(query);
             return ProductInfo;
            
-        }
-
-        public void Update(int id, Products entity)
-        {
-            var query = @"UPDATE Products
-                  SET 
-                   Name  = @name,
-                   Description = @description,
-                   Price = @price,
-                   CompanyName = @companyName,
-                   SubcategoryId = @subcategoryId,
-                   Sold = @sold,
-                   KeyFeature = @keyFeature,
-                   CoverImage = @coverImage
-                   ImageUrls = @imageUrls
-                 WHERE Id = @id";
-                   
-            var values = new
-            {
-                Id = id,
-                Name = entity.Name,
-                Description = entity.Description,
-                Price = entity.Price,
-                CompanyName = entity.CompanyName,
-                SubcategoryId = entity.SubcategoryId,
-                Sold = entity.Sold,
-                KeyFeature = entity.KeyFeature,
-                CoverImage = entity.CoverImage,
-                ImageUrls = entity.ImageUrls
-            };
-            UpdateDb(query, values);      
         }
     }
 }

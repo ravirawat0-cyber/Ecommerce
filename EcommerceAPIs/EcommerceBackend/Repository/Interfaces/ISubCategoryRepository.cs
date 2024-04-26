@@ -6,10 +6,8 @@ namespace EcommerceBackend.Repository.Interfaces
     {
         int Create(SubCategory entity);
         IEnumerable<SubCategory> GetAll();
-        SubCategory GetById(int id);
-        void Delete(int id);    
-        void Update(int id, SubCategory entity);
+        void Delete(int id);
 
-
+        int IsDataExists(string name);
     }
 }

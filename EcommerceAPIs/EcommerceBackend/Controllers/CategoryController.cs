@@ -32,18 +32,6 @@ namespace EcommerceBackend.Controllers
             return Ok(category);
         }
 
-        [HttpGet("{id:int}")]
-        public IActionResult GetById(int id) {
-            var category = _categoryServices.GetById(id);
-            return Ok(category);
-        }
-
-        [HttpPut("{id:int}")]
-        public IActionResult Update(int id, CategoryRequest categoryRequest)
-        {
-            _categoryServices.Update(id, categoryRequest);
-            return Ok();
-        }
 
         [HttpDelete("{id:int}")]
         public IActionResult Delete(int id)

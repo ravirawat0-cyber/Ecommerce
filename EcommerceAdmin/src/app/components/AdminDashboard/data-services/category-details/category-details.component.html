@@ -1,0 +1,26 @@
+<div >
+    <table class="w-full">
+        <thead>
+        <tr >
+            <th class="border bg-slate-300">CategoryID</th>
+            <th class="border bg-slate-300">Name</th>
+            <th class="border bg-slate-300">Action</th>
+        </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngFor = "let category of categories" class="text-center">
+                <td class="border">{{category.id}}</td>
+                <td class="border">{{category.name}}</td>
+                <td class = "border px-4 py-2">
+                    <button
+                        class="bg-red-500 hover:bg-red-700 text-white font-normal py-1 px-2 rounded"
+                        (click)="deleteCategory(category.id)"
+                    >
+                        Delete
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

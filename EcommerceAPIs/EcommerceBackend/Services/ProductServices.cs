@@ -21,6 +21,7 @@ namespace EcommerceBackend.Services
 
         public int Create(ProductRequest request)
         {
+            validateRequest(request);
             var product = new Products
             {
                 Name = request.Name,
@@ -33,60 +34,75 @@ namespace EcommerceBackend.Services
                 ImageUrls = request.ImageUrls,
             };
             var id = _productRepository.Create(product);
-            _dataHelper.AddIntoProductSubCategoryTable(id, request.SubCategoryIds);
             return id;
         }
+        
 
         public void Delete(int id)
         {
             _productRepository.Delete(id);
-            _dataHelper.DeleteFromProductSubCategoryTable(id);
         }
 
         public ProductResponse GetAll()
         {
             var dbProductResponses = _productRepository.GetProductInfo();
+
             var productResponse = new ProductResponse
             {
-                Products = dbProductResponses
-                .GroupBy(p => new { p.ProductID, p.ProductName, p.Description, p.Price })
-                .Select(g => new ProductInfo
+                Products = dbProductResponses.Select(p => new ProductInfo
                 {
-                    ProductId = g.Key.ProductID,
-                    ProductName = g.Key.ProductName,
-                    Description = g.Key.Description,
-                    Price = g.Key.Price,
-                    Categories = g.GroupBy(c => new { c.CategoryName })
-                                 .Select(cg => new Categories
-                                 {
-                                     CategoryNames = cg.Key.CategoryName,
-                                     SubCategories = cg.Select(sc => new SubCategoryInfo
-                                     {
-                                         SubCategoryID = sc.SubCategoryID,
-                                         SubCategoryName = sc.SubCategoryName
-                                     }).ToList()
-                                 }).ToList()
+                    ProductId = p.ProductId,
+                    ProductName = p.ProductName,
+                    Description = p.Description,
+                    Price = p.Price,
+                    CompanyName = p.CompanyName,
+                    Sold = p.Sold > 0,
+                    Keyfeature = p.KeyFeature,
+                    CoverImage = p.CoverImage,
+                    ImageUrls = p.ImageUrls,
+                    Categories = new Categories
+                    {
+                        Parentcategory = new CategoryInfo
+                        {
+                            CategoryId = int.Parse(p.CategoryId),
+                            CategoryName = p.CategoryName
+                        },
+                        Subcategories = new SubCategoryInfo
+                        {
+                            SubCategoryId = p.SubcategoryId,
+                            SubCategoryName = p.SubcategoryName
+                        }
+                    }
                 }).ToList()
             };
+
             return productResponse;
 
         }
-
-        public void Update(int id, ProductRequest request)
+        
+        private void validateRequest(ProductRequest request)
         {
-            var product = new Products
-            {
-                Name = request.Name,
-                Description = request.Description,
-                Price = request.Price,
-                CompanyName = request.CompanyName,
-                Sold = request.Sold,
-                IsCustomized = request.IsCustomized,
-                KeyFeature = request.KeyFeature,
-                IsActive = request.IsActive,
-                ImageUrls = request.ImageUrls,
-            };
-            _productRepository.Update(id, product);
+            if(string.IsNullOrWhiteSpace(request.Name))
+                throw new ArgumentException("Product name cannot be null or whitespace.");
+            
+            if (string.IsNullOrWhiteSpace(request.Description))
+                throw new ArgumentException("Description cannot be null or whitespace.");
+            
+            if (request.Price <= 0)
+                throw new ArgumentException("Price must be greater than 0.");
+            
+            if(string.IsNullOrWhiteSpace(request.CompanyName))
+                throw new ArgumentException("Company name cannot be null or whitespace.");
+            
+            if(string.IsNullOrWhiteSpace(request.KeyFeature))
+                throw new ArgumentException("Key feature cannot be null or whitespace.");
+
+            if(string.IsNullOrWhiteSpace(request.ImageUrls))
+                throw new ArgumentException("Image urls cannot be null or whitespace.");
+            
+            if(string.IsNullOrWhiteSpace(request.CoverImage))
+                throw new ArgumentException("Image urls cannot be null or whitespace.");
         }
+
     }
 }

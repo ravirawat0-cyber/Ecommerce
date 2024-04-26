@@ -1,0 +1,58 @@
+<div>
+    <table class="w-full ">
+        <thead>
+        <tr>
+            <th class="border bg-slate-300 w-16">ProductID</th>
+            <th class="border bg-slate-300 w-48">Name</th>
+            <th class="border bg-slate-300 w-64">Description</th>
+            <th class="border bg-slate-300 w-20">Price</th>
+            <th class="border bg-slate-300 w-40">Company Name</th>
+            <th class="border bg-slate-300 w-32">Subcategory</th>
+            <th class="border bg-slate-300 w-40">Category</th>
+            <th class="border bg-slate-300 w-64">Key Features</th>
+            <th class="border bg-slate-300 w-40">Cover Image</th>
+            <th class="border bg-slate-300 w-1/6">Image URLs</th>
+            <th class="border bg-slate-300 w-40">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let product of products">
+            <td class="border px-4 py-2">{{ product.productId }}</td>
+            <td class="border px-4 py-2">{{ product.productName }}</td>
+            <td class="border px-4 py-2">{{ product.description }}</td>
+            <td class="border px-4 py-2">Rs.{{ product.price }}</td>
+            <td class="border px-4 py-2">{{ product.companyName }}</td>
+            <td class="border px-4 py-2">{{ product.categories.subcategories.subCategoryName }}</td>
+            <td class="border px-4 py-2">{{ product.categories.parentcategory.categoryName }}</td>
+            <td class="border px-4 py-2">{{ product.keyfeature }}</td>
+            <td class="border px-4 py-2">
+
+                <img
+                    src="{{product.coverImage}}}"
+                    alt="{{product.productName}}}"
+                    class="h-10 w-10 rounded-full"
+                />
+            </td>
+            <td class="border px-4 ">
+                <div *ngFor="let url of splitCoverImages(product.imageUrls)" class="inline-block p-1">
+                    <img
+                        src="{{url}}"
+                        alt="{{product.productName}}"
+                        class="h-10 w-10 rounded-full"
+                    />
+
+                </div>
+            </td>
+            <td class="border px-4 py-2">
+                <button
+                    class="bg-red-500 hover:bg-red-700 text-white font-normal py-1 px-2 rounded"
+                    (click)="deleteProduct(product.productId)"
+                >
+                    Delete
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>

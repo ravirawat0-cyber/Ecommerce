@@ -7,7 +7,6 @@
         public decimal Price { get; set; }
         public string CompanyName { get; set; }
         public int SubCategoryId { get; set; }
-        public string ParentCategoryIds { get; set; }
         public bool Sold { get; set; }
         public string KeyFeature { get; set; }
         public string CoverImage { get; set; }

@@ -8,7 +8,7 @@ namespace EcommerceBackend.Repository.Interfaces
         int Create(Products entity);
 
         void Delete(int id);
-        void Update(int id, Products entity);
+
         public IEnumerable<DbProductResponse> GetProductInfo();
     }
 }

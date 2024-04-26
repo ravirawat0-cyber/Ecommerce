@@ -14,13 +14,23 @@ namespace EcommerceBackend.Services
         {
             _subCategoryRespository = subCategoryRepository;
         }
+
         public int Create(SubCategoryRequest request)
         {
+            if (string.IsNullOrWhiteSpace(request.Name))
+                throw new ArgumentException("SubCategory name cannot be empty.");
+
+            if (_subCategoryRespository.IsDataExists(request.Name) > 0)
+                throw new ArgumentException("The SubCategory already exists.");
+
+            if (string.IsNullOrWhiteSpace(request.ImageUrl))
+                throw new ArgumentException("Image Url cannot be empty.");
+
             var subCategoryRequest = new SubCategory
             {
                 Name = request.Name,
                 ParentCategoryId = request.ParentCategoryId,
-       
+                ImageUrl = request.ImageUrl
             };
             var id = _subCategoryRespository.Create(subCategoryRequest);
             return id;
@@ -31,45 +41,16 @@ namespace EcommerceBackend.Services
             _subCategoryRespository.Delete(id);
         }
 
-        public IEnumerable<SubCategoryResponse> GetAll()
+        public SubCategoryResponse GetAll()
         {
             var subCategoriesList = _subCategoryRespository.GetAll();
-            List<SubCategoryResponse> subCategoryResponsesList = new List<SubCategoryResponse>();
-            foreach (var subCategory in subCategoriesList) 
+            var subCategoryResponses = new SubCategoryResponse
             {
-                var subCategoryResponse = new SubCategoryResponse
-                {
-                    Id = subCategory.Id,
-                    Name = subCategory.Name,
-                    ParentCategoryId= subCategory.ParentCategoryId,
-                };
-                subCategoryResponsesList.Add(subCategoryResponse);
-            }
-            return subCategoryResponsesList;
-        }
-
-        public SubCategoryResponse GetById(int id)
-        {
-           var subCategory = _subCategoryRespository.GetById(id);
-            var subCategoryResponse = new SubCategoryResponse
-            {
-                Id = subCategory.Id,
-                Name = subCategory.Name,
-                ParentCategoryId = subCategory.ParentCategoryId,
-
+                Data = subCategoriesList,
+                StatusMessage = "Success"
             };
-            return subCategoryResponse;
-        }
 
-        public void Update(int id, SubCategoryRequest request)
-        {
-            var subCategory = new SubCategory
-            {
-                Name = request.Name,
-                ParentCategoryId = request.ParentCategoryId,
-            };
-            _subCategoryRespository.Update(id, subCategory);
-            
+            return subCategoryResponses;
         }
     }
 }

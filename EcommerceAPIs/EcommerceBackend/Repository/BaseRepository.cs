@@ -42,5 +42,11 @@ namespace EcommerceBackend.Repository
             connection.Execute(query, values);
         }
 
+        public int GetCountFromDb(string query,object values)
+        {
+            using var connection = _context.CreateConnection();
+            return connection.ExecuteScalar<int>(query, values);
+        }
+
     }
 }

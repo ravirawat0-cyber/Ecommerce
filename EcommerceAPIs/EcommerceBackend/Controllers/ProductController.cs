@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EcommerceBackend.Controllers
 {
-    [Route("Product")]
+    [Route("product")]
     [ApiController]
     public class ProductController : ControllerBase
     {
@@ -19,28 +19,22 @@ namespace EcommerceBackend.Controllers
         [HttpPost("add")]
         public IActionResult Create(ProductRequest request)
         {
-            try { 
-                int id = _productServices.Create(request);
+            int id = _productServices.Create(request);
                 return Ok(id);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
         }
 
         [HttpGet("")]
         public IActionResult GetAll() 
         {
-            try
-            {
-                var response = _productServices.GetAll();
+            var response = _productServices.GetAll();
                 return Ok(response);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+             _productServices.Delete(id);
+             return Ok();
         }
     }
 }

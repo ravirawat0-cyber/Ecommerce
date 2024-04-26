@@ -16,6 +16,14 @@ namespace EcommerceBackend.Services
         }
         public int Create(CategoryRequest request)
         {
+            if (string.IsNullOrWhiteSpace(request.Name))
+                throw new ArgumentException("Category name cannot be empty.");
+
+            if (_categoryRepository.CheckCategoryByName(request.Name) > 0)
+            {
+                throw new ArgumentException("The Category is already exists.");
+            }
+            
             var category = new Category
             {
                 Name = request.Name,
@@ -40,31 +48,6 @@ namespace EcommerceBackend.Services
             };
             return categoryResponse;
 
-        }
-
-
-        public CategoryResponse GetById(int id)
-        {
-            var category = _categoryRepository.GetById(id); 
-            var categoryResponse = new CategoryResponse
-            {
-                Data = new[]
-                {
-                    new Category
-                    {
-                        Id = category.Id,
-                        Name = category.Name,
-                    }
-                },
-                StatusMessage = "Success"
-            };
-            return categoryResponse;
-        }
-
-        public void Update(int id, CategoryRequest request)
-        {
-            var category = new Category { Name = request.Name, };
-            _categoryRepository.Update(id, category);
         }
     }
 }

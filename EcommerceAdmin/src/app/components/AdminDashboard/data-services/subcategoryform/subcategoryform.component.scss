@@ -1,0 +1,42 @@
+button {
+  // Enabled state styles (default)
+  &.enabled {
+    color: white;
+    background-color: #3b82f6; // Blue-700
+    border: none;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #2563eb; // Blue-800
+    }
+
+    &:focus {
+      ring: 4px;
+      ring-color: #93c5fd; // Blue-300
+    }
+  }
+
+  // Disabled state styles
+  &:disabled {
+    opacity: 0.6; // Reduce opacity when disabled
+    cursor: not-allowed; // Show disabled cursor
+
+    // Override hover styles for disabled state
+    &:hover {
+      background-color: #3b82f6; // Same as enabled state
+    }
+  }
+
+  // Dark mode styles
+  &.dark {
+    background-color: #2563eb; // Dark blue-600
+
+    &:hover {
+      background-color: #1e40af; // Dark blue-700
+    }
+
+    &:focus {
+      ring-color: #1f419b; // Dark blue-800
+    }
+  }
+}
