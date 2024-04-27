@@ -1,0 +1,29 @@
+.category-menu{
+  overflow-y: auto;
+  scrollbar-width: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap:1rem;
+}
+
+.category-menu p{
+
+  margin: 0;
+}
+
+.divider{
+  width: 1px;
+  height: 50%;
+  background-color: grey;
+}
+
+a:link, a:visited{
+
+  text-decoration: none;
+}
+
+a:link:active, a:visited:active
+{
+  color: #a650ff
+}
