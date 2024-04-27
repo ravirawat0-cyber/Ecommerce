@@ -49,5 +49,37 @@ namespace EcommerceBackend.Services
             return categoryResponse;
 
         }
+
+        public CategoryWithSubCategoriesResponse GetCategoryWithSubCategories()
+        {
+            var categoryList = _categoryRepository.GetCategoryWithSubCategory();
+            if (categoryList == null)
+                throw new KeyNotFoundException("Data not found.");
+
+            var categoryInfoList = new List<CategoryInfoResponse>();
+            foreach (var dbCategory in categoryList)
+            {
+                var categoryInfo = new CategoryInfoResponse
+                {
+                    Id = dbCategory.CategoryId,
+                    Category = dbCategory.Category,
+                    Subcategories = new List<SubCategoryInfoResponse>
+                    {
+                        new SubCategoryInfoResponse
+                        {
+                            Id = dbCategory.SubCategoryId,
+                            Name = dbCategory.SubCategoryName
+                        }
+                    }
+                };
+                categoryInfoList.Add(categoryInfo);
+            }
+
+            return new CategoryWithSubCategoriesResponse
+            {
+                Data = categoryInfoList,
+                StatusMessage = "Success."
+            };
+        }
     }
 }

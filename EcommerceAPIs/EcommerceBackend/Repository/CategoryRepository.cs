@@ -1,4 +1,6 @@
-﻿using EcommerceBackend.Models.DBModels;
+﻿using Dapper;
+using EcommerceBackend.Models.DBModels;
+using EcommerceBackend.Models.Response;
 using EcommerceBackend.Repository.Interfaces;
 
 namespace EcommerceBackend.Repository
@@ -46,6 +48,23 @@ namespace EcommerceBackend.Repository
                        WHERE Id = @id";
             var values = new { Id = id };
             return GetByCredDb(query, values);
+        }
+
+        public IEnumerable<DbCategoryResponse> GetCategoryWithSubCategory()
+        {
+            var query = @"SELECT 
+                      c.Id AS CategoryId,
+                      c.Name AS Category,
+                      sc.Id AS SubCategoryId,
+                      sc.Name AS SubCategoryName,
+                      sc.ImageUrl AS SubCategoryImageUrl
+                      FROM Category AS c 
+                      INNER JOIN 
+                          SubCategory sc ON c.Id = sc.ParentCategoryId 
+                      ";
+            using var connection = _dbContext.CreateConnection();
+            var categoryInfo = connection.Query<DbCategoryResponse>(query);
+            return categoryInfo;
         }
 
         public int CheckCategoryByName(string name)

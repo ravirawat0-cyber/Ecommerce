@@ -1,4 +1,5 @@
 ﻿using EcommerceBackend.Models.DBModels;
+using EcommerceBackend.Models.Response;
 
 namespace EcommerceBackend.Repository.Interfaces
 {
@@ -10,6 +11,8 @@ namespace EcommerceBackend.Repository.Interfaces
         IEnumerable<Category> GetAll();
 
         Category GetById(int id);
+
+        IEnumerable<DbCategoryResponse> GetCategoryWithSubCategory();
 
         int CheckCategoryByName(string name);
     }

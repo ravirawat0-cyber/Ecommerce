@@ -8,5 +8,6 @@ namespace EcommerceBackend.Services.Interfaces
         int Create(CategoryRequest request);
         void Delete(int id);
         CategoryResponse GetAll();
+        CategoryWithSubCategoriesResponse GetCategoryWithSubCategories();
     }
 }
