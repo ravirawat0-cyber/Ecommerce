@@ -169,6 +169,7 @@ export class ProductformComponent {
     }
 
     get isFromFilled(): boolean {
+        console.log(this.formGroup.value.keyFeature);
         return (
             this.formGroup.valid && this.downloadURLs.length > 0
         );

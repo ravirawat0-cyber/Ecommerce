@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {ICategoryDataRes, IHttp} from "../models/category.model";
+import {ICategoryDataRes, ICategoryRes, IHttp} from "../models/category.model";
+
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,11 @@ export class CategoryServicesService {
 
   getCategoryData()
   {
-    return this.https.get<IHttp<ICategoryDataRes>>(`${this.baserUrl}/data`);
+    return this.https.get<IHttp<ICategoryDataRes[]>>(`${this.baserUrl}/data`);
+  }
+
+  getCategory()
+  {
+    return this.https.get<IHttp<ICategoryRes[]>>(`${this.baserUrl}`);
   }
 }

@@ -52,34 +52,32 @@ namespace EcommerceBackend.Services
 
         public CategoryWithSubCategoriesResponse GetCategoryWithSubCategories()
         {
-            var categoryList = _categoryRepository.GetCategoryWithSubCategory();
-            if (categoryList == null)
+            var dbCategories = _categoryRepository.GetCategoryWithSubCategory();
+            if (dbCategories == null)
                 throw new KeyNotFoundException("Data not found.");
 
-            var categoryInfoList = new List<CategoryInfoResponse>();
-            foreach (var dbCategory in categoryList)
-            {
-                var categoryInfo = new CategoryInfoResponse
+            var categoryInfoList = dbCategories
+                .GroupBy(dbCategory => dbCategory.CategoryId)
+                .Select(group => new CategoryInfoResponse
                 {
-                    Id = dbCategory.CategoryId,
-                    Category = dbCategory.Category,
-                    Subcategories = new List<SubCategoryInfoResponse>
+                    Id = group.Key,
+                    Category = group.First().Category,
+                    Subcategories = group.Select(subCategory => new SubCategoryInfoResponse
                     {
-                        new SubCategoryInfoResponse
-                        {
-                            Id = dbCategory.SubCategoryId,
-                            Name = dbCategory.SubCategoryName
-                        }
-                    }
-                };
-                categoryInfoList.Add(categoryInfo);
-            }
+                        Id = subCategory.SubCategoryId,
+                        Name = subCategory.SubCategoryName,
+                        ImageUrl = subCategory.SubCategoryImageUrl
+                    })
+                })
+                .ToList();
 
             return new CategoryWithSubCategoriesResponse
             {
                 Data = categoryInfoList,
                 StatusMessage = "Success."
             };
+
         }
+
     }
 }

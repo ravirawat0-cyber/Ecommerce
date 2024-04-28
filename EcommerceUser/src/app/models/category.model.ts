@@ -4,6 +4,11 @@ export interface IHttp<T>
   statusMessage : string;
 }
 
+export interface ICategoryRes{
+  id : number;
+  name : string;
+}
+
 export interface ICategoryDataRes
 {
   id: number;

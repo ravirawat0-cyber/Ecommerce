@@ -1,10 +1,6 @@
-<div class="home-container--main">
-    <app-category-container></app-category-container>
-
-  <app-category-container></app-category-container>
-
-  <app-category-container></app-category-container>
-
-  <app-category-container></app-category-container>
+<div class="home-container--main" >
+  <ng-container *ngFor="let category of categorySubcategoryData" >
+      <app-category-container [category] = "category"></app-category-container>
+  </ng-container>
 </div>
 

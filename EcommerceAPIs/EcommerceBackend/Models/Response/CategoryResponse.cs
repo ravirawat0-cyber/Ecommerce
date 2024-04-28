@@ -6,6 +6,7 @@ namespace EcommerceBackend.Models.Response
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string ImageUrl { get; set; }
     }
     
     public class CategoryInfoResponse

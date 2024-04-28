@@ -4,6 +4,7 @@ import {MatCard, MatCardContent} from "@angular/material/card";
 import {CategoryContainerComponent} from "../category-container/category-container.component";
 import {CategoryServicesService} from "../../services/category-services.service";
 import {CommonModule} from "@angular/common";
+import {ICategoryDataRes} from "../../models/category.model";
 
 @Component({
   selector: 'app-home-container',
@@ -14,13 +15,13 @@ import {CommonModule} from "@angular/common";
     MatCardContent,
     CategoryContainerComponent,
     CommonModule,
-
   ],
   templateUrl: './home-container.component.html',
   styleUrl: './home-container.component.css'
 })
 export class HomeContainerComponent {
 
+  categorySubcategoryData : ICategoryDataRes[] = [];
   constructor(private categoryService: CategoryServicesService ) {
   }
 
@@ -31,8 +32,8 @@ export class HomeContainerComponent {
   }
 
   fetchCategoryData() {
-        this.categoryService.getCategoryData().subscribe((res) => {
-          console.log(res.data);
+        this.categoryService.getCategoryData().subscribe((response) => {
+          this.categorySubcategoryData = response.data;
         })
     }
 
