@@ -1,4 +1,6 @@
-﻿using EcommerceBackend.Models.DBModels;
+﻿using Dapper;
+using EcommerceBackend;
+using EcommerceBackend.Models.DBModels;
 using EcommerceBackend.Repository.Interfaces;
 
 namespace EcommerceBackend.Repository
@@ -60,5 +62,16 @@ namespace EcommerceBackend.Repository
             var subCategoryList = GetAllDb(query);
             return subCategoryList;
         }
+
+        public IEnumerable<SubCategoryByParentId> GetByParentIds(int id)
+        {
+            var query = @"SELECT Id, Name , ImageUrl
+                         FROM SubCategory (NOLOCK)
+                         WHERE ParentCategoryId = @Id";
+            var value = new { Id = id };
+            using var connection = _dbContext.CreateConnection();
+            return connection.Query<SubCategoryByParentId>(query, value);
+        }
+        
     }
 }

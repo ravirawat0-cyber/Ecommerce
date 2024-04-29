@@ -1,4 +1,6 @@
-﻿namespace EcommerceBackend.Models.DBModels
+﻿using Microsoft.AspNetCore.SignalR;
+
+namespace EcommerceBackend.Models.DBModels
 {
     public class SubCategory
     {
@@ -8,5 +10,13 @@
         
         public string ImageUrl { get; set; }
      
+    }
+
+
+    public class SubCategoryByParentId
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string ImageUrl { get; set; }
     }
 }

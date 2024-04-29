@@ -52,5 +52,16 @@ namespace EcommerceBackend.Services
 
             return subCategoryResponses;
         }
+
+        public SubCategoryByParentIdResponse GetByParentId(int id)
+        {
+            var subCategoryList = _subCategoryRespository.GetByParentIds(id);
+            var subCategoryResponses = new SubCategoryByParentIdResponse
+            {
+                Data = subCategoryList,
+                StatusMessage = "Success"
+            };
+            return subCategoryResponses;
+        }
     }
 }
