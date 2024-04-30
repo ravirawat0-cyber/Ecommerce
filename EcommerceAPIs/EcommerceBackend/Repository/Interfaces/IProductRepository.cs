@@ -10,5 +10,7 @@ namespace EcommerceBackend.Repository.Interfaces
         void Delete(int id);
 
         public IEnumerable<DbProductResponse> GetProductInfo();
+
+        IEnumerable<ProductDetails> GetProductsDetailsBySubCategoryId(int id);
     }
 }

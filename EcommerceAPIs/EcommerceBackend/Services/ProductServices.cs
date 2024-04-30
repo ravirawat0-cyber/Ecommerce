@@ -79,6 +79,20 @@ namespace EcommerceBackend.Services
             return productResponse;
 
         }
+
+        public ProductDetailsResponse GetDetailsBySubCategoryId(int id)
+        {
+            var dbproductDetail = _productRepository.GetProductsDetailsBySubCategoryId(id);
+            if (dbproductDetail == null)
+                throw new KeyNotFoundException("Product details not found for give id");
+
+            var productList = new ProductDetailsResponse
+            {
+                Products = dbproductDetail,
+                StatusMessage = "Success."
+            };
+            return productList;
+        }
         
         private void validateRequest(ProductRequest request)
         {

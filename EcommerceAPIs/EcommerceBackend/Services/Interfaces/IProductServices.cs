@@ -10,6 +10,7 @@ namespace EcommerceBackend.Services.Interfaces
         void Delete(int id);
 
         ProductResponse GetAll();
+        ProductDetailsResponse GetDetailsBySubCategoryId(int id);
 
     }
 }

@@ -38,4 +38,15 @@ namespace EcommerceBackend.Models.Response
     {
         public List<ProductInfo> Products { get; set; }
     }
+
+    // Product Response model based on subcategory id
+
+
+    public class ProductDetailsResponse
+    {
+        public IEnumerable<ProductDetails> Products { get; set; }
+        public string StatusMessage { get; set; }
+    }
+
+   
 }

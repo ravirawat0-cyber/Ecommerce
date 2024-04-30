@@ -13,4 +13,14 @@
         public string CoverImage { get; set; }
         public string ImageUrls { get; set; }
     }
+
+    public class ProductDetails
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public decimal Price { get; set; }
+        public string CoverImage { get; set; }
+        public string KeyFeature { get; set; }
+    }
+
 }

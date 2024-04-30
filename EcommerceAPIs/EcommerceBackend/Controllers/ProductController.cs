@@ -30,6 +30,13 @@ namespace EcommerceBackend.Controllers
                 return Ok(response);
         }
 
+        [HttpGet("subcategory/{id}")]
+        public IActionResult GetbySubCategoryId(int id)
+        {
+            var response = _productServices.GetDetailsBySubCategoryId(id);
+            return Ok(response);
+        }
+
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {

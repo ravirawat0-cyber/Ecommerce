@@ -101,5 +101,22 @@ namespace EcommerceBackend.Repository
             return ProductInfo;
            
         }
+
+        public IEnumerable<ProductDetails> GetProductsDetailsBySubCategoryId(int id)
+        {
+            var query = @"SELECT
+                            Id,
+                            Name,
+                            Price,
+                            CoverImage,
+                            KeyFeature
+                        FROM 
+                            Products
+                        WHERE SubCategoryId = @Id";
+            var values = new {Id = id};
+            using var connection = _dbContext.CreateConnection();
+            var productInfo = connection.Query<ProductDetails>(query, values);
+            return productInfo;
+        }
     }
 }

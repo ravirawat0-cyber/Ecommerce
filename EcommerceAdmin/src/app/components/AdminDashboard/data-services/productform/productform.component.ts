@@ -24,6 +24,7 @@ export class ProductformComponent {
     formGroup: FormGroup;
     downloadURLs: string[] = [];
     errorMessage: string = '';
+    keyFeatureWithSeparator : string = "";
 
     constructor(
         private subCategoryServie: SubcategoryService,
@@ -118,6 +119,7 @@ export class ProductformComponent {
     }
 
     updateImageUrl() {
+        this.keyFeatureWithSeparator = this.formGroup.value.keyFeature.replace(/\n/g, '\\n');
         this.formGroup.patchValue({imageUrl: this.downloadURLs.join('|')});
     }
 
@@ -149,7 +151,7 @@ export class ProductformComponent {
                 description: this.formGroup.value.productDescription,
                 price: this.formGroup.value.price,
                 companyName: this.formGroup.value.brand,
-                keyFeature: this.formGroup.value.keyFeature,
+                keyFeature: this.keyFeatureWithSeparator ,
                 coverImage: this.formGroup.value.coverImageUrl,
                 imageUrls: this.formGroup.value.imageUrl,
             };
@@ -187,5 +189,6 @@ export class ProductformComponent {
         });
         this.subCategories = [];
         this.downloadURLs = [];
+        this.keyFeatureWithSeparator = "";
     }
 }
