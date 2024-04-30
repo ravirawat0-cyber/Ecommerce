@@ -1,18 +1,23 @@
-<div class = "main-container">
-  <div class = "category-container">
-    <div class="heading">Best of {{categoryName}}</div>
-    <div class="grid-container" >
-      <ng-container  *ngFor="let subCategory of SubCategories">
-      <div class="card">
-        <div class="img-container">
-         <img  src= "{{subCategory.imageUrl}}"/>
-        </div>
-        <div class="card-info">
-           <p class="card-title">{{subCategory.name}}</p>
-          <p class="card-price">Rs.12355</p>
-        </div>
-      </div>
+<div class="main-container">
+  <div class="category-container">
+    <div class="heading">Best of {{ categoryName }}</div>
+    <div class="grid-container">
+      <ng-container *ngFor="let subCategory of SubCategories">
+        <a [routerLink]="['/subcategory', subCategory.name, subCategory.id]">
+          <div class="card">
+            <div class="img-container">
+              <img src="{{subCategory.imageUrl}}"/>
+            </div>
+            <div class="card-info">
+              <p class="card-title">{{ subCategory.name }}</p>
+              <p class="card-price">Rs.12355</p>
+            </div>
+          </div>
+        </a>
       </ng-container>
 
     </div>
+  </div>
 </div>
+
+<router-outlet></router-outlet>

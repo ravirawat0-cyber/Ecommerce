@@ -1,5 +1,5 @@
 .main-container{
-  max-width: 120rem;
+  max-width: 100rem;
   padding: 2rem;
   margin: 0 auto;
   height: 100vh;
@@ -13,6 +13,7 @@
   background: #f9f7fc;
 }
 
+
 .heading{
   font-weight: 500;
   font-size: 1.8rem;
@@ -24,14 +25,16 @@
    display: grid;
    grid-template-columns:1fr 1fr 1fr 1fr 1fr;
    grid-gap: 1.5rem;
+}
 
+ a:hover{
+  box-shadow: 0.1rem 0.1rem 0.3rem 0 rgba(0, 0, 0, 0.3);
 }
 
 .card{
   box-shadow: 0.2rem 0.2rem 0.6rem rgba(0, 0, 0, 0.3);
   max-width: 100%;
-  max-height: 300px;
-
+  max-height: 18.75rem;
   overflow: hidden;
   border-radius: 4px;
 
@@ -39,8 +42,9 @@
 
 .img-container{
   overflow: hidden;
-  height: 70%;
+  height: 13.125rem;
   width: 100%;
+
 }
 
 .img-container img{
@@ -62,7 +66,6 @@
 .card-price{
   font-size: 1rem;
   color: #555;
-  font-weight: 400;
 }
 
 
@@ -93,16 +96,7 @@
 
 }
 
-@media (max-width: 797px) {
 
-  .card{
-
-    max-width: 300px;
-    max-height: 250px;
-    border-radius: 4px;
-
-  }
-}
 
 
 @media (max-width: 797px) {
@@ -129,6 +123,11 @@
     border-radius: 4px;
   }
 
+  .img-container{
+    overflow: hidden;
+    height: 9rem;
+    width: 100%;
+  }
   .card-info{
     padding: 1rem;
   }
@@ -212,6 +211,10 @@
     border-radius: 4px;
   }
 
+  .img-container {
+    height: 8rem;
+  }
+
   .card-title{
     font-size: 0.8rem;
   }
@@ -237,6 +240,10 @@
     max-width: 100%;
     max-height: 170px;
     border-radius: 4px;
+  }
+
+  .img-container{
+     height: 7rem;
   }
 
   .card-title{
@@ -268,7 +275,7 @@
 
   .img-container{
 
-    height: 60%;
+    height: 6rem;
 
   }
 

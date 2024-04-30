@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, RouterLink, RouterLinkActive, RouterModule, RouterOutlet} from "@angular/router";
 import {MatGridList, MatGridTile} from "@angular/material/grid-list";
 import {SubCategoryService} from "../../services/sub-category.service";
 import {ISubcategoryRes} from "../../models/subCategory.model";
@@ -11,7 +11,12 @@ import {NgForOf} from "@angular/common";
   imports: [
     MatGridList,
     MatGridTile,
-    NgForOf
+    NgForOf,
+    RouterLink,
+    RouterOutlet,
+    RouterModule,
+    RouterLinkActive
+
   ],
   templateUrl: './subcategories-by-parent-container.component.html',
   styleUrl: './subcategories-by-parent-container.component.css'
