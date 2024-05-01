@@ -83,8 +83,8 @@ namespace EcommerceBackend.Services
         public ProductDetailsResponse GetDetailsBySubCategoryId(int id)
         {
             var dbproductDetail = _productRepository.GetProductsDetailsBySubCategoryId(id);
-            if (dbproductDetail == null)
-                throw new KeyNotFoundException("Product details not found for give id");
+            if (dbproductDetail.Count() == 0)
+                throw new KeyNotFoundException("Product details not found for given id.");
 
             var productList = new ProductDetailsResponse
             {
