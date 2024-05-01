@@ -12,5 +12,6 @@ namespace EcommerceBackend.Repository.Interfaces
         public IEnumerable<DbProductResponse> GetProductInfo();
 
         IEnumerable<ProductDetails> GetProductsDetailsBySubCategoryId(int id);
+        Products GetByProductId(int id);
     }
 }

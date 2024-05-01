@@ -37,11 +37,20 @@ namespace EcommerceBackend.Controllers
             return Ok(response);
         }
 
+        [HttpGet("{id}")]
+        public IActionResult GetById(int id)
+        {
+            var response = _productServices.GetByProductId(id);
+            return Ok(response);
+        }
+
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
              _productServices.Delete(id);
              return Ok();
         }
+
+
     }
 }

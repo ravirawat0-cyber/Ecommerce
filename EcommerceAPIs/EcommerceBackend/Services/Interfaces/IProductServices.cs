@@ -8,9 +8,9 @@ namespace EcommerceBackend.Services.Interfaces
         int Create(ProductRequest request);
 
         void Delete(int id);
-
         ProductResponse GetAll();
         ProductDetailsResponse GetDetailsBySubCategoryId(int id);
+        ProductProfileResponse GetByProductId(int id);
 
     }
 }

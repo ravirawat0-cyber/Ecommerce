@@ -36,7 +36,7 @@ namespace EcommerceBackend.Services
             var id = _productRepository.Create(product);
             return id;
         }
-        
+
 
         public void Delete(int id)
         {
@@ -93,8 +93,22 @@ namespace EcommerceBackend.Services
             };
             return productList;
         }
-        
-        private void validateRequest(ProductRequest request)
+
+        public ProductProfileResponse GetByProductId(int id)
+        {
+            var productDetail = _productRepository.GetByProductId(id);
+            if (productDetail == null)
+                throw new KeyNotFoundException("Product detail not found for given id.");
+
+            var productResponse = new ProductProfileResponse
+            {
+                Products = productDetail,
+                StatusMessage = "Success"
+            };
+            return productResponse;
+        }
+
+    private void validateRequest(ProductRequest request)
         {
             if(string.IsNullOrWhiteSpace(request.Name))
                 throw new ArgumentException("Product name cannot be null or whitespace.");

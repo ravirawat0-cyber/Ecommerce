@@ -48,5 +48,11 @@ namespace EcommerceBackend.Models.Response
         public string StatusMessage { get; set; }
     }
 
+
+    public class ProductProfileResponse
+    {
+        public Products Products { get; set; }
+        public string StatusMessage  {get ; set; }
+    }
    
 }

@@ -118,5 +118,14 @@ namespace EcommerceBackend.Repository
             var productInfo = connection.Query<ProductDetails>(query, values);
             return productInfo;
         }
+
+        public Products GetByProductId(int id)
+        {
+            var query = @"SELECT *
+                          FROM Products
+                          WHERE Id = @id";
+            var value = new { Id = id };
+            return GetByIdDb(query, value);
+        }
     }
 }

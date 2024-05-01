@@ -36,10 +36,10 @@ namespace EcommerceBackend.Repository
         }
 
 
-        public IEnumerable<T> GetById(string query, object value)
+        public T GetByIdDb(string query, object value)
         {
             using var connection = _context.CreateConnection();
-            return connection.Query<T>(query, value);
+            return connection.QueryFirstOrDefault<T>(query, value);
         }
 
 
