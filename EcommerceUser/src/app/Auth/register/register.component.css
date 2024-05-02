@@ -1,0 +1,42 @@
+
+  .main-container {
+    margin: 0 auto;
+    padding: 1rem;
+  }
+.label-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: #673ab7;
+}
+
+ mat-card{
+    max-width: 32rem;
+    margin: 0 auto;
+    padding: 1rem;
+  }
+
+ .firstLastName-container{
+   display: flex;
+   justify-content:space-between;
+ }
+
+ mat-form-field , button{
+  width: 100%;
+ }
+
+ .first-name, .last-name{
+   width: 48%;
+ }
+
+
+
+  /*.product-container--main {*/
+  /*  padding: 1rem;*/
+  /*  background: #f9f7fc;*/
+  /*  height: auto;*/
+  /*  display: flex;*/
+  /*  flex-direction: column;*/
+  /*  gap: 1rem;*/
+  /*}*/
