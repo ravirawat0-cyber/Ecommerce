@@ -5,18 +5,20 @@ import {RouterLink, RouterLinkActive, RouterOutlet} from "@angular/router";
 import {CategoryServicesService} from "../../services/category-services.service";
 import {ICategoryRes} from "../../models/category.model";
 import {CommonModule} from "@angular/common";
+import {SidenavComponent} from "../sidenav/sidenav.component";
 
 @Component({
   selector: 'app-category-nav',
   standalone: true,
-  imports: [
-    MatToolbar,
-    MatDivider,
-    RouterOutlet,
-    RouterLinkActive,
-    RouterLink,
-    CommonModule
-  ],
+    imports: [
+        MatToolbar,
+        MatDivider,
+        RouterOutlet,
+        RouterLinkActive,
+        RouterLink,
+        CommonModule,
+        SidenavComponent
+    ],
   templateUrl: './category-nav.component.html',
   styleUrl: './category-nav.component.css'
 })

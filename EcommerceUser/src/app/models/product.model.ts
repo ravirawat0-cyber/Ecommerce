@@ -12,3 +12,13 @@ export interface IProductRes
   keyFeature: string;
   price : string;
 }
+
+export interface IProductProfileRes{
+  id : number;
+  name : string;
+  coverImage : string;
+  keyFeature : string;
+  price : string;
+  description : string;
+  imageUrls : string;
+}

@@ -9,7 +9,7 @@
             <img src="{{product.coverImage}}" alt = "product-image"/>
           </div>
           <div class="card-info-main">
-            <a href="#">
+            <a [routerLink]="['/product', product.name, product.id]">
           <div class="card-info">
             <p class="product-name">{{product.name}}</p>
             <p class="product-price">Rs.{{product.price}}</p>
@@ -108,6 +108,8 @@
     </div>
   </div>
 </div>
+
+<router-outlet></router-outlet>
 
 
 

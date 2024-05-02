@@ -1,9 +1,10 @@
 <div class="navbar-container">
   <mat-toolbar color="primary">
-    <button mat-icon-button class="menu-button" aria-label="icon-button with menu icon">
+
+    <button  mat-icon-button class="menu-button" aria-label="icon-button with menu icon" (click)="toggleSidebar()">
       <mat-icon>menu</mat-icon>
     </button>
-    <span>Ecommerce</span>
+    <a href="#"> <span>Ecommerce</span></a>
     <span class="spacer"></span>
     <button mat-icon-button class="favorite-button" aria-label="icon-button with heart icon">
       <mat-icon>favorite</mat-icon>
@@ -17,3 +18,4 @@
     </button>
   </mat-toolbar>
 </div>
+

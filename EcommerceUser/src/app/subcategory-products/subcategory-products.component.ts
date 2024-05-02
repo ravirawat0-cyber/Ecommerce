@@ -3,7 +3,7 @@ import {MatIcon} from "@angular/material/icon";
 import {MatIconButton} from "@angular/material/button";
 import {FormsModule} from "@angular/forms";
 import {Router} from "express";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, RouterLink, RouterOutlet} from "@angular/router";
 import {ProductsService} from "../services/products.service";
 import {IProductRes} from "../models/product.model";
 import {NgForOf} from "@angular/common";
@@ -16,7 +16,9 @@ import {NgForOf} from "@angular/common";
     MatIcon,
     MatIconButton,
     FormsModule,
-    NgForOf
+    NgForOf,
+    RouterLink,
+    RouterOutlet
   ],
   templateUrl: './subcategory-products.component.html',
   styleUrl: './subcategory-products.component.css'
@@ -34,6 +36,7 @@ export class SubcategoryProductsComponent implements  OnInit{
        this.subCategoyrId = params['id'];
        this.subCategoryName = params['name'];
      })
+
 
      this.fetchProductDetails();
    }

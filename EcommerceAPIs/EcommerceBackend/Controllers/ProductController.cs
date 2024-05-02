@@ -50,7 +50,5 @@ namespace EcommerceBackend.Controllers
              _productServices.Delete(id);
              return Ok();
         }
-
-
     }
 }

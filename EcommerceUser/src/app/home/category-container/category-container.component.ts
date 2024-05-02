@@ -12,6 +12,5 @@ export class CategoryContainerComponent {
   @Input() category: any;
 
   ngOnInit(): void {
-    console.log(this.category);
   }
 }

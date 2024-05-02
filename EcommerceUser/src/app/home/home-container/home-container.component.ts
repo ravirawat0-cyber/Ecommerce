@@ -1,42 +1,45 @@
-import {Component} from '@angular/core';
-import {HeaderComponent} from "../../global/header/header.component";
+import {Component, OnInit} from '@angular/core';
 import {MatCard, MatCardContent} from "@angular/material/card";
 import {CategoryContainerComponent} from "../category-container/category-container.component";
 import {CategoryServicesService} from "../../services/category-services.service";
 import {CommonModule} from "@angular/common";
 import {ICategoryDataRes} from "../../models/category.model";
+import {LoaderComponent} from "../../global/loader/loader.component";
+import {MatSidenavContainer} from "@angular/material/sidenav";
+import {SidenavComponent} from "../../global/sidenav/sidenav.component";
 
 @Component({
   selector: 'app-home-container',
   standalone: true,
   imports: [
-    HeaderComponent,
     MatCard,
     MatCardContent,
     CategoryContainerComponent,
     CommonModule,
+    LoaderComponent,
+    MatCardContent
   ],
   templateUrl: './home-container.component.html',
   styleUrl: './home-container.component.css'
 })
-export class HomeContainerComponent {
+export class HomeContainerComponent implements OnInit {
 
   categorySubcategoryData : ICategoryDataRes[] = [];
-  constructor(private categoryService: CategoryServicesService ) {
-  }
+  isLoading : boolean = false;
 
+  constructor(private categoryService: CategoryServicesService ) {}
 
-  ngOnInit(): void
+   ngOnInit()
   {
-    this.fetchCategoryData();
+     this.fetchCategoryData();
   }
 
-  fetchCategoryData() {
+ fetchCategoryData() {
         this.categoryService.getCategoryData().subscribe((response) => {
           this.categorySubcategoryData = response.data;
+        },
+          error => {
+             console.log(error.error);
         })
     }
-
-
-
 }

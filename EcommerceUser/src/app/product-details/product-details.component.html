@@ -3,29 +3,26 @@
     <div class="card-container--main">
 
       <div class="card-container--image">
-        <button class="slider-btn" mat-flat-button>
+        <button class="slider-btn" mat-flat-button (click)="previousImage()">
           <mat-icon color="primary">keyboard_arrow_left</mat-icon>
         </button>
         <div class="image-container">
           <img
-            src="https://firebasestorage.googleapis.com/v0/b/ecommerce-55ed9.appspot.com/o/products%2F-original-imagtc4g22rcatjg.jpeg?alt=media&token=9243bb84-4f28-49aa-8bac-1dc485691816"/>
+            src="{{imageUrls[currentImageIndex]}}"/>
         </div>
-        <button class="slider-btn" mat-flat-button>
+        <button class="slider-btn" mat-flat-button (click)="nextImage()">
           <mat-icon color="primary">keyboard_arrow_right</mat-icon>
         </button>
       </div>
 
       <div class="card-container--details">
-        <p class="product-name">Apple Iphone 14 (Blue, 128 GB)</p>
+        <p class="product-name">{{productDetail.name}}</p>
         <p class="product-rating">⭐⭐⭐⭐⭐</p>
-        <p class="product-price">Rs.58999 /-</p>
+        <p class="product-price">Rs.{{productDetail.price}} /-</p>
 
-        <div class="specification-container">
-          <ul>
-            <li>128 GB Rom</li>
-            <li>15.49 com (6.1 inch) Super Retina XDR Display</li>
-            <li>12MP + 12MP | 12MP Front Camera</li>
-            <li>A15 Bionic Chip, 6 Core Processor</li>
+        <div class="specification-container" >
+          <ul  *ngFor="let keyfeature of keyFeatures">
+            <li>{{keyfeature}}</li>
           </ul>
         </div>
 
@@ -65,12 +62,7 @@
 
     <div class="description-container">
       <p class="description-heading">Description</p>
-      <p class="description-info">iPhone 15 Pro, a titanium marvel, boasts an aerospace-grade build, making it the lightest Pro model ever. The
-        A17 Pro Chip marks a historic leap in Apple GPUs, delivering unparalleled graphics performance and immersive
-        gaming experiences. The camera system shines with a 48MP Main camera, offering remarkable detail and automatic
-        portrait enhancements. Convenience is key with the Action button for quick tasks and Focus filters. Plus, it's
-        USB 3 compatible, revolutionizing data transfer speeds. This iPhone even shares its charging cable with your Mac
-        or iPad. Embrace innovation, cut cable clutter, and elevate your mobile experience with the iPhone 15 Pro.</p>
+      <p class="description-info">{{productDetail.description}}</p>
     </div>
   </div>
 </div>
