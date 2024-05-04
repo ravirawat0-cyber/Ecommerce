@@ -5,10 +5,10 @@
         public class User
         {
             public int Id { get; set; }
-            public string Username { get; set; }
             public string Email { get; set; }
             public string Name { get; set; }
             public string Mobile { get; set; }
+            public string Address { get; set; }
         }
 
         public class Token
@@ -22,6 +22,8 @@
             public string ProductName { get; set; }
             public decimal ProductPrice { get; set; }
             public int Quantity { get; set; }
+
+            public string ImageUrl { get; set; }
         }
 
         public class Cart
@@ -34,12 +36,13 @@
         {
             public User User { get; set; }
             public Token Token { get; set; }
-            public Cart Cart { get; set; } 
+            public IEnumerable<Cart> Cart { get; set; } = new List<Cart>();
         }
 
         public class UserResponse
         {
             public Data Data { get; set; }
+            public string StatusMessage { get; set; }
         }
     }
     public class PasswordResponse

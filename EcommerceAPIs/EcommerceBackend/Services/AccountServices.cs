@@ -30,14 +30,10 @@ namespace EcommerceBackend.Services
 
         public UserResponse Register(UserRegisterRequest request)
         {
-            var existingUser = _accountRepository.GetUserByCredentials(request.UserName, request.Email, request.Mobile);
+            var existingUser = _accountRepository.GetUserByCredentials( request.Email, request.Mobile);
             if (existingUser != null)
             {
-                if (existingUser.UserName == request.UserName)
-                {
-                    throw new ArgumentException("Username already exists.");
-                }
-                else if (existingUser.Email == request.Email)
+                 if (existingUser.Email == request.Email)
                 {
                     throw new ArgumentException("Email already exists.");
                 }
@@ -51,9 +47,9 @@ namespace EcommerceBackend.Services
             var users = new Users
             {
                 Name = request.Name,
-                UserName  = request.UserName,
                 Email = request.Email,
                 Mobile = request.Mobile,
+                Address = request.Address,
                 PasswordHash = passwordHash,
                 PasswordSalt = passwordSalt
             };
@@ -67,16 +63,17 @@ namespace EcommerceBackend.Services
                     User = new User
                     {
                         Id = userId,
-                        Username = userDetails.UserName,
                         Email = userDetails.Email,
                         Name = userDetails.Name,
-                        Mobile = userDetails.Mobile
+                        Mobile = userDetails.Mobile,
+                        Address = userDetails.Address,
                     },
                     Token = new Token
                     {
                         Jwt = CreateToken(userDetails)
                     }
-                }
+                },
+                StatusMessage = "Sucess",
             };
 
             return userResponse;
@@ -84,10 +81,10 @@ namespace EcommerceBackend.Services
 
         public UserResponse UserLogin(UserLoginRequest request)
         {
-            var userDetails = _accountRepository.GetUserDetailByColumnName("UserName",request.UserName);
+            var userDetails = _accountRepository.GetUserDetailByColumnName("Email",request.Email);
             if (userDetails == null)
             {
-                throw new ArgumentException("User does not exist.Please register.");
+                throw new ArgumentException("Email does not exist.Please register.");
             }
             var verifyPass = VerifyPasswordHash(request.Password, userDetails.PasswordHash, userDetails.PasswordSalt);
             if (!verifyPass) 
@@ -105,16 +102,44 @@ namespace EcommerceBackend.Services
                     User = new User
                     {
                         Id = userDetails.Id,
-                        Username = userDetails.UserName,
                         Email = userDetails.Email,
                         Name = userDetails.Name,
-                        Mobile = userDetails.Mobile
+                        Mobile = userDetails.Mobile,
+                        Address = userDetails.Address,
                     },
                     Token = new Token
                     {
                         Jwt = CreateToken(userDetails)
                     },
-                    Cart = cart
+                    Cart = new List<Cart>(),
+                }
+            };
+            return userResponse;
+        }
+
+
+        public UserResponse GetByUserId(string userId)
+        {
+            var userDetail = _accountRepository.GetById(Convert.ToInt32(userId));
+           // var cartDetail = CartDetails(userDetail);
+
+            var userResponse = new UserResponse
+            {
+                Data = new Data
+                {
+                    User = new User
+                    {
+                        Id = userDetail.Id,
+                        Email = userDetail.Email,
+                        Name = userDetail.Name,
+                        Mobile = userDetail.Mobile,
+                        Address = userDetail.Address,
+                    },
+                    Token = new Token
+                    {
+                        Jwt = CreateToken(userDetail)
+                    },
+                    Cart = new List<Cart>(),
                 }
             };
             return userResponse;
@@ -217,10 +242,14 @@ namespace EcommerceBackend.Services
 
         private string CreateToken(Users user)
         {
+            DateTime expiryDate = DateTime.UtcNow.AddDays(30);
+             
             List<Claim> claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, user.UserName),
-            };
+                new Claim(ClaimTypes.Name, user.Name),
+                new Claim(ClaimTypes.UserData, user.Id.ToString()),
+                new Claim(ClaimTypes.Expiration, expiryDate.ToString("o"))
+            }; 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
                 _congfiguration.GetSection("AppSettings:Token").Value!
                 ));
@@ -228,6 +257,7 @@ namespace EcommerceBackend.Services
 
             var token = new JwtSecurityToken(
                  claims: claims,
+                 expires:expiryDate,
                  signingCredentials: creds
                 );
 

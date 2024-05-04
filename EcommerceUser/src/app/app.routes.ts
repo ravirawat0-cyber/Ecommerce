@@ -7,6 +7,7 @@ import {
 import {SubcategoryProductsComponent} from "./subcategory-products/subcategory-products.component";
 import {ProductDetailsComponent} from "./product-details/product-details.component";
 import {RegisterComponent} from "./Auth/register/register.component";
+import {LoginComponent} from "./Auth/login/login.component";
 
 export const routes: Routes = [
   {path: 'home', component: HomeContainerComponent},
@@ -15,5 +16,6 @@ export const routes: Routes = [
   {path: 'product/:name/:id' , component: ProductDetailsComponent},
   {path: '', redirectTo : '/home', pathMatch: 'full'},
   {path: 'register' , component: RegisterComponent},
+  {path: 'login', component: LoginComponent},
   {path: '**', component: PageNotFoundComponent}
 ];

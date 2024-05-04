@@ -18,12 +18,12 @@ namespace EcommerceBackend.Repository
             _dbContext = dbContext;
         }
 
-        public Users GetUserByCredentials(string userName, string email, string mobile)
+        public Users GetUserByCredentials( string email, string mobile)
         {
-            var query = @"SELECT UserName, Email, Mobile 
+            var query = @"SELECT  Email, Mobile 
                       FROM UsersDetails 
-                      WHERE UserName = @UserName OR Email = @Email OR Mobile = @Mobile";
-            var values = new { UserName = userName, Email = email, Mobile = mobile };
+                      WHERE Email = @Email OR Mobile = @Mobile";
+            var values = new { Email = email, Mobile = mobile };
 
             var users = GetByCredDb(query, values);
             return users;
@@ -43,14 +43,14 @@ namespace EcommerceBackend.Repository
         public int Register(Users request)
         {
             var query = @"INSERT INTO UsersDetails 
-                             (Name, UserName, Mobile, Email, PasswordHash, PasswordSalt) 
-                            VALUES (@Name, @UserName, @Mobile, @Email, @PasswordHash, @PasswordSalt);
+                             (Name, Mobile, Email, Address, PasswordHash, PasswordSalt) 
+                            VALUES (@Name, @Mobile, @Email,@Address, @PasswordHash, @PasswordSalt);
                             SELECT SCOPE_IDENTITY()";
             var values = new
             {
                 Name = request.Name,
                 Email = request.Email,
-                UserName = request.UserName,
+                Address = request.Address,
                 Mobile = request.Mobile,
                 PasswordHash = request.PasswordHash,
                 PasswordSalt = request.PasswordSalt,
@@ -112,9 +112,9 @@ namespace EcommerceBackend.Repository
             var query = @"
                         UPDATE UsersDetails
                         SET Name = @Name, 
-                            UserName = @UserName, 
                             Mobile = @Mobile, 
                             Email = @Email, 
+                             Address = @Address,
                             PasswordHash = @PasswordHash, 
                             PasswordSalt = @PasswordSalt
                         WHERE Id = @UserId;
@@ -125,7 +125,7 @@ namespace EcommerceBackend.Repository
                 UserId = userId,
                 Name = request.Name,
                 Email = request.Email,
-                UserName = request.UserName,
+                Address = request.Address,
                 Mobile = request.Mobile,
                 PasswordHash = request.PasswordHash,
                 PasswordSalt = request.PasswordSalt,

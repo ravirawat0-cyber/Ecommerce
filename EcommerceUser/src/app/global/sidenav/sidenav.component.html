@@ -3,20 +3,20 @@
   <div class="profile-container">
   <div class="profile">
     <img
-      src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"/>
+      src="https://img.freepik.com/free-vector/user-circles-set_78370-4704.jpg?w=740&t=st=1714726785~exp=1714727385~hmac=80009fb6c3a56594a1d9bd8c143258e863866ebbee9eed58972d1d568673b09c"/>
   </div>
-    <p class="profile-name">My Girlfriend </p>
+    <p class="profile-name">{{userName}}</p>
 
   </div>
   <mat-divider></mat-divider>
 
   <div class="action-container--login-signup" >
-    <a href="#">
+    <a [routerLink]="'/login'">
       <button mat-flat-button class="actions">
         <mat-icon>input</mat-icon>
         <span>Login</span></button>
     </a>
-    <a href="#">
+    <a  [routerLink]="'./register'">
       <button mat-flat-button class="actions">
         <mat-icon> border_color</mat-icon>
         <span>SignUp</span></button>
@@ -63,7 +63,9 @@
     </a></li>
   </ul>
 </div>
+<router-outlet></router-outlet>
 <div class="overlay" *ngIf="isOpen" (click)="closeSideNavbar()"></div>
+
 
 
 <!--  <mat-sidenav mode="over" opened>-->

@@ -8,7 +8,7 @@ namespace EcommerceBackend.Services.Interfaces
     {
         UserResponse Register(UserRegisterRequest request);
         UserResponse UserLogin(UserLoginRequest request);
-
+        UserResponse GetByUserId(string userId);
         PasswordResponse ForgotUserPassword(ForgotPasswordRequest request);
         PasswordResponse UpdatePassword(UpdatePasswordRequest request);
     }

@@ -8,6 +8,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EcommerceBackend.Controllers
 {
@@ -38,12 +39,22 @@ namespace EcommerceBackend.Controllers
             return Ok(userDetails);
         }
 
+        [HttpGet("")]
+        [Authorize]
+        public IActionResult getUserDetial()
+        {
+            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.UserData).Value;
+            var response = _accountServices.GetByUserId(userIdClaim);
+            return Ok(response);
+        }
+
         [HttpPost("forgot-password")]
         public IActionResult ForgotPassword(ForgotPasswordRequest request)
         {
             var message = _accountServices.ForgotUserPassword(request);
             return Ok(message);
         }
+
 
         [HttpPost("update-password")]
         public IActionResult UpdatePassword(UpdatePasswordRequest request)

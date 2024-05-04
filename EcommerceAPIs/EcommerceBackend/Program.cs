@@ -70,7 +70,27 @@ namespace EcommerceBackend
                              IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8
                                 .GetBytes(builder.Configuration.GetSection("AppSettings:Token").Value)),
                              ValidateIssuer = false,
-                             ValidateAudience = false
+                             ValidateAudience = false,
+                             ValidateLifetime = true,
+                             ClockSkew = TimeSpan.Zero
+                         };
+
+                         //handle jwt token validation failures with a custom response
+                         options.Events = new JwtBearerEvents
+                         {
+                             OnAuthenticationFailed = context =>
+                             {
+                                 if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
+                                 {
+                                     context.Response.Headers.Add("Token-Expired", "true");
+                                     context.Response.StatusCode = 401;
+                                     context.Response.ContentType = "application/json";
+                                     return context.Response.WriteAsync(
+                                         "{'message': 'Your session has expired. Please log in again'}");
+                                 }
+
+                                 return Task.CompletedTask;
+                             }
                          };
                      });
 

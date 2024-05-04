@@ -1,0 +1,32 @@
+.main-container{
+  margin: 5rem auto;
+
+}
+
+.label-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: #673ab7;
+}
+
+
+mat-card{
+  max-width: 32rem;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+mat-form-field, button{
+  width: 100%;
+}
+
+
+.login-link{
+  text-align: end;
+  padding: 1rem 0 0 0 ;
+}
+.login-link a{
+  text-decoration: none;
+}
