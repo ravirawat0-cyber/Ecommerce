@@ -1,10 +1,11 @@
 ﻿
 using EcommerceBackend.Models.DBModels;
+using EcommerceBackend.Models.Response;
 
 namespace EcommerceBackend.Services.Interfaces
 {
     public interface ICartServices
     {
-        IEnumerable<UserItems> GetItemsByUserId(int userId);
+        CartResponse GetItemsByUserId(int userId);
     }
 }

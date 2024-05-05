@@ -16,27 +16,12 @@
             public string Jwt { get; set; }
         }
 
-        public class Item
-        {
-            public int ProductId { get; set; }
-            public string ProductName { get; set; }
-            public decimal ProductPrice { get; set; }
-            public int Quantity { get; set; }
-
-            public string ImageUrl { get; set; }
-        }
-
-        public class Cart
-        {
-            public List<Item> Items { get; set; } 
-            public int TotalItems { get; set; }
-        }
 
         public class Data
         {
             public User User { get; set; }
             public Token Token { get; set; }
-            public IEnumerable<Cart> Cart { get; set; } = new List<Cart>();
+            public CartResponse Cart { get; set; } = new CartResponse();
         }
 
         public class UserResponse

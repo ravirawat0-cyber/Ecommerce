@@ -9,6 +9,7 @@ import {ProductDetailsComponent} from "./product-details/product-details.compone
 import {RegisterComponent} from "./Auth/register/register.component";
 import {LoginComponent} from "./Auth/login/login.component";
 import {CartComponent} from "./cart/cart.component";
+import {WishlistComponent} from "./wishlist/wishlist.component";
 
 export const routes: Routes = [
   {path: 'home', component: HomeContainerComponent},
@@ -19,5 +20,6 @@ export const routes: Routes = [
   {path: 'register' , component: RegisterComponent},
   {path: 'login', component: LoginComponent},
   {path: 'cart', component: CartComponent},
+  {path: 'wishlist', component: WishlistComponent},
   {path: '**', component: PageNotFoundComponent}
 ];

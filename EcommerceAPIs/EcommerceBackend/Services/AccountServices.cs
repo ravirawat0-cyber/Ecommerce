@@ -92,7 +92,7 @@ namespace EcommerceBackend.Services
                 throw new ArgumentException("Wrong Password");
             }
 
-            var cart = CartDetails(userDetails);
+            var cartDetail = _cartServices.GetItemsByUserId(userDetails.Id);
 
 
             var userResponse = new UserResponse 
@@ -111,7 +111,7 @@ namespace EcommerceBackend.Services
                     {
                         Jwt = CreateToken(userDetails)
                     },
-                    Cart = new List<Cart>(),
+                    Cart = cartDetail,
                 }
             };
             return userResponse;
@@ -121,7 +121,7 @@ namespace EcommerceBackend.Services
         public UserResponse GetByUserId(string userId)
         {
             var userDetail = _accountRepository.GetById(Convert.ToInt32(userId));
-           // var cartDetail = CartDetails(userDetail);
+            var cartDetail = _cartServices.GetItemsByUserId(userDetail.Id);
 
             var userResponse = new UserResponse
             {
@@ -139,7 +139,7 @@ namespace EcommerceBackend.Services
                     {
                         Jwt = CreateToken(userDetail)
                     },
-                    Cart = new List<Cart>(),
+                    Cart = cartDetail,
                 }
             };
             return userResponse;
@@ -209,30 +209,7 @@ namespace EcommerceBackend.Services
             return Convert.ToBase64String(randBytes);
         }
 
-
-        private Cart CartDetails(Users userDetails)
-        {
-            var userItemsFromDb = _cartServices.GetItemsByUserId(userDetails.Id);
-
-            var items = userItemsFromDb.Select(u => new Item
-            {
-                ProductId = u.ProductId,
-                ProductName = u.ProductName,
-                ProductPrice = u.ProductPrice,
-                Quantity = u.Quantity,
-            }).ToList();
-
-            var totalItems = items.Sum(i => i.Quantity);
-
-            var cart = new Cart
-            {
-                Items = items,
-                TotalItems = totalItems
-            };
-            return cart;
-        }
-
-
+        
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
             var hmac = new HMACSHA512();
