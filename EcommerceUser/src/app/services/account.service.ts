@@ -1,7 +1,10 @@
 import {Injectable} from '@angular/core';
 import {IHttp, IUserLoginReq, IUserReq, IUserRes} from "../../app/models/user.model"
 import {HttpClient} from "@angular/common/http";
-import {BehaviorSubject, tap} from "rxjs";
+import {BehaviorSubject, catchError, of, tap} from "rxjs";
+import {J} from "@angular/cdk/keycodes";
+import {user} from "@angular/fire/auth";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Injectable({
   providedIn: 'root'
@@ -12,9 +15,32 @@ export class AccountService {
   private userSubject = new BehaviorSubject<IUserRes | null>(null);
   user$ = this.userSubject.asObservable();
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private snakbar : MatSnackBar) {
+
   }
 
+  loadUserFromToken(){
+    const storedToken = localStorage.getItem('user');
+
+    if (storedToken !== null) {
+
+       return this.http.get<IHttp<IUserRes>>(`${this.baseUrl}`, {
+         headers: {Authorization : `Bearer ${storedToken}`}
+       }).pipe(
+         tap(response => {
+           this.userSubject.next(response.data);
+           localStorage.setItem('user', response.data.token.jwt);
+         }),
+         catchError(error => {
+           console.log(error.error);
+           return of(null);
+         })
+       );
+    }
+    else {
+      return of(null);
+    }
+  }
 
   login(user : IUserLoginReq) {
     return this.http.post<IHttp<IUserRes>>(`${this.baseUrl}/login`, user)
@@ -29,6 +55,9 @@ export class AccountService {
   logout(): void {
     this.userSubject.next(null);
     localStorage.removeItem('user');
+    this.snakbar.open("User Logout", "Close", {
+      duration: 2000
+    })
   }
 
   register(user: IUserReq) {

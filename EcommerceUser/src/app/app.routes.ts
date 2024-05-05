@@ -8,6 +8,7 @@ import {SubcategoryProductsComponent} from "./subcategory-products/subcategory-p
 import {ProductDetailsComponent} from "./product-details/product-details.component";
 import {RegisterComponent} from "./Auth/register/register.component";
 import {LoginComponent} from "./Auth/login/login.component";
+import {CartComponent} from "./cart/cart.component";
 
 export const routes: Routes = [
   {path: 'home', component: HomeContainerComponent},
@@ -17,5 +18,6 @@ export const routes: Routes = [
   {path: '', redirectTo : '/home', pathMatch: 'full'},
   {path: 'register' , component: RegisterComponent},
   {path: 'login', component: LoginComponent},
+  {path: 'cart', component: CartComponent},
   {path: '**', component: PageNotFoundComponent}
 ];

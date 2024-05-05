@@ -58,4 +58,9 @@ export class SidenavComponent implements OnInit, OnDestroy {
   closeSideNavbar() {
     this.isOpen = false;
   }
+
+  userlogout() {
+    this.accountServices.logout();
+  }
+
 }

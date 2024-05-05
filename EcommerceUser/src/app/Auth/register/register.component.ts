@@ -5,7 +5,7 @@ import {MatInput} from "@angular/material/input";
 import {MatButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
-import {RouterLink, RouterOutlet} from "@angular/router";
+import {Router, RouterLink, RouterOutlet} from "@angular/router";
 import {IUserReq} from "../../models/user.model";
 import {AccountService} from "../../services/account.service";
 import {first} from "rxjs";
@@ -37,7 +37,7 @@ export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
 
 
-  constructor(private fb: FormBuilder , private accountService: AccountService , private snackBar: MatSnackBar) {
+  constructor(private fb: FormBuilder , private accountService: AccountService , private snackBar: MatSnackBar, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -64,10 +64,10 @@ export class RegisterComponent implements OnInit {
     }
     this.accountService.register(value).subscribe(
       res => {
-        console.log(res);
-        localStorage.setItem('user', res.data.token.jwt);
+        this.router.navigate(['/home'])
+        console.log(res);localStorage.setItem('user', res.data.token.jwt);
         this.snackBar.open("register successfull", "Close", {
-          duration: 2000,
+          duration: 3000,
         });
       },
       error => {

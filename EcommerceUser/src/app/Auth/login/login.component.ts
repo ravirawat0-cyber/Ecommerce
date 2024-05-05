@@ -8,7 +8,7 @@ import {MatButton} from "@angular/material/button";
 import {RouterLink} from "@angular/router";
 import {AccountService} from "../../services/account.service";
 import {IUserLoginReq, IUserReq} from "../../models/user.model";
-import {response} from "express";
+import { Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
@@ -31,7 +31,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 export class LoginComponent implements OnInit{
   loginForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private accountService : AccountService, private snackBar: MatSnackBar) {
+  constructor(private fb: FormBuilder, private accountService : AccountService, private snackBar: MatSnackBar, private router: Router) {
   }
 
   ngOnInit() {
@@ -48,8 +48,9 @@ export class LoginComponent implements OnInit{
     }
     this.accountService.login(value).subscribe(
       response =>{
+        this.router.navigate(['/home'])
         this.snackBar.open("login successfull", "Close", {
-          duration: 2000,
+          duration: 3000,
         });
       },
       error =>{

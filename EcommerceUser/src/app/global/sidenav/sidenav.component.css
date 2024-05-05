@@ -60,8 +60,10 @@
   color: white;
 }
 
+
 .sidenav ul li a:hover {
   background-color: #5019a3;
+  cursor: pointer;
 }
 
 

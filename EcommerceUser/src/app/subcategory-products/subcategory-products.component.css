@@ -1,7 +1,8 @@
 .main-container{
   max-width: 100rem;
   padding: 1rem;
-  margin: 0 auto;
+  margin: auto;
+  margin-top: 7rem;
   height: 100vh;
 }
 
