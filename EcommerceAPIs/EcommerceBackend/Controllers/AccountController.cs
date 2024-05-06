@@ -56,7 +56,7 @@ namespace EcommerceBackend.Controllers
         }
 
 
-        [HttpPost("update-password")]
+        [HttpPut("update-password")]
         public IActionResult UpdatePassword(UpdatePasswordRequest request)
         {
             var message = _accountServices.UpdatePassword(request);

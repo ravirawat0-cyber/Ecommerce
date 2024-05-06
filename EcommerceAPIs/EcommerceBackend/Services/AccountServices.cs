@@ -112,7 +112,8 @@ namespace EcommerceBackend.Services
                         Jwt = CreateToken(userDetails)
                     },
                     Cart = cartDetail,
-                }
+                },
+                StatusMessage = "Success."
             };
             return userResponse;
         }
@@ -140,7 +141,8 @@ namespace EcommerceBackend.Services
                         Jwt = CreateToken(userDetail)
                     },
                     Cart = cartDetail,
-                }
+                },
+                StatusMessage = "Success."
             };
             return userResponse;
         }

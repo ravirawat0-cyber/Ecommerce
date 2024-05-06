@@ -34,21 +34,25 @@ namespace EcommerceBackend.Services
             {
                 Items = items,
                 TotalItems = totalItems,
-                statusMessage = "Success"
             };
             return cart;
         }
 
         public int AddItemToCart(CartRequest cart, string userId)
         {
-            var cartId = _cartRepository.AddItemsToCart(cart, Convert.ToInt32(userId));
-            return cartId;
+            var userID = Convert.ToInt32(userId);
 
+            if (_cartRepository.CheckProductWithUserExist(userID, cart.ProductId))
+                throw new KeyNotFoundException("Product already in cart.");
+            var cartId = _cartRepository.AddItemsToCart(cart, userID);
+            return cartId;
         }
 
         public void UpdateCart(CartRequest cart, string userId)
         {
             _cartRepository.UpdateCart(cart , Convert.ToInt32(userId));
         }
+
+       
     }
 }

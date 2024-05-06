@@ -5,6 +5,10 @@ import {IProductProfileRes} from "../models/product.model";
 import {ProductsService} from "../services/products.service";
 import {NgForOf} from "@angular/common";
 import {ActivatedRoute} from "@angular/router";
+import {CartService} from "../services/cart.service";
+import {ICartReq} from "../models/cart.model";
+import {AccountService} from "../services/account.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-product-details',
@@ -26,7 +30,7 @@ export class ProductDetailsComponent implements OnInit {
   keyFeatures : string[] = [];
   currentImageIndex = 0;
 
-  constructor(private productService :ProductsService , private activatedRoute : ActivatedRoute) {
+  constructor(private accountService : AccountService ,private snackbar : MatSnackBar, private productService :ProductsService ,private cartServices : CartService, private activatedRoute : ActivatedRoute) {
   }
 
   ngOnInit(){
@@ -65,4 +69,22 @@ export class ProductDetailsComponent implements OnInit {
     this.currentImageIndex = (this.currentImageIndex - 1 + this.imageUrls.length)% this.imageUrls.length;
   }
 
+  addToCart() {
+      const item : ICartReq ={
+        productId: this.productId,
+    }
+      this.cartServices.AddToCard(item).subscribe(
+         (response) => {
+           if (response) {
+             this.accountService.loadUserFromToken();
+             this.snackbar.open("Added to Cart.", "Close",
+               { duration: 3000}
+             )}
+         },
+        error => {
+           this.snackbar.open(error.error, 'close',
+             {duration: 3000});
+        }
+      )
+  }
 }

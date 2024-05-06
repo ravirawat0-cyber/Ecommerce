@@ -20,16 +20,13 @@ export class AccountService {
   }
 
   loadUserFromToken(){
-    const storedToken = localStorage.getItem('user');
 
-    if (storedToken !== null) {
-
-       return this.http.get<IHttp<IUserRes>>(`${this.baseUrl}`, {
-         headers: {Authorization : `Bearer ${storedToken}`}
-       }).pipe(
+       return this.http.get<IHttp<IUserRes>>(`${this.baseUrl}`
+       ).pipe(
          tap(response => {
            this.userSubject.next(response.data);
            localStorage.setItem('user', response.data.token.jwt);
+            console.log("load", response.data);
          }),
          catchError(error => {
            console.log(error.error);
@@ -37,10 +34,7 @@ export class AccountService {
          })
        );
     }
-    else {
-      return of(null);
-    }
-  }
+
 
   login(user : IUserLoginReq) {
     return this.http.post<IHttp<IUserRes>>(`${this.baseUrl}/login`, user)

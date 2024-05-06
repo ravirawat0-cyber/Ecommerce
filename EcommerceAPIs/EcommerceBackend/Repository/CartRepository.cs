@@ -59,5 +59,25 @@ namespace EcommerceBackend.Repository
             UpdateDb(query, values);
         }
 
+        public bool CheckProductWithUserExist(int userId, int productId)
+        {
+            var query = @"SELECT COUNT(*)
+                          FROM Carts
+                          WHERE UserId = @UserId AND ProductId = @ProductId";
+            var values = new
+            {
+                UserId = userId,
+                ProductId = productId,
+            };
+            using var connection = _dbcontext.CreateConnection();
+            var response = connection.ExecuteScalar<int>(query, values);
+            return response > 0;
+
+            {
+                
+            }
+
+        }
+
     }
 }

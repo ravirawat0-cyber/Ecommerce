@@ -15,6 +15,5 @@
         public List<Item> Items { get; set; }
         public int TotalItems { get; set; }
 
-        public string statusMessage { get; set; }
     }
 }
