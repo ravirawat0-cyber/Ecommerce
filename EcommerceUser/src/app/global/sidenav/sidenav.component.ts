@@ -32,7 +32,7 @@ import {IUserRes} from "../../models/user.model";
   templateUrl: './sidenav.component.html',
   styleUrl: './sidenav.component.css'
 })
-export class SidenavComponent implements OnInit, OnDestroy {
+export class SidenavComponent implements OnInit{
   isOpen: boolean = false;
   userSubcription ! : Subscription;
   userDetail : IUserRes | null = null;

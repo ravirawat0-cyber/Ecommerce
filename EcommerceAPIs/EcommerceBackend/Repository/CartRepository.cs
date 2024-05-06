@@ -24,7 +24,8 @@ namespace EcommerceBackend.Repository
 
             var value = new { UserId = userId };
             using var connection = _dbcontext.CreateConnection();
-            return connection.Query<Carts>(query, value);
+            var dbresponse = connection.Query<Carts>(query, value);
+            return dbresponse;
         }
 
         

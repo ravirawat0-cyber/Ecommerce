@@ -16,10 +16,10 @@ export const routes: Routes = [
   {path: 'category/:name/:id' , component: SubcategoriesByParentContainerComponent},
   {path: 'subcategory/:name/:id', component:SubcategoryProductsComponent },
   {path: 'product/:name/:id' , component: ProductDetailsComponent},
-  {path: '', redirectTo : '/home', pathMatch: 'full'},
   {path: 'register' , component: RegisterComponent},
   {path: 'login', component: LoginComponent},
   {path: 'cart', component: CartComponent},
   {path: 'wishlist', component: WishlistComponent},
+  {path: '', redirectTo : '/home', pathMatch: 'full'},
   {path: '**', component: PageNotFoundComponent}
 ];

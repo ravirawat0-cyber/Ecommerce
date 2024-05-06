@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {IHttp, IUserLoginReq, IUserReq, IUserRes} from "../../app/models/user.model"
 import {HttpClient} from "@angular/common/http";
-import {BehaviorSubject, catchError, of, tap} from "rxjs";
+import {BehaviorSubject, catchError, Observable, of, tap} from "rxjs";
 import {J} from "@angular/cdk/keycodes";
 import {user} from "@angular/fire/auth";
 import {MatSnackBar} from "@angular/material/snack-bar";
@@ -19,14 +19,12 @@ export class AccountService {
 
   }
 
-  loadUserFromToken(){
-
-       return this.http.get<IHttp<IUserRes>>(`${this.baseUrl}`
+  loadUserFromToken()  {
+    return this.http.get<IHttp<IUserRes>>(`${this.baseUrl}`
        ).pipe(
          tap(response => {
            this.userSubject.next(response.data);
            localStorage.setItem('user', response.data.token.jwt);
-            console.log("load", response.data);
          }),
          catchError(error => {
            console.log(error.error);

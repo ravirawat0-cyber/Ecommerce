@@ -28,5 +28,15 @@ export interface IUserRes{
   token : {
     jwt : string
   },
-  cart : []
+  cart : {
+    items: [ {
+      productId: number;
+      productName: string;
+      productPrice : number;
+      quantity : number;
+      productImage : string;
+    } ],
+    totalItems : number;
+  },
+  statusMessage : string;
 }

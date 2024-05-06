@@ -2,28 +2,29 @@
 
 
 <div class="main-container">
-   <div class="grid-container">
+   <app-loader *ngIf="loading"></app-loader>
+   <div class="grid-container" *ngIf = "!loading">
      <div class="product-detail-container">
-       <div class="product-card">
-         <div class="product-details">
-           <div class="product-image-container">
-             <img src="https://firebasestorage.googleapis.com/v0/b/ecommerce-data-rupi.appspot.com/o/product%2Fa29c1672-5fe2-40b6-a72a-e70ac22e28ae-Apple%20iPhone%2014%20(Blue%2C%20128%20GB)%2Fcover%2F0.jpg?alt=media&token=589c2020-8bc3-45a8-a9a6-e0930852306b"/>
+       <div class="product-card" *ngFor = "let item of userDetail.cart.items" >
+         <div class="product-details" >
+           <div class="product-image-container" >
+             <img src="{{item.productImage}}"/>
            </div>
            <div class="product-info">
-             <h6 class="info">Apple iPhone 14 Blue (Blue, 128 GB)</h6>
-             <h6 class="price">Rs.58999</h6>
+             <h6 class="info">{{item.productName}}</h6>
+             <h6 class="price">Rs.{{item.productPrice}}</h6>
            </div>
          </div>
 
          <div class="product-action-container">
            <div class="counter">
-             <button>-</button>
-             <button>1</button>
-             <button>+</button>
+             <button (click) = "decrementQuantity()">-</button>
+             <button>{{quantity}}</button>
+             <button (click)="incrementQuantity()">+</button>
            </div>
            <div class="actions">
-             <button><mat-icon>update</mat-icon></button>
-             <button><mat-icon>delete_outline</mat-icon></button>
+             <button><mat-icon (click)="updateCart(item.productId)">update</mat-icon></button>
+             <button><mat-icon (click) = "deleteCart(item.productId)">delete_outline</mat-icon></button>
            </div>
          </div>
        </div>
@@ -40,11 +41,11 @@
        <div class="p-item-price-container">
          <div class="p-item">
            <h6>Total Items</h6>
-           <h6>1</h6>
+           <h6>{{userDetail.cart.totalItems}}</h6>
          </div>
          <div class="p-price">
            <h6>Total Price</h6>
-           <h6>Rs.58999 /-</h6>
+           <h6>Rs.{{}} /-</h6>
          </div>
        </div>
 
