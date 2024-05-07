@@ -29,11 +29,13 @@ namespace EcommerceBackend.Services
             }).ToList();
 
             var totalItems = items.Sum(i => i.Quantity);
+            var totalPrice = items.Sum(i => i.Quantity * i.ProductPrice);
 
             var cart = new CartResponse
             {
                 Items = items,
                 TotalItems = totalItems,
+                TotalPrice = totalPrice
             };
             return cart;
         }
@@ -46,6 +48,12 @@ namespace EcommerceBackend.Services
                 throw new KeyNotFoundException("Product already in cart.");
             var cartId = _cartRepository.AddItemsToCart(cart, userID);
             return cartId;
+        }
+
+
+        public void DeleteCartItem(int productId, string userId)
+        {
+            _cartRepository.DeleteCartItem(productId, int.Parse(userId));
         }
 
         public void UpdateCart(CartRequest cart, string userId)

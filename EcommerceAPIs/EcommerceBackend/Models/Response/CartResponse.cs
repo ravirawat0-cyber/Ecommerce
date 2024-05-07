@@ -14,6 +14,7 @@
     {
         public List<Item> Items { get; set; }
         public int TotalItems { get; set; }
+        public decimal TotalPrice { get; set; } 
 
     }
 }

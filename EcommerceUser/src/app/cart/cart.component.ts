@@ -5,7 +5,7 @@ import {MatDivider} from "@angular/material/divider";
 import {IUserRes} from "../models/user.model";
 import {AccountService} from "../services/account.service";
 import {Subscription} from "rxjs";
-import {ICartItems, ICartUpdateReq} from "../models/cart.model";
+import { ICartUpdateReq} from "../models/cart.model";
 import {NgForOf, NgIf} from "@angular/common";
 import {MatProgressBar} from "@angular/material/progress-bar";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";

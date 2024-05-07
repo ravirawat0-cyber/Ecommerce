@@ -8,6 +8,7 @@ namespace EcommerceBackend.Repository.Interfaces
         IEnumerable<Carts> GetItemsByUserId(int userId);
         int AddItemsToCart(CartRequest cart, int userId);
         void UpdateCart(CartRequest cart, int userId);
-        bool CheckProductWithUserExist(int userId, int productId);
+        bool CheckProductWithUserExist(int productId, int userId);
+        void DeleteCartItem(int productId, int userId);
     }
 }

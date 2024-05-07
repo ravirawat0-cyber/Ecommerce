@@ -37,6 +37,7 @@ export interface IUserRes{
       productImage : string;
     } ],
     totalItems : number;
+    totalPrice : number;
   },
   statusMessage : string;
 }

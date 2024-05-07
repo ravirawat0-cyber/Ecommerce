@@ -60,7 +60,18 @@ namespace EcommerceBackend.Repository
             UpdateDb(query, values);
         }
 
-        public bool CheckProductWithUserExist(int userId, int productId)
+        public void DeleteCartItem(int productId, int userId)
+        {
+            var query = @"
+                        DELETE FROM Carts
+                        WHERE ProductId = @ProductId
+                              AND UserId = @UserId 
+                         ";
+            var values = new { ProductId = productId, UserId = userId };
+            DeleteDb(query, values);
+        }
+
+        public bool CheckProductWithUserExist(int productId, int userId)
         {
             var query = @"SELECT COUNT(*)
                           FROM Carts
@@ -73,11 +84,6 @@ namespace EcommerceBackend.Repository
             using var connection = _dbcontext.CreateConnection();
             var response = connection.ExecuteScalar<int>(query, values);
             return response > 0;
-
-            {
-                
-            }
-
         }
 
     }

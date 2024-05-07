@@ -28,7 +28,7 @@ namespace EcommerceBackend.Controllers
             return Ok(response);
         }
 
-        [HttpPut()]
+        [HttpPut("")]
         [Authorize]
         public IActionResult Update(CartRequest request)
         {
@@ -36,5 +36,15 @@ namespace EcommerceBackend.Controllers
             _cartServices.UpdateCart(request, userIdClaim);
             return Ok();
         }
+
+        [HttpDelete("{productId:int}")]
+        [Authorize]
+        public IActionResult Delete(int productId)
+        {
+            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.UserData).Value;
+            _cartServices.DeleteCartItem(productId, userIdClaim);
+            return Ok();
+        }
+
     }
 }

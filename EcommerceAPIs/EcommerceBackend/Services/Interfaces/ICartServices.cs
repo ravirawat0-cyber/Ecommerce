@@ -10,5 +10,7 @@ namespace EcommerceBackend.Services.Interfaces
         CartResponse GetItemsByUserId(int userId);
         int AddItemToCart(CartRequest cart, string userId);
         void UpdateCart(CartRequest cart, string userId);
+
+        void DeleteCartItem(int productId, string userId);
     }
 }
