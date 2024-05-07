@@ -139,11 +139,19 @@ button:hover {
 .p-item h6 , .p-price h6{
   font-size: 0.9rem;
   font-weight: 500;
-  letter-height: 1.57;
+  line-height: 1.57;
   letter-spacing: 0.00714em;
 }
 
 .checkout, .clear-chart{
   width: 50%;
   color: #5019a3;
+}
+
+
+.empty-cart-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }

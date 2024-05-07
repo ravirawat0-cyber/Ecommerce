@@ -33,71 +33,88 @@ import {user} from "@angular/fire/auth";
 })
 export class CartComponent implements OnInit, OnDestroy {
   userDetail!: IUserRes;
-  userSubcription!: Subscription;
+  userSubscription!: Subscription;
   loading = true;
-  quantity = 1
+  quantities: { [key: number]: number } = {};
 
-  constructor(private accountService: AccountService, private cartService: CartService, private snackBar: MatSnackBar) {
-  }
-
+  constructor(
+    private accountService: AccountService,
+    private cartService: CartService,
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
-   this.loadUser();
+    this.loadUser();
   }
 
   ngOnDestroy(): void {
-    this.userSubcription.unsubscribe();
+    this.userSubscription.unsubscribe();
   }
 
-  loadUser(){
-    this.userSubcription = this.accountService.user$.subscribe(user => {
+  loadUser(): void {
+    this.userSubscription = this.accountService.user$.subscribe(user => {
       if (user) {
         this.userDetail = user;
-        console.log("cart", this.userDetail);
+
+        this.userDetail.cart.items.forEach(item => {
+          this.quantities[item.productId] = item.quantity;
+        });
+
+        console.log('cart', this.userDetail);
         this.loading = false;
       }
     });
     this.accountService.loadUserFromToken().subscribe();
   }
 
-  incrementQuantity(): void {
-    this.quantity++;
+  incrementQuantity(productId: number): void {
+    this.quantities[productId]++;
   }
 
-  decrementQuantity(): void {
-    if (this.quantity > 1) {
-      this.quantity--;
+  decrementQuantity(productId: number): void {
+    if (this.quantities[productId] > 1) {
+      this.quantities[productId]--;
     }
   }
 
-  updateCart(id: number) {
+  updateCart(id: number): void {
     const req: ICartUpdateReq = {
       productId: id,
-      quantity: this.quantity
-    }
+      quantity: this.quantities[id]
+    };
 
     this.cartService.UpdateToCart(req).subscribe(
-      (response) => {
-            this.snackBar.open("Quantity Updated.", 'Close', {duration: 3000});
-            this.loadUser();
-      },
-      error => {
-         this.snackBar.open("Error Occured,", "Close", {duration: 3000});
-      }
-    )
-  }
-
-  deleteCart(id: number) {
-    this.cartService.DeleteToCart(id).subscribe(
-      (response) => {
-        this.snackBar.open("Product deleted.", 'Close', {duration: 3000});
+      () => {
+        this.snackBar.open('Quantity Updated.', 'Close', { duration: 3000 });
         this.loadUser();
       },
       error => {
-        this.snackBar.open("Error Occured.", "Close", {duration: 3000});
+        this.snackBar.open('Error Occurred,', 'Close', { duration: 3000 });
       }
-    )
+    );
   }
 
-  protected readonly user = user;
+  deleteCart(id: number): void {
+    this.cartService.DeleteToCart(id).subscribe(
+      () => {
+        this.snackBar.open('Product deleted.', 'Close', { duration: 3000 });
+        this.loadUser();
+      },
+      error => {
+        this.snackBar.open('Error Occurred.', 'Close', { duration: 3000 });
+      }
+    );
+  }
+
+  clearCart(): void {
+    this.cartService.DeleteCart().subscribe(
+      () => {
+        this.snackBar.open('Cart Cleared.', 'Close', { duration: 3000 });
+        this.loadUser();
+      },
+      error => {
+        this.snackBar.open('Error Occurred.', 'Close', { duration: 3000 });
+      }
+    );
+  }
 }

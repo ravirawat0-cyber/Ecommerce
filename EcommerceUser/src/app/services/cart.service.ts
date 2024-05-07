@@ -25,5 +25,11 @@ export class CartService {
   {
     return this.http.delete(`${this.baseUrl}/${prouductId}`);
   }
+
+  DeleteCart()
+  {
+    return this.http.delete(`${this.baseUrl}/deletecart`)
+  }
+
 }
 

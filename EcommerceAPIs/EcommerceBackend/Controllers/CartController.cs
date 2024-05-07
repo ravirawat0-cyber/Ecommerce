@@ -46,9 +46,9 @@ namespace EcommerceBackend.Controllers
             return Ok();
         }
 
-        [HttpDelete("deletecart/{userId}")]
+        [HttpDelete("deletecart")]
         [Authorize]
-        public IActionResult DeleteCart(int userId)
+        public IActionResult DeleteCart()
         {
             var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.UserData).Value;
             _cartServices.DeleteCart(userIdClaim);

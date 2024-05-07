@@ -6,16 +6,20 @@
     </button>
     <a href="#"> <span>Ecommerce</span></a>
     <span class="spacer"></span>
+    <a [routerLink]="'/wishlist'" >
     <button mat-icon-button class="favorite-button" aria-label="icon-button with heart icon">
-      <mat-icon>favorite</mat-icon>
+      <mat-icon matBadge = "1" matBadgeColor="warn">favorite</mat-icon>
     </button>
+    </a>
+    <a [routerLink]="'/cart'">
     <button mat-icon-button class="share-button" aria-label="icon-button with cart icon">
-      <mat-icon>add_shopping_cart</mat-icon>
+      <mat-icon matBadge = "{{TotalCartItem}}" matBadgeColor="warn">add_shopping_cart</mat-icon>
     </button>
-
+    </a>
     <button mat-icon-button class="acount-button" aria-label="icon-button with account icon">
       <mat-icon>account_circle</mat-icon>
     </button>
   </mat-toolbar>
 </div>
 
+<router-outlet></router-outlet>
