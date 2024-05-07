@@ -12,5 +12,6 @@ namespace EcommerceBackend.Services.Interfaces
         void UpdateCart(CartRequest cart, string userId);
 
         void DeleteCartItem(int productId, string userId);
+        void DeleteCart(string userId);
     }
 }

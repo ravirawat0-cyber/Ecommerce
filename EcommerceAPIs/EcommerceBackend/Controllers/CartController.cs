@@ -39,10 +39,19 @@ namespace EcommerceBackend.Controllers
 
         [HttpDelete("{productId:int}")]
         [Authorize]
-        public IActionResult Delete(int productId)
+        public IActionResult DeleteCartItem(int productId)
         {
             var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.UserData).Value;
             _cartServices.DeleteCartItem(productId, userIdClaim);
+            return Ok();
+        }
+
+        [HttpDelete("deletecart/{userId}")]
+        [Authorize]
+        public IActionResult DeleteCart(int userId)
+        {
+            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.UserData).Value;
+            _cartServices.DeleteCart(userIdClaim);
             return Ok();
         }
 

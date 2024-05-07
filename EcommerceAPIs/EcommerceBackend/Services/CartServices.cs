@@ -61,6 +61,10 @@ namespace EcommerceBackend.Services
             _cartRepository.UpdateCart(cart , Convert.ToInt32(userId));
         }
 
+        public void DeleteCart(string userId)
+        {
+            _cartRepository.DeleteCart(int.Parse(userId));
+        }
        
     }
 }

@@ -71,6 +71,16 @@ namespace EcommerceBackend.Repository
             DeleteDb(query, values);
         }
 
+
+        public void DeleteCart(int userId)
+        {
+            var query = @"
+                        DELETE FROM Carts
+                        WHERE UserId = @userId";
+            var values = new { UserId = userId };
+            DeleteDb(query, values);
+        }
+
         public bool CheckProductWithUserExist(int productId, int userId)
         {
             var query = @"SELECT COUNT(*)

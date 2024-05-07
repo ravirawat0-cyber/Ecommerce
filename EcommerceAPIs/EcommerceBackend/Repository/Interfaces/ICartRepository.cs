@@ -10,5 +10,6 @@ namespace EcommerceBackend.Repository.Interfaces
         void UpdateCart(CartRequest cart, int userId);
         bool CheckProductWithUserExist(int productId, int userId);
         void DeleteCartItem(int productId, int userId);
+        void DeleteCart(int userId);
     }
 }
