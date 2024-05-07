@@ -68,6 +68,7 @@
   border-radius: 4px;
   width: 100%;
 }
+
 button{
   display: inline-flex;
   align-items: center;
@@ -82,13 +83,16 @@ button{
   color: rgba(50, 14, 110, 0.47);
 }
 
+.btn-delete:hover{
+   background-color: rgba(255, 0, 0, 0.47);
+}
+
 button:hover {
   background-color: rgba(23, 3, 53, 0.47);
 }
 
 .actions{
 }
-
 
 .overview-container{
   background-color: rgb(224,224,224);
@@ -139,25 +143,7 @@ button:hover {
   letter-spacing: 0.00714em;
 }
 
-
 .checkout, .clear-chart{
   width: 50%;
   color: #5019a3;
 }
-/*.inc-dec-button {*/
-/*  display: inline-block;*/
-/*  padding: 10px 20px;*/
-/*  font-size: 16px;*/
-/*  text-align: center;*/
-/*  text-decoration: none;*/
-/*  cursor: pointer;*/
-/*  border: 1px solid #ccc;*/
-/*  border-radius: 5px;*/
-/*  background-color: #f0f0f0;*/
-/*  color: #333;*/
-/*}*/
-
-/*!* Styles for the button hover effect *!*/
-/*.inc-dec-button:hover {*/
-/*  background-color: #e0e0e0;*/
-/*}*/

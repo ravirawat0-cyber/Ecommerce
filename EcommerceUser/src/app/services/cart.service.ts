@@ -11,14 +11,19 @@ export class CartService {
   constructor(private http: HttpClient) { }
 
 
-  AddToCard(Item: ICartReq)
+  AddToCart(Item: ICartReq)
   {
     return this.http.post(`${this.baseUrl}/add`, Item);
   }
 
-  UpdateToCard(Item: ICartReq)
+  UpdateToCart(Item: ICartReq)
   {
     return this.http.put(`${this.baseUrl}`, Item);
+  }
+
+  DeleteToCart(prouductId : number)
+  {
+    return this.http.delete(`${this.baseUrl}/${prouductId}`);
   }
 }
 

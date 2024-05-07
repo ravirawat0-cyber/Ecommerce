@@ -12,19 +12,19 @@
            </div>
            <div class="product-info">
              <h6 class="info">{{item.productName}}</h6>
-             <h6 class="price">Rs.{{item.productPrice}}</h6>
+             <h6 class="price">Rs.{{item.productPrice}} /-</h6>
            </div>
          </div>
 
          <div class="product-action-container">
            <div class="counter">
              <button (click) = "decrementQuantity()">-</button>
-             <button>{{quantity}}</button>
+             <button>{{item.quantity}}</button>
              <button (click)="incrementQuantity()">+</button>
            </div>
            <div class="actions">
              <button><mat-icon (click)="updateCart(item.productId)">update</mat-icon></button>
-             <button><mat-icon (click) = "deleteCart(item.productId)">delete_outline</mat-icon></button>
+             <button class="btn-delete"><mat-icon (click) = "deleteCart(item.productId)">delete_outline</mat-icon></button>
            </div>
          </div>
        </div>
@@ -32,10 +32,12 @@
      </div>
      <div class="overview-container">
        <h6>Overview</h6>
+       <ng-container *ngFor = "let item of userDetail.cart.items">
        <div class="p-overview-info">
-         <p class="p-name">1 x Apple iPhone 14(Blue, 128)</p>
-         <span class="p-price">Rs.58999 /-</span>
+         <p class="p-name">{{item.quantity}} x {{item.productName}}</p>
+         <span class="p-price">Rs.{{item.productPrice}} /-</span>
        </div>
+       </ng-container>
        <mat-divider></mat-divider>
 
        <div class="p-item-price-container">

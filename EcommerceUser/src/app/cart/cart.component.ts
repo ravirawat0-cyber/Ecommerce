@@ -42,6 +42,14 @@ export class CartComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
+   this.loadUser();
+  }
+
+  ngOnDestroy(): void {
+    this.userSubcription.unsubscribe();
+  }
+
+  loadUser(){
     this.userSubcription = this.accountService.user$.subscribe(user => {
       if (user) {
         this.userDetail = user;
@@ -50,10 +58,6 @@ export class CartComponent implements OnInit, OnDestroy {
       }
     });
     this.accountService.loadUserFromToken().subscribe();
-  }
-
-  ngOnDestroy(): void {
-    this.userSubcription.unsubscribe();
   }
 
   incrementQuantity(): void {
@@ -72,9 +76,10 @@ export class CartComponent implements OnInit, OnDestroy {
       quantity: this.quantity
     }
 
-    this.cartService.UpdateToCard(req).subscribe(
+    this.cartService.UpdateToCart(req).subscribe(
       (response) => {
             this.snackBar.open("Quantity Updated.", 'Close', {duration: 3000});
+            this.loadUser();
       },
       error => {
          this.snackBar.open("Error Occured,", "Close", {duration: 3000});
@@ -83,7 +88,15 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   deleteCart(id: number) {
-
+    this.cartService.DeleteToCart(id).subscribe(
+      (response) => {
+        this.snackBar.open("Product deleted.", 'Close', {duration: 3000});
+        this.loadUser();
+      },
+      error => {
+        this.snackBar.open("Error Occured.", "Close", {duration: 3000});
+      }
+    )
   }
 
   protected readonly user = user;

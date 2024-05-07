@@ -73,7 +73,7 @@ export class ProductDetailsComponent implements OnInit {
       const item : ICartReq ={
         productId: this.productId,
     }
-      this.cartServices.AddToCard(item).subscribe(
+      this.cartServices.AddToCart(item).subscribe(
          (response) => {
            if (response) {
              this.accountService.loadUserFromToken();
