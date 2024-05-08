@@ -10,6 +10,7 @@ import {RegisterComponent} from "./Auth/register/register.component";
 import {LoginComponent} from "./Auth/login/login.component";
 import {CartComponent} from "./cart/cart.component";
 import {WishlistComponent} from "./wishlist/wishlist.component";
+import {AccountComponent} from "./Auth/account/account.component";
 
 export const routes: Routes = [
   {path: 'home', component: HomeContainerComponent},
@@ -20,6 +21,7 @@ export const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'cart', component: CartComponent},
   {path: 'wishlist', component: WishlistComponent},
+  {path : 'account', component: AccountComponent},
   {path: '', redirectTo : '/home', pathMatch: 'full'},
   {path: '**', component: PageNotFoundComponent}
 ];
