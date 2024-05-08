@@ -39,5 +39,16 @@ export interface IUserRes{
     totalItems : number;
     totalPrice : number;
   },
+  wishlist: {
+    items: [
+      {
+        productId: number;
+        productName: string;
+        productPrice : number;
+        productImage : string;
+      }
+    ],
+    totalItems : number;
+  },
   statusMessage : string;
 }

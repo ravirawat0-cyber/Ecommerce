@@ -25,6 +25,7 @@ export class AccountService {
          tap(response => {
            this.userSubject.next(response.data);
            localStorage.setItem('user', response.data.token.jwt);
+           console.log(response.data);
          }),
          catchError(error => {
            console.log(error.error);

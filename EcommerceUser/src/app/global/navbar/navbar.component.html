@@ -8,7 +8,7 @@
     <span class="spacer"></span>
     <a [routerLink]="'/wishlist'" >
     <button mat-icon-button class="favorite-button" aria-label="icon-button with heart icon">
-      <mat-icon matBadge = "1" matBadgeColor="warn">favorite</mat-icon>
+      <mat-icon matBadge = "{{TotalWishlistItem}}" matBadgeColor="warn">favorite</mat-icon>
     </button>
     </a>
     <a [routerLink]="'/cart'">

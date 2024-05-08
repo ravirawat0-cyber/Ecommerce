@@ -71,3 +71,11 @@
   gap: 1rem;
 
 }
+
+.empty-cart-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+

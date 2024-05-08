@@ -22,6 +22,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   userSubscription ! : Subscription;
   TotalCartItem : number | undefined;
+  TotalWishlistItem : number | undefined;
   constructor(private sidebarService: SidebarService, private accountService: AccountService) {
   }
 
@@ -29,6 +30,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
         this.userSubscription = this.accountService.user$.subscribe(user =>{
           this.TotalCartItem = user?.cart.totalItems
+          this.TotalWishlistItem = user?.wishlist.totalItems;
         })
     }
 

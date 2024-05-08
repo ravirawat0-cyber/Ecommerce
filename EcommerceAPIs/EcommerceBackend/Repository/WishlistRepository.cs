@@ -23,7 +23,7 @@ namespace EcommerceBackend.Repository
                              p.CoverImage as ProductImage
                          FROM Wishlists w
                          JOIN Products p ON w.ProductId = p.Id
-                         WHERE c.UserId = @UserId";
+                         WHERE w.UserId = @UserId";
             var value = new { UserId = userId };
             using var connection = _dbcontext.CreateConnection();
             var response = connection.Query<Wishlist>(query, value);

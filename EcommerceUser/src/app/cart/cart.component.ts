@@ -12,7 +12,7 @@ import {MatProgressSpinner} from "@angular/material/progress-spinner";
 import {LoaderComponent} from "../global/loader/loader.component";
 import {CartService} from "../services/cart.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {user} from "@angular/fire/auth";
+
 
 @Component({
   selector: 'app-cart',
@@ -59,8 +59,6 @@ export class CartComponent implements OnInit, OnDestroy {
         this.userDetail.cart.items.forEach(item => {
           this.quantities[item.productId] = item.quantity;
         });
-
-        console.log('cart', this.userDetail);
         this.loading = false;
       }
     });
@@ -97,7 +95,7 @@ export class CartComponent implements OnInit, OnDestroy {
   deleteCart(id: number): void {
     this.cartService.DeleteToCart(id).subscribe(
       () => {
-        this.snackBar.open('Product deleted.', 'Close', { duration: 3000 });
+        this.snackBar.open('Product removed.', 'Close', { duration: 3000 });
         this.loadUser();
       },
       error => {

@@ -77,12 +77,12 @@ export class ProductDetailsComponent implements OnInit {
          (response) => {
            if (response) {
              this.accountService.loadUserFromToken().subscribe();
-             this.snackbar.open("Added to Cart.", "Close",
+             this.snackbar.open("Added to cart.", "Close",
                { duration: 3000}
              )}
          },
         error => {
-           this.snackbar.open(error.error, 'close',
+           this.snackbar.open(error.error, 'Close',
              {duration: 3000});
         }
       )

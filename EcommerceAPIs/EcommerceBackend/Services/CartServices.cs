@@ -43,8 +43,7 @@ namespace EcommerceBackend.Services
         public int AddItemToCart(CartRequest cart, string userId)
         {
             var userID = Convert.ToInt32(userId);
-
-            if (_cartRepository.CheckProductWithUserExist(userID, cart.ProductId))
+            if (_cartRepository.CheckProductWithUserExist(cart.ProductId, userID))
                 throw new KeyNotFoundException("Product already in cart.");
             var cartId = _cartRepository.AddItemsToCart(cart, userID);
             return cartId;

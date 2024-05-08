@@ -91,8 +91,7 @@ namespace EcommerceBackend.Repository
                 UserId = userId,
                 ProductId = productId,
             };
-            using var connection = _dbcontext.CreateConnection();
-            var response = connection.ExecuteScalar<int>(query, values);
+            var response = GetCountFromDb(query, values);
             return response > 0;
         }
     }

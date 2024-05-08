@@ -40,7 +40,7 @@ namespace EcommerceBackend.Services
         public int AddItemToWishlist(WishlistRequest request, string userId)
         {
             var userID = Convert.ToInt32(userId);
-            if (_wishlistRepository.CheckProductWithUserExist(userID, request.ProductId))
+            if (_wishlistRepository.CheckProductWithUserExist( request.ProductId, userID))
                 throw new KeyNotFoundException("Product already in wishlist.");
             var cartId = _wishlistRepository.AddItemsToWishlist(request, userID);
             return cartId;
