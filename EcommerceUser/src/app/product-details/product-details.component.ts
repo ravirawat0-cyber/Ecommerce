@@ -76,7 +76,7 @@ export class ProductDetailsComponent implements OnInit {
       this.cartServices.AddToCart(item).subscribe(
          (response) => {
            if (response) {
-             this.accountService.loadUserFromToken();
+             this.accountService.loadUserFromToken().subscribe();
              this.snackbar.open("Added to Cart.", "Close",
                { duration: 3000}
              )}

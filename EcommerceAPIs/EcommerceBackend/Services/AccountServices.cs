@@ -18,14 +18,17 @@ namespace EcommerceBackend.Services
     public class AccountServices : IAccountServices
     {
         private readonly IAccountRepository _accountRepository;
+        private readonly IWishlistServices _wishlistServices;
         private readonly IConfiguration _congfiguration;
         private readonly ICartServices _cartServices;
 
-        public AccountServices(IAccountRepository accountRepository, IConfiguration configuration, ICartServices cartServices)
+        public AccountServices(IAccountRepository accountRepository,IWishlistServices wishlistServices, IConfiguration configuration, ICartServices cartServices)
         {
             _accountRepository = accountRepository;
+            _wishlistServices = wishlistServices;
             _congfiguration = configuration;
             _cartServices = cartServices;
+
         }
 
         public UserResponse Register(UserRegisterRequest request)
@@ -93,7 +96,7 @@ namespace EcommerceBackend.Services
             }
 
             var cartDetail = _cartServices.GetItemsByUserId(userDetails.Id);
-
+            var wishListDetail = _wishlistServices.GetWishlistItemsByUserId(userDetails.Id);
 
             var userResponse = new UserResponse 
             {
@@ -112,6 +115,7 @@ namespace EcommerceBackend.Services
                         Jwt = CreateToken(userDetails)
                     },
                     Cart = cartDetail,
+                    Wishlist = wishListDetail
                 },
                 StatusMessage = "Success."
             };
@@ -123,6 +127,7 @@ namespace EcommerceBackend.Services
         {
             var userDetail = _accountRepository.GetById(Convert.ToInt32(userId));
             var cartDetail = _cartServices.GetItemsByUserId(userDetail.Id);
+            var wishlistDetail = _wishlistServices.GetWishlistItemsByUserId(userDetail.Id);
 
             var userResponse = new UserResponse
             {
@@ -141,6 +146,7 @@ namespace EcommerceBackend.Services
                         Jwt = CreateToken(userDetail)
                     },
                     Cart = cartDetail,
+                    Wishlist = wishlistDetail
                 },
                 StatusMessage = "Success."
             };

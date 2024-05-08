@@ -52,6 +52,8 @@ namespace EcommerceBackend
             builder.Services.AddScoped<IAccountServices, AccountServices>();
             builder.Services.AddScoped<ICartRepository, CartRepository>();
             builder.Services.AddScoped<ICartServices, CartServices>();
+            builder.Services.AddScoped<IWishlistRepository, WishlistRepository>();
+            builder.Services.AddScoped<IWishlistServices, WishlistServices>();
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowSpecificOrigin",

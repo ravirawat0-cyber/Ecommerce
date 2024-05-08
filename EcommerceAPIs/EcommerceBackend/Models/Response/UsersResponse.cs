@@ -22,6 +22,7 @@
             public User User { get; set; }
             public Token Token { get; set; }
             public CartResponse Cart { get; set; } = new CartResponse();
+            public WishlistResponse Wishlist { get; set; } = new WishlistResponse();
         }
 
         public class UserResponse

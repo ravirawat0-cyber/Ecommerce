@@ -9,7 +9,7 @@ import {MatBadge} from "@angular/material/badge";
 import {RouterLink, RouterOutlet} from "@angular/router";
 import {AccountService} from "../../services/account.service";
 import {Subscription} from "rxjs";
-import {totalmem} from "node:os";
+
 
 @Component({
   selector: 'app-navbar',
@@ -40,5 +40,4 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.sidebarService.toogleSidebar()
   }
 
-  protected readonly totalmem = totalmem;
 }

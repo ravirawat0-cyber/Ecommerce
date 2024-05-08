@@ -11,13 +11,13 @@
   <mat-divider></mat-divider>
 
   <div class="action-container--login-signup"  *ngIf = "!userDetail">
-    <a [routerLink]="'/login'" >
-      <button mat-flat-button class="actions" (click)="closeSideNavbar()" >
+    <a [routerLink]="'/login'" (click)="closeSideNavbar()"  >
+      <button mat-flat-button class="actions" >
         <mat-icon>input</mat-icon>
         <span>Login</span></button>
     </a>
-    <a  [routerLink]="'./register'">
-      <button mat-flat-button class="actions" (click)="closeSideNavbar()">
+    <a  [routerLink]="'./register'"  (click)="closeSideNavbar()">
+      <button mat-flat-button class="actions" >
         <mat-icon> border_color</mat-icon>
         <span>SignUp</span></button>
     </a>
@@ -25,30 +25,30 @@
 
 
   <ul>
-    <li><a href="#">
-      <button class="actions" (click)="closeSideNavbar()">
+    <li><a href="#" (click)="closeSideNavbar()">
+      <button class="actions" >
         <mat-icon>supervisor_account</mat-icon>
         <span>Account</span>
       </button>
     </a></li>
 
-    <li><a href="#">
-      <button class="actions" (click)="closeSideNavbar()">
+    <li><a [routerLink] = "'/wishlist'" (click)="closeSideNavbar()">
+      <button class="actions" >
         <mat-icon>favorite</mat-icon>
         <span>Wishlist</span>
       </button>
     </a></li>
 
 
-    <li><a href="#">
-      <button class="actions" (click)="closeSideNavbar()">
+    <li><a [routerLink]="'/cart'" (click)="closeSideNavbar()">
+      <button class="actions" >
         <mat-icon>add_shopping_cart</mat-icon>
         <span>Cart</span>
       </button>
     </a></li>
 
-    <li><a href="#">
-      <button class="actions" (click)="closeSideNavbar()" >
+    <li><a href="#" (click)="closeSideNavbar()">
+      <button class="actions"  >
         <mat-icon>loyalty</mat-icon>
         <span>Orders</span>
       </button>
@@ -57,8 +57,8 @@
 
 
     <li *ngIf="userDetail"
-    ><a [routerLink]="'/home'" (click)="userlogout(); closeSideNavbar()">
-      <button class="actions"   >
+    ><a [routerLink]="'/home'"  (click)="userlogout(); closeSideNavbar()" >
+      <button   class="actions" >
         <mat-icon>exit_to_app</mat-icon>
         <span>Logout</span></button>
     </a></li>
@@ -67,33 +67,5 @@
 <router-outlet></router-outlet>
 <div class="overlay" *ngIf="isOpen" (click)="closeSideNavbar()"></div>
 
-
-
-<!--  <mat-sidenav mode="over" opened>-->
-<!--    <mat-list-item class="sidenav-elements" >-->
-<!--      <button mat-button><mat-icon>supervisor_account</mat-icon>Account</button>-->
-<!--    </mat-list-item>-->
-<!--    <mat-divider></mat-divider>-->
-<!--    <mat-list-item>-->
-<!--      <button mat-button><mat-icon>favorite</mat-icon>Wishlist</button>-->
-<!--    </mat-list-item>-->
-<!--    <mat-divider></mat-divider>-->
-<!--    <mat-list-item>-->
-<!--      <button mat-button><mat-icon>add_shopping_cart</mat-icon>Cart</button>-->
-<!--    </mat-list-item>-->
-<!--    <mat-divider></mat-divider>-->
-<!--    <mat-list-item>-->
-<!--      <button mat-button>	<mat-icon>loyalty</mat-icon>Orders</button>-->
-<!--    </mat-list-item>-->
-<!--    <mat-divider></mat-divider>-->
-<!--    <mat-list-item>-->
-<!--      <button mat-button>  <mat-icon>input</mat-icon>Login</button>-->
-<!--    </mat-list-item>-->
-<!--    <mat-divider></mat-divider>-->
-<!--    <mat-list-item>-->
-<!--      <button mat-button><mat-icon>exit_to_app</mat-icon>logout</button>-->
-<!--    </mat-list-item>-->
-<!--    <mat-divider></mat-divider>-->
-<!--  </mat-sidenav>-->
 
 

@@ -95,6 +95,5 @@ namespace EcommerceBackend.Repository
             var response = connection.ExecuteScalar<int>(query, values);
             return response > 0;
         }
-
     }
 }
