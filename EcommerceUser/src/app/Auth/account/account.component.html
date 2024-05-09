@@ -2,7 +2,9 @@
   <div class="card-container--main">
     <div class="user-view-container">
       <div class="user-img-container">
-        <button class="update-btn"><mat-icon>edit</mat-icon></button>
+        <mat-dialog-actions>
+        <button class="update-btn" (click)="openDialog()" ><mat-icon>edit</mat-icon></button>
+        </mat-dialog-actions>
         <div class="image">
           <img src=""/>
         </div>
@@ -34,7 +36,7 @@
         <mat-card-content class="order-detail-card">
 
           <div class="order-info">
-            Order#: "adfjdfdfj56ldfl"
+            Order#: "adfjdfdfj56ldflffffffffffffffffffff"
           </div>
           <a class="order-action"><mat-icon>launch</mat-icon></a>
 
@@ -78,6 +80,37 @@
             <div class="order-purchased">Purchased On: May 7, 2024</div>
           </mat-card-content>
         </mat-card>
+        <mat-card >
+          <mat-card-content class="order-detail-card">
+
+            <div class="order-info">
+              Order#: "adfjdfdfj56ldfl"
+            </div>
+            <a class="order-action"><mat-icon>launch</mat-icon></a>
+
+            <div class="order-price">
+              Total price: Rs.58999 /-
+            </div>
+            <div class="order-items">1</div>
+            <div class="order-purchased">Purchased On: May 7, 2024</div>
+          </mat-card-content>
+        </mat-card>
+        <mat-card >
+        <mat-card-content class="order-detail-card">
+
+          <div class="order-info">
+            Order#: "adfjdfdfj56ldfl"
+          </div>
+          <a class="order-action"><mat-icon>launch</mat-icon></a>
+
+          <div class="order-price">
+            Total price: Rs.58999 /-
+          </div>
+          <div class="order-items">1</div>
+          <div class="order-purchased">Purchased On: May 7, 2024</div>
+        </mat-card-content>
+      </mat-card>
+
       </div>
     </div>
   </div>

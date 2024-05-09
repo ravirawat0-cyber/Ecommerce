@@ -85,33 +85,54 @@
   letter-spacing: 0.0075em;
 }
 
+
+
 .order-detail-container{
   display: flex;
   gap: 1rem;
   padding: 1rem 1rem 1rem 0;
+  overflow-x: scroll;
+
 }
 
 mat-card{
-  overflow: hidden;
-  max-width: 250px;
   min-height: 0;
   padding:  0.2rem;
-  display: inline-block;
+  flex: 0 0 auto;
+  max-width: 200px;
 }
 
 .order-detail-card{
   padding: 1rem;
   padding-bottom: 1.5rem;
+
 }
+
 
 .order-info{
   font-weight: 500;
   font-size: 0.875rem;
   line-height: 1.57rem;
+  overflow: hidden;
 }
 
 .order-price , .order-items, .order-purchased{
   font-size: 0.75rem;
   line-height: 1.66rem;
   color: rgba(0, 0, 0, 0.87);
+}
+
+@media (max-width: 630px)
+{
+  .user-view-container{
+    flex-direction: column;
+  }
+  .user-img-container{
+    align-self: center;
+  }
+
+  .image {
+    width: 150px;
+    height: 150px;
+  }
 }
