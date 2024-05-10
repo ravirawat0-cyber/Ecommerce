@@ -3,14 +3,11 @@ using EcommerceBackend.Models.Request;
 using EcommerceBackend.Models.Response;
 using EcommerceBackend.Repository.Interfaces;
 using EcommerceBackend.Services.Interfaces;
-using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.Win32;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using Microsoft.AspNetCore.Routing.Template;
 using static EcommerceBackend.Models.Response.UsersResponses;
 
 namespace EcommerceBackend.Services
@@ -53,6 +50,7 @@ namespace EcommerceBackend.Services
                 Email = request.Email,
                 Mobile = request.Mobile,
                 Address = request.Address,
+                JoinedDate = DateTime.Now,
                 PasswordHash = passwordHash,
                 PasswordSalt = passwordSalt
             };
@@ -70,13 +68,15 @@ namespace EcommerceBackend.Services
                         Name = userDetails.Name,
                         Mobile = userDetails.Mobile,
                         Address = userDetails.Address,
+                        JoinedDate = userDetails.JoinedDate,
+
                     },
                     Token = new Token
                     {
                         Jwt = CreateToken(userDetails)
                     }
                 },
-                StatusMessage = "Sucess",
+                StatusMessage = "Success",
             };
 
             return userResponse;
@@ -109,6 +109,7 @@ namespace EcommerceBackend.Services
                         Name = userDetails.Name,
                         Mobile = userDetails.Mobile,
                         Address = userDetails.Address,
+                        JoinedDate = userDetails.JoinedDate
                     },
                     Token = new Token
                     {
@@ -140,6 +141,7 @@ namespace EcommerceBackend.Services
                         Name = userDetail.Name,
                         Mobile = userDetail.Mobile,
                         Address = userDetail.Address,
+                        JoinedDate = userDetail.JoinedDate
                     },
                     Token = new Token
                     {
@@ -153,6 +155,11 @@ namespace EcommerceBackend.Services
             return userResponse;
         }
 
+
+        public void UpdateUserDetails(string userId, UserDetailUpdateRequest request)
+        {
+            _accountRepository.UpdateUserDetails(int.Parse(userId), request);
+        }
 
         public PasswordResponse ForgotUserPassword(ForgotPasswordRequest request)
         {
@@ -190,7 +197,7 @@ namespace EcommerceBackend.Services
 
             userDetails.PasswordHash = passwordHash;
             userDetails.PasswordSalt = passwordSalt;
-            _accountRepository.UpdateUserDetails(userId, userDetails);
+            _accountRepository.UpdateUserPassword(userId, userDetails);
             _accountRepository.RemovePasswordResetToken(resetToken);
             return new PasswordResponse
             {

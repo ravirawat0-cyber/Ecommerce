@@ -10,8 +10,9 @@ namespace EcommerceBackend.Repository.Interfaces
         Users GetUserByCredentials( string email, string mobile);
         Users GetUserDetailByColumnName(string columnName, string value);
         void AddUserResetToken(int userId, byte[] resetToken, DateTime expiryDate);
-        void UpdateUserDetails(int userId, Users request);
+        void UpdateUserPassword(int userId, Users request);
         int GetUserIdByToken(byte[] resetToken);
         void RemovePasswordResetToken(byte[] resetToken);
+        void UpdateUserDetails(int userId, UserDetailUpdateRequest request);
     }
 }

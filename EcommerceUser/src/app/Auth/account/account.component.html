@@ -12,13 +12,13 @@
 
       <div class="user-info-container">
         <div class="user-detail">
-          <h5>Ravi Rawat</h5>
-          <h6>Email: emailgmail.com</h6>
-          <h6>Mobile: 7395091311</h6>
-          <h6>Address: hyderabad, Telanganga, india, 500081</h6>
+          <h5>{{userDetails.user.name}}</h5>
+          <h6>Email: {{userDetails.user.email}}</h6>
+          <h6>Mobile: {{userDetails.user.mobile}}</h6>
+          <h6>Address: {{userDetails.user.address}}</h6>
         </div>
         <div class="user-joining">
-          <span>Joined on: May 5, 2024</span>
+          <span>Joined on: {{formatedDate}}</span>
         </div>
       </div>
 

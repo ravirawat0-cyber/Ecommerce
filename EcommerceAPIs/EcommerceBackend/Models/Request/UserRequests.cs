@@ -37,4 +37,11 @@ namespace EcommerceBackend.Models.Request
             public string resetToken { get; set; }
             public string NewPassword { get; set; }
         }
+
+        public class UserDetailUpdateRequest
+        {
+            public string Name { get; set; }
+            public string Mobile { get; set; }
+            public string Address { get; set; }
+        }
 }

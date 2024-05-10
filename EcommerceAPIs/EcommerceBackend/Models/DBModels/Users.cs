@@ -9,7 +9,9 @@
         public string Address { get; set; }
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
+        public DateTime JoinedDate { get; set; }
     }
+
 
     public class UsersResetToken
     { 

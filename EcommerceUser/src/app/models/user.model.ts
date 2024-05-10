@@ -12,6 +12,12 @@ export interface IUserReq{
   confirmPassword: string;
 }
 
+export interface IUserUpdateReq{
+  name : string;
+  mobile : string;
+  address : string;
+}
+
 export interface IUserLoginReq{
   email : string;
   password : string;
@@ -24,6 +30,7 @@ export interface IUserRes{
     email : string;
     address : string;
     mobile : string;
+    joinedDate : string;
   },
   token : {
     jwt : string

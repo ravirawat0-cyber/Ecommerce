@@ -7,10 +7,11 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {importProvidersFrom} from "@angular/core";
 import {AuthInterceptor} from "./services/auth.interceptor";
+import {DatePipe} from "@angular/common";
 
 
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), provideClientHydration(), provideAnimationsAsync(), importProvidersFrom(HttpClientModule), provideRouter(routes, withComponentInputBinding())
+  providers: [provideRouter(routes), provideClientHydration(),DatePipe, provideAnimationsAsync(), importProvidersFrom(HttpClientModule), provideRouter(routes, withComponentInputBinding())
   , {provide: HTTP_INTERCEPTORS, useClass : AuthInterceptor, multi: true}]
 };

@@ -43,8 +43,8 @@ namespace EcommerceBackend.Repository
         public int Register(Users request)
         {
             var query = @"INSERT INTO UsersDetails 
-                             (Name, Mobile, Email, Address, PasswordHash, PasswordSalt) 
-                            VALUES (@Name, @Mobile, @Email,@Address, @PasswordHash, @PasswordSalt);
+                             (Name, Mobile, Email, Address, JoinedDate, PasswordHash, PasswordSalt) 
+                            VALUES (@Name, @Mobile, @Email,@Address, @JoinedDate, @PasswordHash, @PasswordSalt);
                             SELECT SCOPE_IDENTITY()";
             var values = new
             {
@@ -52,6 +52,7 @@ namespace EcommerceBackend.Repository
                 Email = request.Email,
                 Address = request.Address,
                 Mobile = request.Mobile,
+                JoinedDate = request.JoinedDate,
                 PasswordHash = request.PasswordHash,
                 PasswordSalt = request.PasswordSalt,
             };
@@ -107,7 +108,7 @@ namespace EcommerceBackend.Repository
         }
 
 
-        public void UpdateUserDetails(int userId, Users request)
+        public void UpdateUserPassword(int userId, Users request)
         {
             var query = @"
                         UPDATE UsersDetails
@@ -117,7 +118,7 @@ namespace EcommerceBackend.Repository
                              Address = @Address,
                             PasswordHash = @PasswordHash, 
                             PasswordSalt = @PasswordSalt
-                        WHERE Id = @UserId;
+                        WHERE Id = @UserId
                     ";
 
             var values = new
@@ -129,6 +130,26 @@ namespace EcommerceBackend.Repository
                 Mobile = request.Mobile,
                 PasswordHash = request.PasswordHash,
                 PasswordSalt = request.PasswordSalt,
+            };
+            UpdateDb(query, values);
+        }
+
+        public void UpdateUserDetails(int userId, UserDetailUpdateRequest request)
+        {
+            var query = @"
+                        UPDATE UsersDetails
+                        SET Name = @Name, 
+                            Mobile = @Mobile, 
+                            Address = @Address
+                        WHERE Id = @UserId
+                    ";
+
+            var values = new
+            {
+                UserId = userId,
+                Name = request.Name,
+                Address = request.Address,
+                Mobile = request.Mobile,
             };
             UpdateDb(query, values);
         }

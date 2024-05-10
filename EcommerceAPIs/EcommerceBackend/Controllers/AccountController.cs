@@ -48,6 +48,16 @@ namespace EcommerceBackend.Controllers
             return Ok(response);
         }
 
+
+        [HttpPut("update")]
+        [Authorize]
+        public IActionResult UpdateUserDetails(UserDetailUpdateRequest request)
+        {
+            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.UserData).Value;
+            _accountServices.UpdateUserDetails(userIdClaim, request);
+            return Ok();
+        }
+
         [HttpPost("forgot-password")]
         public IActionResult ForgotPassword(ForgotPasswordRequest request)
         {

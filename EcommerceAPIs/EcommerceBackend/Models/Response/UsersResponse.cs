@@ -9,6 +9,7 @@
             public string Name { get; set; }
             public string Mobile { get; set; }
             public string Address { get; set; }
+            public DateTime JoinedDate { get; set; }
         }
 
         public class Token

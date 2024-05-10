@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {IHttp, IUserLoginReq, IUserReq, IUserRes} from "../../app/models/user.model"
+import {IHttp, IUserLoginReq, IUserReq, IUserRes, IUserUpdateReq} from "../../app/models/user.model"
 import {HttpClient} from "@angular/common/http";
 import {BehaviorSubject, catchError, Observable, of, tap} from "rxjs";
 import {J} from "@angular/cdk/keycodes";
@@ -61,5 +61,9 @@ export class AccountService {
           localStorage.setItem('user', response.data.token.jwt);
         })
       )
+  }
+
+  updateUser(user: IUserUpdateReq) {
+    return this.http.put(`${this.baseUrl}/update`, user);
   }
 }
