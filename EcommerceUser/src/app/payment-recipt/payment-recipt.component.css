@@ -1,0 +1,14 @@
+.main-container{
+  overflow: hidden;
+}
+
+.svg-container{
+  margin-top: 10rem;
+  border: 1px solid red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px
+
+}
+

@@ -1,10 +1,11 @@
 import {Injectable} from '@angular/core';
 import {IHttp, IUserLoginReq, IUserReq, IUserRes, IUserUpdateReq} from "../../app/models/user.model"
 import {HttpClient} from "@angular/common/http";
-import {BehaviorSubject, catchError, Observable, of, tap} from "rxjs";
+import {BehaviorSubject, catchError, map, Observable, of, tap, throwError} from "rxjs";
 import {J} from "@angular/cdk/keycodes";
 import {user} from "@angular/fire/auth";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {IPurchaseRes} from "../models/cart.model";
 
 @Injectable({
   providedIn: 'root'
@@ -25,10 +26,8 @@ export class AccountService {
          tap(response => {
            this.userSubject.next(response.data);
            localStorage.setItem('user', response.data.token.jwt);
-           console.log(response.data);
          }),
          catchError(error => {
-           console.log(error.error);
            return of(null);
          })
        );
@@ -64,6 +63,10 @@ export class AccountService {
   }
 
   updateUser(user: IUserUpdateReq) {
-    return this.http.put(`${this.baseUrl}/update`, user);
+    return this.http.get(`${this.baseUrl}/Cart`);
+  }
+
+  CartPurchase(UUID : string ) {
+    return this.http.get<IPurchaseRes>(`${this.baseUrl}/purchase/${UUID}`);
   }
 }

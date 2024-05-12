@@ -12,6 +12,7 @@ import {MatProgressSpinner} from "@angular/material/progress-spinner";
 import {LoaderComponent} from "../global/loader/loader.component";
 import {CartService} from "../services/cart.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {v4 as uuidv4} from 'uuid';
 
 
 @Component({
@@ -114,5 +115,19 @@ export class CartComponent implements OnInit, OnDestroy {
         this.snackBar.open('Error Occurred.', 'Close', { duration: 3000 });
       }
     );
+  }
+
+  checkout() {
+    const UUID = uuidv4()
+     this.accountService.CartPurchase(UUID).subscribe(
+       res => {
+         window.open(res.url);
+
+       },
+       error => {
+         this.snackBar.open(`Error Occurred`, 'Close', {duration: 3000});
+       }
+
+     )
   }
 }
