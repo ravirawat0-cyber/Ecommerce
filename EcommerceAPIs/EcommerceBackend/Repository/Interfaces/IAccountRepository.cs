@@ -14,5 +14,7 @@ namespace EcommerceBackend.Repository.Interfaces
         int GetUserIdByToken(byte[] resetToken);
         void RemovePasswordResetToken(byte[] resetToken);
         void UpdateUserDetails(int userId, UserDetailUpdateRequest request);
+
+        string GetUserEmailbyId(int id);
     }
 }

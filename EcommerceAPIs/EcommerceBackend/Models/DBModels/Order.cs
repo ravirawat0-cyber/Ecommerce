@@ -3,13 +3,10 @@
     public class Order
     {
         public int Id { get; set; }
-        public string OrderNO { get; set; }
-        public int ProductId { get; set; }
-        public int UserId { get; set; }
-        public int PaymentId { get; set; }
-        public int Quantity { get; set; }
-        public string Status { get; set; }
-        public bool IsCancel { get; set; }
-        public DateTime CreatedDate { get; set; }
+        public string UserEmail { get; set; }
+        public string TransactionId { get; set; }
+        public string ReceiptURL { get; set; }
+        public decimal TotalPrice { get; set; }
+        public DateTime OrderDate { get; set; }
     }
 }

@@ -155,6 +155,12 @@ namespace EcommerceBackend.Services
             return userResponse;
         }
 
+        public string GetEmailByUserId(string userId)
+        {
+            var response = _accountRepository.GetUserEmailbyId(int.Parse(userId));
+            return response;
+        }
+
 
         public void UpdateUserDetails(string userId, UserDetailUpdateRequest request)
         {

@@ -4,7 +4,7 @@ namespace EcommerceBackend.Repository
 {
     public class BaseRepository<T> where T : class
     {
-        private readonly DbContext _context;
+        protected DbContext _context;
 
         public BaseRepository(DbContext dbContext)
         {

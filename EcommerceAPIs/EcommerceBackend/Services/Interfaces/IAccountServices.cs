@@ -12,5 +12,7 @@ namespace EcommerceBackend.Services.Interfaces
         PasswordResponse ForgotUserPassword(ForgotPasswordRequest request);
         PasswordResponse UpdatePassword(UpdatePasswordRequest request);
         void UpdateUserDetails(string userId, UserDetailUpdateRequest request);
+
+        string GetEmailByUserId(string userId);
     }
 }

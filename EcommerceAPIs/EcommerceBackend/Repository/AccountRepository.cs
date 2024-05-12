@@ -69,6 +69,17 @@ namespace EcommerceBackend.Repository
             return GetByCredDb(query, values);
         }
 
+
+        public string GetUserEmailbyId(int id)
+        {
+            var query = @"SELECT Email FROM UsersDetails (NOLOCK)
+                          WHERE Id = @id";
+            var values = new { Id = id };
+            using var connection = _dbContext.CreateConnection();
+            var response = connection.QueryFirstOrDefault<string>(query, values);
+            return response;
+        }
+
         public void AddUserResetToken(int userId, byte[] resetToken, DateTime expiryDate)
         {
             var query = @"INSERT INTO UsersRestToken 
@@ -106,7 +117,6 @@ namespace EcommerceBackend.Repository
             var value = new { ResetToken = resetToken };
             DeleteDb(query, value);
         }
-
 
         public void UpdateUserPassword(int userId, Users request)
         {
