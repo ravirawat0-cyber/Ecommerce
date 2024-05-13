@@ -12,30 +12,36 @@ namespace EcommerceBackend.Helper
         {
             _dbContext = context;
         }
-        public void AddIntoProductCategoryTable(int productId, string categoryIds)
+
+        public void AddEmailUUID(string email, string uuid)
         {
-            string query = @"INSERT INTO Product_Categories 
-                            (ProductID, CategoryId)
-                            VALUES (@ProductId, @CategoryId)";
-            string[] categoryArray = categoryIds.Split(',');
-            foreach (string categoryIdString in categoryArray)
-            {
-                if (int.TryParse(categoryIdString, out int categoryId))
-                {
-                    var values = new { ProductId = productId, categoryId = categoryId };
-                    using var connection = _dbContext.CreateConnection();
-                    connection.Execute(query, values);
-                }
-            }
-        }
-        public void DeleteFromProductCategoryTable(int productId)
-        {
-            string query = @"DELETE FROM Product_Categories  
-                     WHERE ProductID = @ProductId";
-            var values = new { ProductId = productId };
+            var query = @"INSERT INTO EmailUUID
+                         (Email , UUID)
+                         VALUES (@Email, @UUID)";
+            var values = new { Email = email, UUID = uuid };
             using var connection = _dbContext.CreateConnection();
             connection.Execute(query, values);
         }
 
+        public string GetUUIDbyEmail(string email)
+        {
+            var query = @"SELECT UUID
+                         FROM EmailUUID
+                          WHERE Email = @Email";
+            var values = new { Email = email };
+            using var connection = _dbContext.CreateConnection();
+            var response = connection.QueryFirstOrDefault<string>(query, values);
+            return response;
+        }
+
+        public void DeleteEmailUUID(string email)
+        {
+            var query = @"DELETE FROM EmailUUID
+                         WHERE Email = @Email";
+            var values = new { Email = email };
+            using var connection = _dbContext.CreateConnection();
+            connection.Execute(query, values);
+
+        }
     }
 }

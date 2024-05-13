@@ -155,9 +155,9 @@ namespace EcommerceBackend.Services
             return userResponse;
         }
 
-        public string GetEmailByUserId(string userId)
+        public string GetEmailByUserId(int userId)
         {
-            var response = _accountRepository.GetUserEmailbyId(int.Parse(userId));
+            var response = _accountRepository.GetUserEmailbyId(userId);
             return response;
         }
 

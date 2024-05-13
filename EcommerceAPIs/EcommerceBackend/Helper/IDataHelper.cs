@@ -2,7 +2,9 @@
 {
     public interface IDataHelper
     {
-        void DeleteFromProductCategoryTable(int productId);
-        void AddIntoProductCategoryTable(int productId, string categoryIds);
+        void AddEmailUUID(string email, string uuid);
+
+        string GetUUIDbyEmail(string email);
+        void DeleteEmailUUID(string email);
     }
 }

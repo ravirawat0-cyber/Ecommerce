@@ -10,10 +10,13 @@ namespace EcommerceBackend.Services
     public class OrderServices : IOrderServices
     {
         private readonly IOrderRepository _orderRepository;
+        private readonly IAccountServices _accountServices;
 
-        public OrderServices(IOrderRepository orderRepository)
+
+        public OrderServices(IOrderRepository orderRepository , IAccountServices accountServices)
         {
             _orderRepository = orderRepository;
+            _accountServices = accountServices;
         }
 
 
@@ -45,9 +48,10 @@ namespace EcommerceBackend.Services
         }
 
 
-        public OrderResponse GetAllByUserId(string userId)
+        public OrderResponse GetAllByUserId(int userId)
         {
-            var orderDb = _orderRepository.GetAllByUserId(int.Parse(userId));
+            var email = _accountServices.GetEmailByUserId(userId);
+            var orderDb = _orderRepository.GetAllByUserEmail(email);
             if (orderDb == null)
                 throw new KeyNotFoundException("Orders not found.");
 

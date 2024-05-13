@@ -7,7 +7,7 @@ using Stripe;
 
 namespace EcommerceBackend.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class OrderController : ControllerBase
     {
@@ -30,6 +30,7 @@ namespace EcommerceBackend.Controllers
 
 
         [HttpGet("transactionId/{id}")]
+        [Authorize]
         public IActionResult GetByTransactionId(string id)
         {
             var response = _orderServices.GetByTransactionId(id);

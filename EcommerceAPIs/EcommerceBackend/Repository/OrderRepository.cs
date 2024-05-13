@@ -33,17 +33,17 @@ namespace EcommerceBackend.Repository
             return id;
         }
 
-        public IEnumerable<Order> GetAllByUserId(int userId)
+        public IEnumerable<Order> GetAllByUserEmail(string email)
         {
             var query = @"SELECT * 
                           FROM Orders
-                          WHERE UserId = @UserId";
+                          WHERE UserEmail = @UserEmail";
             var values = new
             {
-                UserId = userId
+                UserEmail = email,
             };
             using var connection = _dbContext.CreateConnection();
-            var response = connection.Query<Order>(query);
+            var response = connection.Query<Order>(query, values);
             return response;
 
         }
