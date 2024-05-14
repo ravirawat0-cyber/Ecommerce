@@ -16,14 +16,15 @@ namespace EcommerceBackend.Repository
         {
             var query = @"
                          INSERT INTO Orders
-                         (UserEmail, TransactionId, ReceiptURL, TotalPrice, OrderDate)
+                         (UserEmail, UserId, TransactionId, ReceiptURL, TotalPrice, OrderDate)
                          VALUES 
-                          (@UserEmail, @TransactionId, @ReceiptURL, @TotalPrice, @OrderDate)
+                          (@UserEmail,@UserId, @TransactionId, @ReceiptURL, @TotalPrice, @OrderDate)
                           SELECT SCOPE_IDENTITY()
                          ";
             var values = new
             {
                 UserEmail = request.UserEmail,
+                UserId = request.UserId,
                 TransactionId = request.TransactionId,
                 ReceiptURl = request.ReceiptURL,
                 TotalPrice = request.TotalPrice,
@@ -32,6 +33,29 @@ namespace EcommerceBackend.Repository
             var id = CreateDb(query, values);
             return id;
         }
+
+        public int CreateOrderItems(OrderItem request)
+        {
+            var query = @"
+                         INSERT INTO OrderItems
+                         (OrderId, ProductId, Quantity, Price, ProductImage)
+                         VALUES 
+                          (@OrderId,@ProductId, @Quantity, @Price, @ProductImage)
+                          SELECT SCOPE_IDENTITY()
+                         ";
+            var values = new
+            {
+                 OrderId = request.OrderId,
+                 ProductId = request.ProductId,
+                 Quantity = request.Quantity,
+                 Price = request.Price,
+                 ProductImage = request.ProductImage,
+            };
+            var id = CreateDb(query, values);
+            return id;
+        }
+
+
 
         public IEnumerable<Order> GetAllByUserEmail(string email)
         {
@@ -62,6 +86,20 @@ namespace EcommerceBackend.Repository
             var response = GetByIdDb(query, values);
             return response;
         }
+
+        public int hasPurchasedQuery(int userId, int productId)
+        {
+            var query = @"
+                    SELECT COUNT(*)
+                    FROM Orders o
+                    INNER JOIN OrderItems oi ON o.Id = oi.OrderId
+                    WHERE o.UserId = @UserId AND oi.ProductId = @ProductId";
+
+            var values = new { UserId = userId, ProductId = productId };
+            var response = GetCountFromDb(query, values);
+            return response;
+        }
     }
 }
+
 

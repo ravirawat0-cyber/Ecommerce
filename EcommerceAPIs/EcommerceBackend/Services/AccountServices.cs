@@ -9,6 +9,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using static EcommerceBackend.Models.Response.UsersResponses;
+using User = EcommerceBackend.Models.Response.UsersResponses.User;
 
 namespace EcommerceBackend.Services
 {
@@ -155,12 +156,21 @@ namespace EcommerceBackend.Services
             return userResponse;
         }
 
+        public UserRes GetNameById(int id)
+        {
+            return _accountRepository.GetNameById(id);
+        }
         public string GetEmailByUserId(int userId)
         {
             var response = _accountRepository.GetUserEmailbyId(userId);
             return response;
         }
 
+        public int GetUserIdByEmail(string email)
+        {
+            var response = _accountRepository.GetUserIdbyEmail(email);
+            return response;
+        }
 
         public void UpdateUserDetails(string userId, UserDetailUpdateRequest request)
         {

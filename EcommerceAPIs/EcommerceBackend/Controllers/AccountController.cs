@@ -162,9 +162,11 @@ namespace EcommerceBackend.Controllers
                             var receiptUrl = (string)eventData["data"]["object"]["receipt_url"];
                             var uuid = _dataHelper.GetUUIDbyEmail(userEmail);
                             _dataHelper.DeleteEmailUUID(userEmail);
+                            var userId = _accountServices.GetUserIdByEmail(userEmail);
 
                              var orderReq = new Order
                             {   
+                                UserId = userId,
                                 TransactionId = uuid,
                                 UserEmail = userEmail,
                                 TotalPrice = totalPrice,
@@ -172,6 +174,23 @@ namespace EcommerceBackend.Controllers
                             };
 
                             var id = _orderServices.Create(orderReq);
+                            var items = _accountServices.GetByUserId(userId.ToString());
+
+                            foreach (var item in items.Data.Cart.Items)
+                            {
+                                var orderItemReq = new OrderItem
+                                {
+                                    OrderId = id,
+                                    ProductId = item.ProductId,
+                                    Quantity = item.Quantity,
+                                    Price = item.ProductPrice,
+                                    ProductImage = item.ProductImage
+                                };
+                                _orderServices.CreateOrderItem(orderItemReq);
+                            }
+
+                            _cartServices.DeleteCart(userId.ToString());
+
                     }
                         break;
                     default:

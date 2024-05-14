@@ -29,6 +29,11 @@ namespace EcommerceBackend.Repository
             return connection.Query<T>(query);
         }
 
+        public IEnumerable<T> GetAllByIdDb(string query, object value)
+        {
+            using var connection = _context.CreateConnection();
+            return connection.Query<T>(query, value);
+        }
         public T GetByCredDb(string query, object value)
         {
             using var connection = _context.CreateConnection();

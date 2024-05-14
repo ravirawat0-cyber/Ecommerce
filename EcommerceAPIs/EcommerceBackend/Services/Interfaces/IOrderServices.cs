@@ -8,5 +8,7 @@ namespace EcommerceBackend.Services.Interfaces
         int Create(Order request);
         OrderResponse GetAllByUserId(int userId);
         OrderResponse GetByTransactionId(string transactionId);
+        int CreateOrderItem(OrderItem item);
+        int hasPurchasedQuery(int userId, int productId);
     }
 }

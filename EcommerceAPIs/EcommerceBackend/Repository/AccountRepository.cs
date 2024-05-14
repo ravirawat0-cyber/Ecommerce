@@ -3,6 +3,7 @@ using EcommerceBackend.Models.DBModels;
 using EcommerceBackend.Models.Request;
 using EcommerceBackend.Repository.Interfaces;
 using System.Reflection;
+using EcommerceBackend.Models.Response;
 
 
 namespace EcommerceBackend.Repository
@@ -70,6 +71,16 @@ namespace EcommerceBackend.Repository
         }
 
 
+        public UserRes GetNameById(int id)
+        {
+            var query = @"SELECT Id, Name FROM UsersDetails (NOLOCK)
+                       WHERE Id = @id";
+            var values = new { Id = id };
+            using var connection = _dbContext.CreateConnection();
+            var response = connection.QueryFirstOrDefault<UserRes>(query, values);
+            return response;
+        }
+
         public string GetUserEmailbyId(int id)
         {
             var query = @"SELECT Email FROM UsersDetails (NOLOCK)
@@ -80,6 +91,15 @@ namespace EcommerceBackend.Repository
             return response;
         }
 
+        public int GetUserIdbyEmail(string email)
+        {
+            var query = @"SELECT Id FROM UsersDetails (NOLOCK)
+                          WHERE Email = @Email";
+            var values = new { Email = email };
+            using var connection = _dbContext.CreateConnection();
+            var response = connection.QueryFirstOrDefault<int>(query, values);
+            return response;
+        }
 
         public void AddUserResetToken(int userId, byte[] resetToken, DateTime expiryDate)
         {

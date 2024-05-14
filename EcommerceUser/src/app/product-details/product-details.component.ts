@@ -4,7 +4,7 @@ import {MatButton} from "@angular/material/button";
 import {IProductProfileRes} from "../models/product.model";
 import {ProductsService} from "../services/products.service";
 import {NgForOf} from "@angular/common";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, RouterLink, RouterOutlet} from "@angular/router";
 import {CartService} from "../services/cart.service";
 import {ICartReq} from "../models/cart.model";
 import {AccountService} from "../services/account.service";
@@ -16,7 +16,9 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   imports: [
     MatIcon,
     MatButton,
-    NgForOf
+    NgForOf,
+    RouterLink,
+    RouterOutlet
   ],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.css',

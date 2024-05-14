@@ -31,10 +31,12 @@
             <mat-icon>add_shopping_cart</mat-icon>
             ADD TO CART
           </button>
-          <button mat-flat-button color="primary">
+
+          <button mat-flat-button color="primary" (click)="addToCart()" [routerLink]="'/cart'">
             <mat-icon>shopping_basket</mat-icon>
             BUY NOW
           </button>
+
         </div>
 
         <div class="keyfeature-container">
@@ -66,3 +68,6 @@
     </div>
   </div>
 </div>
+
+
+<router-outlet></router-outlet>

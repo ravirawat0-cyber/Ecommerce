@@ -47,6 +47,18 @@ namespace EcommerceBackend.Services
             return response;
         }
 
+        public int CreateOrderItem(OrderItem item)
+        {
+            var response = _orderRepository.CreateOrderItems(item);
+            return response;
+        }
+
+        public int hasPurchasedQuery(int userId, int productId)
+        {
+            return _orderRepository.hasPurchasedQuery(userId, productId);
+        }
+        
+
 
         public OrderResponse GetAllByUserId(int userId)
         {

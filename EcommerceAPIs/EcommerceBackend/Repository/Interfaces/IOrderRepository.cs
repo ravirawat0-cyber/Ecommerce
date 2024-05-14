@@ -8,5 +8,8 @@ namespace EcommerceBackend.Repository.Interfaces
         IEnumerable<Order> GetAllByUserEmail(string email);
 
         Order GetByTransactionId(string transactionId);
+        int CreateOrderItems(OrderItem request);
+
+        int hasPurchasedQuery(int userId, int productId);
     }
 }

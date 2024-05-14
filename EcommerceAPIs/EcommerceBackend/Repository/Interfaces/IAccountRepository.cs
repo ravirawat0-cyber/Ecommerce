@@ -1,5 +1,6 @@
 ﻿using EcommerceBackend.Models.DBModels;
 using EcommerceBackend.Models.Request;
+using EcommerceBackend.Models.Response;
 
 namespace EcommerceBackend.Repository.Interfaces
 {
@@ -16,5 +17,8 @@ namespace EcommerceBackend.Repository.Interfaces
         void UpdateUserDetails(int userId, UserDetailUpdateRequest request);
 
         string GetUserEmailbyId(int id);
+        int GetUserIdbyEmail(string email);
+
+        UserRes GetNameById(int id);
     }
 }
