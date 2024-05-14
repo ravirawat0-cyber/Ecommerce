@@ -8,7 +8,9 @@ import {IUserRes} from "../../models/user.model";
 import {Subscription} from "rxjs";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {AccountService} from "../../services/account.service";
-import {DatePipe} from "@angular/common";
+import {DatePipe, NgForOf} from "@angular/common";
+import {OrderService} from "../../services/order.service";
+import {IOrderRes} from "../../models/order.model";
 
 @Component({
   selector: 'app-account',
@@ -18,7 +20,9 @@ import {DatePipe} from "@angular/common";
     MatCard,
     MatCardContent,
     MatIcon,
-    MatDialogActions
+    MatDialogActions,
+    NgForOf,
+    DatePipe
   ],
   templateUrl: './account.component.html',
   styleUrl: './account.component.css'
@@ -28,16 +32,19 @@ export class AccountComponent implements OnInit, OnDestroy {
   userDetails! : IUserRes
   userSubscritption! : Subscription;
   formatedDate : string | null = "";
+  userOrders : IOrderRes[] = [];
 
   constructor(
     private datePipe: DatePipe,
     private matDialog: MatDialog,
     private snackBar: MatSnackBar,
-    private accountService : AccountService) {
+    private accountService : AccountService,
+    private orderService : OrderService) {
   }
 
   ngOnInit(): void {
         this.loadUser();
+        this.getAllOrders();
     }
 
   ngOnDestroy(): void {
@@ -56,6 +63,15 @@ export class AccountComponent implements OnInit, OnDestroy {
 
   openDialog(){
     this.matDialog.open(AccountmodelComponent
+    )
+  }
+
+  getAllOrders()
+  {
+    this.orderService.getAllOrderDetail().subscribe(
+       res => {
+         this.userOrders = res.data;
+       }
     )
   }
 }

@@ -32,84 +32,21 @@
       </div>
 
       <div class = "order-detail-container">
-      <mat-card >
-        <mat-card-content class="order-detail-card">
+      <mat-card  *ngFor="let order of userOrders" >
+        <mat-card-content class="order-detail-card" >
 
           <div class="order-info">
-            Order#: "adfjdfdfj56ldflffffffffffffffffffff"
+            Order#: {{order.transactionId}}
           </div>
-          <a class="order-action"><mat-icon>launch</mat-icon></a>
+          <a href="{{order.receiptURL}}" class="order-action"><mat-icon>launch</mat-icon></a>
 
         <div class="order-price">
-          Total price: Rs.58999 /-
+          Total price: Rs.{{order.totalPrice}} /-
         </div>
-        <div class="order-items">1</div>
-        <div class="order-purchased">Purchased On: May 7, 2024</div>
+        <div class="order-purchased">Purchased On: {{order.orderDate | date: 'MMMM d, yyyy'}}</div>
         </mat-card-content>
       </mat-card>
-
-
-        <mat-card >
-          <mat-card-content class="order-detail-card">
-
-            <div class="order-info">
-              Order#: "adfjdfdfj56ldfl"
-            </div>
-            <a class="order-action"><mat-icon>launch</mat-icon></a>
-
-            <div class="order-price">
-              Total price: Rs.58999 /-
-            </div>
-            <div class="order-items">1</div>
-            <div class="order-purchased">Purchased On: May 7, 2024</div>
-          </mat-card-content>
-        </mat-card>
-
-        <mat-card >
-          <mat-card-content class="order-detail-card">
-
-            <div class="order-info">
-              Order#: "adfjdfdfj56ldfl"
-            </div>
-            <a class="order-action"><mat-icon>launch</mat-icon></a>
-
-            <div class="order-price">
-              Total price: Rs.58999 /-
-            </div>
-            <div class="order-items">1</div>
-            <div class="order-purchased">Purchased On: May 7, 2024</div>
-          </mat-card-content>
-        </mat-card>
-        <mat-card >
-          <mat-card-content class="order-detail-card">
-
-            <div class="order-info">
-              Order#: "adfjdfdfj56ldfl"
-            </div>
-            <a class="order-action"><mat-icon>launch</mat-icon></a>
-
-            <div class="order-price">
-              Total price: Rs.58999 /-
-            </div>
-            <div class="order-items">1</div>
-            <div class="order-purchased">Purchased On: May 7, 2024</div>
-          </mat-card-content>
-        </mat-card>
-        <mat-card >
-        <mat-card-content class="order-detail-card">
-
-          <div class="order-info">
-            Order#: "adfjdfdfj56ldfl"
-          </div>
-          <a class="order-action"><mat-icon>launch</mat-icon></a>
-
-          <div class="order-price">
-            Total price: Rs.58999 /-
-          </div>
-          <div class="order-items">1</div>
-          <div class="order-purchased">Purchased On: May 7, 2024</div>
-        </mat-card-content>
-      </mat-card>
+        
 
       </div>
     </div>

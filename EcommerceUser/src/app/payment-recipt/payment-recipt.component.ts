@@ -29,9 +29,11 @@ export class PaymentReciptComponent {
   }
 
   openRecipt() {
+    console.log("clicked open recipt")
+    console.log(this.uuid);
     this.orderService.getRecipt(this.uuid).subscribe( res => {
-          console.log(res.data)
-    //  window.open(res.data.receiptURL);
+     console.log(res.data[0].receiptURL);
+     window.open(res.data[0].receiptURL);
     },
       error => {
            console.log("recipt : ",error);
