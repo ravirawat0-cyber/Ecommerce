@@ -24,7 +24,7 @@ namespace EcommerceBackend.Repository
                 UserId = review.UserId,
                 ProductId = review.ProductId,
                 Rating = review.Rating,
-                Comment = review.Comments,
+                Comment = review.Comment,
             };
 
             var id = CreateDb(query, values);
@@ -74,7 +74,7 @@ namespace EcommerceBackend.Repository
             var values = new
             {
                 Rating = review.Rating,
-                Comment = review.Comments,
+                Comment = review.Comment,
                 ProductId = review.ProductId,
                 UserId = review.UserId
             };

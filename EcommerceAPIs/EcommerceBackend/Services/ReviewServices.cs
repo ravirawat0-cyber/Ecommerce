@@ -32,7 +32,7 @@ namespace EcommerceBackend.Services
                 UserId = userId,
                 ProductId = request.ProductId,
                 Rating = request.Rating,
-                Comments = request.Comments
+                Comment = request.Comments
             };
 
             var response = _reviewRepository.Create(review);
@@ -42,6 +42,10 @@ namespace EcommerceBackend.Services
         public ReviewResponse GetByProductId(int productId)
         {
             var reviews = _reviewRepository.GetByProductId(productId);
+
+            if (reviews == null)
+                throw new KeyNotFoundException("No review of a product.");
+
             var response = new ReviewResponse
             {
                 StatusMessage = "Success",
@@ -52,7 +56,7 @@ namespace EcommerceBackend.Services
                     ProductId = review.ProductId,
                     User = _accountServices.GetNameById(review.UserId),
                     Rating = review.Rating,
-                    Comments = review.Comments
+                    Comments = review.Comment
 
                 }).ToList()
             };
@@ -62,6 +66,8 @@ namespace EcommerceBackend.Services
         public ReviewResponse GetByProductAndUserId(int userId, int productId)
         {
             var review = _reviewRepository.GetbyProductAndUserId(userId, productId);
+            if (review == null)
+                throw new KeyNotFoundException("No review of a products.");
 
             var response = new ReviewResponse
             {
@@ -76,7 +82,7 @@ namespace EcommerceBackend.Services
                         ProductId = review.ProductId,
                         User = _accountServices.GetNameById(review.UserId),
                         Rating = review.Rating,
-                        Comments = review.Comments
+                        Comments = review.Comment
                     }
                 }
             };
@@ -91,7 +97,7 @@ namespace EcommerceBackend.Services
                 UserId = userId,
                 ProductId = request.ProductId,
                 Rating = request.Rating,
-                Comments = request.Comments
+                Comment = request.Comments
             };
 
             _reviewRepository.UpdateReviewByUserAndProductId(review);

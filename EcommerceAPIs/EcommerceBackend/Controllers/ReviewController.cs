@@ -21,11 +21,11 @@ namespace EcommerceBackend.Controllers
 
 
         [HttpPost("add")]
-        [Authorize]
+    //    [Authorize]
         public IActionResult Add(ReviewRequest request)
         {
-            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.UserData).Value;
-            var response = _reviewServices.Create(request, int.Parse(userIdClaim));
+         //   var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.UserData).Value;
+            var response = _reviewServices.Create(request, int.Parse("2005"));
             return Ok(response);
         }
 

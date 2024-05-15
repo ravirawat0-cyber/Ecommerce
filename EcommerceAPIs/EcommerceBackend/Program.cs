@@ -58,6 +58,8 @@ namespace EcommerceBackend
             builder.Services.AddScoped<IOrderRepository, OrderRepository>();
             builder.Services.AddScoped<IOrderServices, OrderServices>();
             builder.Services.AddScoped<IDataHelper, DataHelper>();
+            builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
+            builder.Services.AddScoped<IReviewServices, ReviewServices>();
 
             builder.Services.AddCors(options =>
             {
