@@ -1,0 +1,7 @@
+<div class="star-rating">
+  <button type = "button" *ngFor="let star of stars; let i = index" (click) = "rate(i + 1)">
+    <mat-icon class="star-icon">
+      {{i < rating ? 'star' : 'star_border'}}
+    </mat-icon>
+  </button>
+</div>

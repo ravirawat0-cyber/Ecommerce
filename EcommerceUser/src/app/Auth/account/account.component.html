@@ -28,11 +28,11 @@
     <div class="order-container-main">
       <div class="order-heading">
         <h6>Orders</h6>
-        <a class="view-all">view all</a>
+        <a [routerLink]="'/orders'" class="view-all">view all</a>
       </div>
 
       <div class = "order-detail-container">
-      <mat-card  *ngFor="let order of userOrders" >
+      <mat-card  *ngFor="let order of userOrders.orderDetails" >
         <mat-card-content class="order-detail-card" >
 
           <div class="order-info">
@@ -46,8 +46,6 @@
         <div class="order-purchased">Purchased On: {{order.orderDate | date: 'MMMM d, yyyy'}}</div>
         </mat-card-content>
       </mat-card>
-
-
       </div>
     </div>
   </div>

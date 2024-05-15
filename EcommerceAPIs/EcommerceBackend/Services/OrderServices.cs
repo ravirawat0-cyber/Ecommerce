@@ -5,6 +5,7 @@ using EcommerceBackend.Repository;
 using EcommerceBackend.Repository.Interfaces;
 using EcommerceBackend.Services.Interfaces;
 
+
 namespace EcommerceBackend.Services
 {
     public class OrderServices : IOrderServices
@@ -60,33 +61,53 @@ namespace EcommerceBackend.Services
         
 
 
-        public OrderResponse GetAllByUserId(int userId)
+        public OrderResponseModel.OrderResponse GetAllByUserId(int userId)
         {
             var email = _accountServices.GetEmailByUserId(userId);
             var orderDb = _orderRepository.GetAllByUserEmail(email);
             if (orderDb == null)
                 throw new KeyNotFoundException("Orders not found.");
 
-            var response = new OrderResponse
+            var orderDetailsList = new List<OrderResponseModel.OrderDetails>();
+
+            foreach (var dbOrder in orderDb)
             {
-                Data = orderDb,
+                var itemDetails = _orderRepository.GetOrderItemsByOrderId(dbOrder.Id);
+
+                var orderDetails = new OrderResponseModel.OrderDetails
+                {
+                    TotalPrice = dbOrder.TotalPrice,
+                    ItemDetails = itemDetails,
+                    OrderDate = dbOrder.OrderDate,
+                    TransactionId = dbOrder.TransactionId,
+                    ReceiptURL = dbOrder.ReceiptURL
+                };
+
+                orderDetailsList.Add(orderDetails);
+            }
+
+            var response = new OrderResponseModel.OrderResponse
+            {
+                Data = new OrderResponseModel.OrderData
+                {
+                    OrderDetails = orderDetailsList
+                },
                 StatusMessage = "Success."
             };
 
             return response;
-
         }
 
 
-        public OrderResponse GetByTransactionId(string transactionId)
+        public OrderResponseModel.TransactionOrderResponse GetByTransactionId(string transactionId)
         {
             var orderDb = _orderRepository.GetByTransactionId(transactionId);
             if (orderDb == null)
                 throw new KeyNotFoundException("Order not found.");
 
-            var response = new OrderResponse
+            var response = new OrderResponseModel.TransactionOrderResponse
             {
-                Data = new Order[] { orderDb },
+                Data = orderDb,
                 StatusMessage = "Success."
 
             };

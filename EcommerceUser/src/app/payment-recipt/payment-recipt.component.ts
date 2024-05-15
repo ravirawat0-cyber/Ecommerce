@@ -32,12 +32,11 @@ export class PaymentReciptComponent {
     console.log("clicked open recipt")
     console.log(this.uuid);
     this.orderService.getRecipt(this.uuid).subscribe( res => {
-     console.log(res.data[0].receiptURL);
-     window.open(res.data[0].receiptURL);
+     window.open(res.data.receiptURL);
     },
       error => {
-           console.log("recipt : ",error);
-            this.snackbar.open("Error Occurred", "Close", {duration: 3000});
+           console.log("recipt : ",error.error);
+            this.snackbar.open(error.error, "Close", {duration: 3000});
       })
   }
 }

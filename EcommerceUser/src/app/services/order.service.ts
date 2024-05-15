@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {IHttp, IOrderRes} from "../models/order.model";
+import {IHttp, IOrder, IOrderData} from "../models/order.model";
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +11,10 @@ export class OrderService {
   constructor(private http : HttpClient) { }
 
   getRecipt(uuid: string){
-    return this.http.get<IHttp<IOrderRes[]>>(`${this.baseUrl}/transactionId/${uuid}`);
+    return this.http.get<IHttp<IOrder>>(`${this.baseUrl}/transactionId/${uuid}`);
   }
 
   getAllOrderDetail(){
-    return this.http.get<IHttp<IOrderRes[]>>(`${this.baseUrl}/all`);
+    return this.http.get<IHttp<IOrderData>>(`${this.baseUrl}/all`);
   }
 }

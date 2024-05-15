@@ -1,4 +1,5 @@
-﻿using Dapper;
+﻿using System.Diagnostics.CodeAnalysis;
+using Dapper;
 using EcommerceBackend.Models.DBModels;
 using EcommerceBackend.Repository.Interfaces;
 
@@ -38,9 +39,9 @@ namespace EcommerceBackend.Repository
         {
             var query = @"
                          INSERT INTO OrderItems
-                         (OrderId, ProductId, Quantity, Price, ProductImage)
+                         (OrderId, ProductId, Quantity, Price, ProductImage, ProductName)
                          VALUES 
-                          (@OrderId,@ProductId, @Quantity, @Price, @ProductImage)
+                          (@OrderId,@ProductId, @Quantity, @Price, @ProductImage, @ProductName)
                           SELECT SCOPE_IDENTITY()
                          ";
             var values = new
@@ -50,11 +51,27 @@ namespace EcommerceBackend.Repository
                  Quantity = request.Quantity,
                  Price = request.Price,
                  ProductImage = request.ProductImage,
+                 ProductName = request.ProductName,
             };
             var id = CreateDb(query, values);
             return id;
         }
 
+
+     
+        public IEnumerable<OrderItem> GetOrderItemsByOrderId(int orderId)
+        {
+            var query = @"SELECT * 
+                          FROM OrderItems
+                          WHERE OrderId = @OrderId";
+            var values = new
+            { 
+                OrderId = orderId
+            };
+            using var connection = _dbContext.CreateConnection();
+            var response = connection.Query<OrderItem>(query, values);
+            return response;
+        }
 
 
         public IEnumerable<Order> GetAllByUserEmail(string email)

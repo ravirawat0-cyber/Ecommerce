@@ -10,7 +10,8 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {AccountService} from "../../services/account.service";
 import {DatePipe, NgForOf} from "@angular/common";
 import {OrderService} from "../../services/order.service";
-import {IOrderRes} from "../../models/order.model";
+import {IOrderData} from "../../models/order.model";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-account',
@@ -22,7 +23,8 @@ import {IOrderRes} from "../../models/order.model";
     MatIcon,
     MatDialogActions,
     NgForOf,
-    DatePipe
+    DatePipe,
+    RouterLink
   ],
   templateUrl: './account.component.html',
   styleUrl: './account.component.css'
@@ -32,7 +34,9 @@ export class AccountComponent implements OnInit, OnDestroy {
   userDetails! : IUserRes
   userSubscritption! : Subscription;
   formatedDate : string | null = "";
-  userOrders : IOrderRes[] = [];
+  userOrders : IOrderData = {
+    orderDetails: []
+  } ;
 
   constructor(
     private datePipe: DatePipe,
@@ -71,6 +75,7 @@ export class AccountComponent implements OnInit, OnDestroy {
     this.orderService.getAllOrderDetail().subscribe(
        res => {
          this.userOrders = res.data;
+         console.log(this.userOrders);
        }
     )
   }

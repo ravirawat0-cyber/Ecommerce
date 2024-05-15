@@ -184,7 +184,8 @@ namespace EcommerceBackend.Controllers
                                     ProductId = item.ProductId,
                                     Quantity = item.Quantity,
                                     Price = item.ProductPrice,
-                                    ProductImage = item.ProductImage
+                                    ProductImage = item.ProductImage,
+                                    ProductName = item.ProductName,
                                 };
                                 _orderServices.CreateOrderItem(orderItemReq);
                             }

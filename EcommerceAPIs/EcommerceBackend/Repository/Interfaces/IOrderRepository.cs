@@ -11,5 +11,7 @@ namespace EcommerceBackend.Repository.Interfaces
         int CreateOrderItems(OrderItem request);
 
         int hasPurchasedQuery(int userId, int productId);
+
+        IEnumerable<OrderItem> GetOrderItemsByOrderId(int orderId);
     }
 }

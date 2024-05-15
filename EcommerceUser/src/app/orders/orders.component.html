@@ -1,30 +1,30 @@
 <div class="container">
-  <div class="main-container">
+  <div class="main-container" *ngFor="let order of userOrders.orderDetails">
     <mat-card class="order-detail-container">
-      <p class="order-recipt">Order# : dfjeiorhj4343ilsf
-        <a class="order-action">
+      <p class="order-recipt">Order# : {{order.transactionId}}
+        <a href="{{order.receiptURL}}" class="order-action">
           <mat-icon>launch</mat-icon>
         </a>
       </p>
 
-      <p>Order Date: May 14, 2024</p>
+      <p>Order Date: {{order.orderDate | date: 'MMM, d, yyyy' }}</p>
     </mat-card>
 
-    <div class="product-detail-container">
+    <div class="product-detail-container" *ngFor="let items of order.itemDetails">
       <mat-card class="product-card">
         <img
-          src="https://firebasestorage.googleapis.com/v0/b/ecommerce-data-rupi.appspot.com/o/product%2Fb457438c-22a9-44ef-b4ee-168087989d67-Apple%20iPhone%2014%20Plus%20(Midnight%2C%20128%20GB)%2Fcover%2F0.jpg?alt=media&token=74a13ea9-e76c-4e98-b949-942b626dc9b6">
+          src="{{items.productImage}}">
         <div class="product-info">
-          <div class="product-name">Apple Iphone 14 Plus</div>
-          <h6 class="price">1 x Rs.59999 /-</h6>
+          <div class="product-name">{{items.productName}}</div>
+          <h6 class="price">{{items.quantity}} x Rs.{{items.price}} /-</h6>
         </div>
 
         <div class="write-review-container">
-          <button mat-stroked-button color="primary"><mat-icon>rate_review</mat-icon>Write a review</button>
+          <mat-dialog-actions>
+          <button mat-stroked-button color="primary" (click)="writeReview(items.productId)"><mat-icon>rate_review</mat-icon>Write a review</button>
+          </mat-dialog-actions>
         </div>
       </mat-card>
-
-
     </div>
   </div>
 </div>

@@ -4,11 +4,34 @@ export interface IHttp<T>
   statusMessage: string;
 }
 
-export interface IOrderRes{
-  Id : number;
+export interface IOrderData {
+  orderDetails: IOrderDetails[];
+}
+
+export interface IOrderDetails {
+  totalPrice: number;
+  itemDetails: IOrderItem[];
+  orderDate: Date;
+  transactionId: string;
+  receiptURL: string;
+}
+
+export interface IOrderItem {
+  orderId: number;
+  productId: number;
+  quantity: number;
+  price: number;
+  productImage: string;
+  productName: string;
+}
+
+
+export interface IOrder {
+  id: number;
   userEmail : string;
-  transactionId :string;
+  transactionId : string;
+  userId : number;
   receiptURL : string;
-  totalPrice : string;
+  totalPrice : number;
   orderDate : string;
 }
