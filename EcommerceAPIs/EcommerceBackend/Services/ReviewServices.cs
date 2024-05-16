@@ -27,6 +27,10 @@ namespace EcommerceBackend.Services
             if (string.IsNullOrWhiteSpace(request.Comments))
                 throw new ArgumentException("Review cannot be empty");
 
+            var existingReview = _reviewRepository.GetbyProductAndUserId(userId, request.ProductId);
+            if (existingReview == null)
+                throw new ArgumentException("Duplicate review for the same user and product.");
+
             var review = new Review()
             {
                 UserId = userId,
