@@ -2,6 +2,7 @@
 using EcommerceBackend.Models.DBModels;
 using EcommerceBackend.Models.Request;
 using EcommerceBackend.Models.Response;
+using EcommerceBackend.Repository;
 using EcommerceBackend.Repository.Interfaces;
 using EcommerceBackend.Services.Interfaces;
 using System.Xml.Linq;
@@ -12,11 +13,15 @@ namespace EcommerceBackend.Services
     {
         private readonly IProductRepository _productRepository;
         private readonly IDataHelper _dataHelper;
+        private readonly IReviewServices _reviewServices;
 
-        public ProductServices(IProductRepository repository, IDataHelper dataHelper)
+        public ProductServices(IProductRepository repository,
+            IDataHelper dataHelper, 
+            IReviewServices reviewServices)
         {
             _productRepository = repository;
             _dataHelper = dataHelper;
+            _reviewServices = reviewServices;
         }
 
         public int Create(ProductRequest request)
@@ -83,22 +88,41 @@ namespace EcommerceBackend.Services
         public ProductDetailsResponse GetDetailsBySubCategoryId(int id)
         {
             var dbproductDetail = _productRepository.GetProductsDetailsBySubCategoryId(id);
-            if (dbproductDetail.Count() == 0)
+            if (!dbproductDetail.Any())
                 throw new KeyNotFoundException("Product details not found for given id.");
 
             var productList = new ProductDetailsResponse
             {
-                Products = dbproductDetail,
+                Products = dbproductDetail.Select(product =>
+                {
+                    var ratingInfo = GetRatingInfo(product.Id);
+                    return new ProductDetails
+                    {
+                        Id = product.Id,
+                        Name = product.Name,
+                        Price = product.Price,
+                        CoverImage = product.CoverImage,
+                        KeyFeature = product.KeyFeature,
+                        AverageRating = ratingInfo.AverageRating,
+                        TotalRating = ratingInfo.TotalRatings
+                    };
+                }).ToList(),
                 StatusMessage = "Success."
             };
             return productList;
         }
+
+
 
         public ProductProfileResponse GetByProductId(int id)
         {
             var productDetail = _productRepository.GetByProductId(id);
             if (productDetail == null)
                 throw new KeyNotFoundException("Product detail not found for given id.");
+
+            var ratingInfo = GetRatingInfo(productDetail.Id);
+            productDetail.AverageRating = ratingInfo.AverageRating;
+            productDetail.TotalRating = ratingInfo.TotalRatings;
 
             var productResponse = new ProductProfileResponse
             {
@@ -108,7 +132,29 @@ namespace EcommerceBackend.Services
             return productResponse;
         }
 
-    private void validateRequest(ProductRequest request)
+
+        private RatingInfo GetRatingInfo(int productId)
+        {
+            var reviews = _reviewServices.GetByProductId(productId);
+            if (reviews.Data == null || !reviews.Data.Any())
+            {
+                return new RatingInfo
+                {
+                    AverageRating = 0,
+                    TotalRatings = 0
+                };
+            }
+
+            int averageRating = (int)reviews.Data.Average(r => r.Rating);
+            int totalRatings = reviews.Results;
+
+            return new RatingInfo
+            {
+                AverageRating = averageRating,
+                TotalRatings = totalRatings
+            };
+        }
+        private void validateRequest(ProductRequest request)
         {
             if(string.IsNullOrWhiteSpace(request.Name))
                 throw new ArgumentException("Product name cannot be null or whitespace.");

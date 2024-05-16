@@ -12,6 +12,8 @@
         public string KeyFeature { get; set; }
         public string CoverImage { get; set; }
         public string ImageUrls { get; set; }
+        public int AverageRating { get; set; }
+        public int TotalRating { get; set; }
     }
 
     public class ProductDetails
@@ -21,6 +23,8 @@
         public decimal Price { get; set; }
         public string CoverImage { get; set; }
         public string KeyFeature { get; set; }
+        public int AverageRating { get; set; }
+        public int TotalRating { get; set; }
     }
 
 }

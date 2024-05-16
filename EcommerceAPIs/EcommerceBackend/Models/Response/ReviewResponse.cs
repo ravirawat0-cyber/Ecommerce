@@ -22,4 +22,11 @@
         public int Results { get; set; }
         public List<ReviewRes> Data { get; set; }
     }
+
+    public class RatingInfo
+    {
+        public int AverageRating { get; set; }
+        public int TotalRatings { get; set; }
+    }
+
 }
