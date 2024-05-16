@@ -11,6 +11,8 @@ export interface IProductRes
   coverImage : string;
   keyFeature: string;
   price : string;
+  averageRating : number;
+  totalRating : number;
 }
 
 export interface IProductProfileRes{
@@ -21,4 +23,6 @@ export interface IProductProfileRes{
   price : string;
   description : string;
   imageUrls : string;
+  averageRating : number;
+  totalRating : number;
 }

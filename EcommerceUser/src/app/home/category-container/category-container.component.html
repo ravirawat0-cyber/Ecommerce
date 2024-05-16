@@ -6,7 +6,7 @@
 
     <div class="card-container">
       <ng-container  *ngFor="let subcategory of category.subcategories">
-      <a href="#">
+      <a [routerLink]="['/subcategory', subcategory.name, subcategory.id]">
         <div class="card">
           <div class="img-container">
             <img
@@ -26,3 +26,4 @@
     </div>
   </div>
 </div>
+<router-outlet></router-outlet>

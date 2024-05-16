@@ -56,7 +56,7 @@ namespace EcommerceBackend.Controllers
 
         [HttpDelete("product/{productId:int}")]
         [Authorize]
-        public IActionResult DeleteCartItem(int productId)
+        public IActionResult Delete(int productId)
         {
             var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.UserData).Value;
             _reviewServices.DeleteReviewByUserAndProductId(int.Parse(userIdClaim), productId );

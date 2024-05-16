@@ -17,7 +17,17 @@
 
       <div class="card-container--details">
         <p class="product-name">{{productDetail.name}}</p>
-        <p class="product-rating">⭐⭐⭐⭐⭐</p>
+        <div class="rating-container">
+          <app-star-rating
+            class="star-rating"
+            [buttonStyle]="buttonSyle"
+            [parentStyle]="starStyle"
+            [childStyle]="childStyle"
+            [rating]= "productDetail.averageRating"
+                           [starCount]="5"
+                           [readOnly] = "true">
+          </app-star-rating>
+        </div>
         <p class="product-price">Rs.{{productDetail.price}} /-</p>
 
         <div class="specification-container" >
@@ -65,6 +75,52 @@
     <div class="description-container">
       <p class="description-heading">Description</p>
       <p class="description-info">{{productDetail.description}}</p>
+    </div>
+
+    <div class="review-container-main">
+      <p class = "review-heading">Product Reviews</p>
+      <div class="review-container" >
+        <ng-container *ngFor="let review of productReview.data">
+        <mat-card class="review-card">
+          <div class = "img-container">
+            <img>
+          </div>
+          <div class = "review-info">
+             <div class="review-info-action">
+               <h6 class="reviewer-name">{{review.user.name}}</h6>
+               <div class="actions" *ngIf="isReviewOwner(review.user.id)">
+                 <button class="review-btn" (click)="updateReview(productId)" ><mat-icon>edit</mat-icon></button>
+                 <button class="review-btn" (click)="deleteReview(productId)"><mat-icon>delete_outline</mat-icon></button>
+               </div>
+             </div>
+            <app-star-rating
+              class="star-rating"
+              [buttonStyle]="buttonSyle"
+              [parentStyle]="{'marginTop' : '8px'}"
+              [rating]= "review.rating"
+              [starCount]="5"
+              [readOnly] = "true">
+            </app-star-rating>
+            <p class = "review">{{review.comments}}</p>
+          </div>
+        </mat-card>
+        </ng-container>
+      </div>
+
+
+
+
+      <div class="review-container hidden">
+        <mat-card class="review-card-ins">
+          <div class="review-instruction">
+            <div>
+            <mat-icon class="qus-ans" style="width: 24px; height: 24px;">question_answer</mat-icon>
+            </div>
+            <p class="instruction">Be the first one to review this product. To add review, head on to your order page</p>
+          </div>
+          <button class="btn-goto" mat-stroked-button color="primary" [routerLink]="'/orders'">GO TO ACCOUNT</button>
+        </mat-card>
+      </div>
     </div>
   </div>
 </div>

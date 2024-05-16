@@ -1,6 +1,6 @@
 import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import {MatIcon} from "@angular/material/icon";
-import {NgClass, NgForOf} from "@angular/common";
+import {NgClass, NgForOf, NgStyle} from "@angular/common";
 
 
 @Component({
@@ -9,7 +9,8 @@ import {NgClass, NgForOf} from "@angular/common";
   imports: [
     MatIcon,
     NgForOf,
-    NgClass
+    NgClass,
+    NgStyle
   ],
   templateUrl: './star-rating.component.html',
   styleUrl: './star-rating.component.css'
@@ -17,6 +18,10 @@ import {NgClass, NgForOf} from "@angular/common";
 export class StarRatingComponent implements OnInit {
   @Input() rating: number  = 1;
   @Input() starCount: number = 5;
+  @Input() readOnly: boolean = false;// Input for custom styles
+  @Input() parentStyle!: any;
+  @Input() childStyle!: any;
+  @Input() buttonStyle! : any;
   @Output() ratingChange = new EventEmitter<number>();
 
   stars: number[] = [];
@@ -26,8 +31,10 @@ export class StarRatingComponent implements OnInit {
   }
 
   rate(star: number){
-    this.rating = star;
-    this.ratingChange.emit(this.rating);
+   if(!this.readOnly) {
+     this.rating = star;
+     this.ratingChange.emit(this.rating);
+   }
   }
 
 

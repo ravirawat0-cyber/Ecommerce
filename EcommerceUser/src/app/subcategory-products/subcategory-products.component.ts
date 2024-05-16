@@ -12,6 +12,7 @@ import {WishlistService} from "../services/wishlist.service";
 import {ICartReq} from "../models/cart.model";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {IWishlistReq} from "../models/wishlist.model";
+import {StarRatingComponent} from "../global/star-rating/star-rating.component";
 
 
 @Component({
@@ -23,7 +24,8 @@ import {IWishlistReq} from "../models/wishlist.model";
     FormsModule,
     NgForOf,
     RouterLink,
-    RouterOutlet
+    RouterOutlet,
+    StarRatingComponent
   ],
   templateUrl: './subcategory-products.component.html',
   styleUrl: './subcategory-products.component.css'
@@ -32,6 +34,13 @@ export class SubcategoryProductsComponent implements OnInit {
   subCategoyrId!: number;
   subCategoryName: string = "";
   productDetails: IProductRes[] = [];
+
+  parentStyle = {
+    'margin': '0'
+  }
+  buttonSyle = {
+    'cursor' : 'default'
+}
 
   constructor(private activatedRoute: ActivatedRoute,
               private productService: ProductsService,

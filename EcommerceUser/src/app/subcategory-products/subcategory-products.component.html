@@ -31,7 +31,12 @@
                 </button>
               </div>
               <div class="raiting-container">
-                     rating
+                     <app-star-rating
+                       [buttonStyle]="buttonSyle"
+                       [parentStyle]="parentStyle"
+                       [rating]="product.averageRating"
+                       [readOnly]  = "true"
+                      ></app-star-rating>
               </div>
             </div>
           </div>
