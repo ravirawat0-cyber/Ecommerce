@@ -11,6 +11,8 @@ using Microsoft.IdentityModel.Tokens;
 using Stripe;
 using Swashbuckle.AspNetCore.Filters;
 using System.Text;
+using FirebaseAdmin;
+using Google.Apis.Auth.OAuth2;
 
 namespace EcommerceBackend
 {
@@ -40,7 +42,11 @@ namespace EcommerceBackend
 
             });
 
-         
+            FirebaseApp.Create(new AppOptions()
+            {
+                Credential = GoogleCredential.FromFile("C:\\Users\\ravir\\OneDrive\\Desktop\\DotNet\\Ecommerce\\EcommerceAPIs\\EcommerceBackend\\firebaseKey.json")
+            });
+
             builder.Services.AddScoped<DbContext>(); 
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
             builder.Services.AddScoped<IProductServices, ProductServices>();

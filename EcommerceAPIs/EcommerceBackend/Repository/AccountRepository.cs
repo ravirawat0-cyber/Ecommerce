@@ -44,8 +44,8 @@ namespace EcommerceBackend.Repository
         public int Register(Users request)
         {
             var query = @"INSERT INTO UsersDetails 
-                             (Name, Mobile, Email, Address, JoinedDate, PasswordHash, PasswordSalt) 
-                            VALUES (@Name, @Mobile, @Email,@Address, @JoinedDate, @PasswordHash, @PasswordSalt);
+                             (Name, Mobile, Email, Image, Address, JoinedDate, PasswordHash, PasswordSalt) 
+                            VALUES (@Name, @Mobile, @Email, @Image, @Address, @JoinedDate, @PasswordHash, @PasswordSalt);
                             SELECT SCOPE_IDENTITY()";
             var values = new
             {
@@ -53,6 +53,7 @@ namespace EcommerceBackend.Repository
                 Email = request.Email,
                 Address = request.Address,
                 Mobile = request.Mobile,
+                Image = request.Image,
                 JoinedDate = request.JoinedDate,
                 PasswordHash = request.PasswordHash,
                 PasswordSalt = request.PasswordSalt,
@@ -171,7 +172,8 @@ namespace EcommerceBackend.Repository
                         UPDATE UsersDetails
                         SET Name = @Name, 
                             Mobile = @Mobile, 
-                            Address = @Address
+                            Address = @Address,
+                            Image = @Image,
                         WHERE Id = @UserId
                     ";
 
@@ -181,6 +183,7 @@ namespace EcommerceBackend.Repository
                 Name = request.Name,
                 Address = request.Address,
                 Mobile = request.Mobile,
+                Image = request.Image
             };
             UpdateDb(query, values);
         }

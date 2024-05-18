@@ -15,6 +15,7 @@ import {PaymentReciptComponent} from "./payment-recipt/payment-recipt.component"
 import {OrdersComponent} from "./orders/orders.component";
 
 
+
 export const routes: Routes = [
   {path: 'home', component: HomeContainerComponent},
   {path: 'category/:name/:id' , component: SubcategoriesByParentContainerComponent},
