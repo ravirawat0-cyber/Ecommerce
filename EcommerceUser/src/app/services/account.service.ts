@@ -63,7 +63,7 @@ export class AccountService {
   }
 
   updateUser(user: IUserUpdateReq) {
-    return this.http.get(`${this.baseUrl}/Cart`);
+    return this.http.put(`${this.baseUrl}/update`, user);
   }
 
   CartPurchase(UUID : string ) {

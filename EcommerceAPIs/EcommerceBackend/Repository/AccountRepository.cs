@@ -72,9 +72,9 @@ namespace EcommerceBackend.Repository
         }
 
 
-        public UserRes GetNameById(int id)
+        public UserRes GetNameImageById(int id)
         {
-            var query = @"SELECT Id, Name FROM UsersDetails (NOLOCK)
+            var query = @"SELECT Id, Name, Image FROM UsersDetails (NOLOCK)
                        WHERE Id = @id";
             var values = new { Id = id };
             using var connection = _dbContext.CreateConnection();
@@ -173,7 +173,7 @@ namespace EcommerceBackend.Repository
                         SET Name = @Name, 
                             Mobile = @Mobile, 
                             Address = @Address,
-                            Image = @Image,
+                            Image = @Image
                         WHERE Id = @UserId
                     ";
 

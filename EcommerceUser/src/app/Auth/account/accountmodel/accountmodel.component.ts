@@ -9,6 +9,7 @@ import {Subscription} from "rxjs";
 import { AccountService } from '../../../services/account.service';
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {ImageService} from "../../../services/image.service";
 
 @Component({
   selector: 'app-accountmodel',
@@ -33,11 +34,13 @@ export class AccountmodelComponent implements  OnInit, OnDestroy{
   userDetail ! : IUserRes;
   userSubscription! : Subscription;
   registerForm! : FormGroup;
+  selectedFile! : File;
 
   constructor(private accountService : AccountService,
               private snackBar : MatSnackBar,
               private fb: FormBuilder,
-              public dialogRef: MatDialogRef<AccountmodelComponent>) {
+              public dialogRef: MatDialogRef<AccountmodelComponent>,
+              private image: ImageService) {
   }
    ngOnInit(): void {
        this.registerForm = this.fb.group({
@@ -48,8 +51,14 @@ export class AccountmodelComponent implements  OnInit, OnDestroy{
        })
        this.loadUser();
    }
+
+
    ngOnDestroy(): void {
        this.userSubscription.unsubscribe();
+   }
+
+   onFileChanged(event  : any){
+    this.selectedFile = event.target.files[0];
    }
 
   loadUser(): void {
@@ -62,20 +71,32 @@ export class AccountmodelComponent implements  OnInit, OnDestroy{
   }
 
   updateUserDetail() {
-     const value : IUserUpdateReq = {
-       name : this.registerForm.value.firstName + " " + this.registerForm.value.lastName,
-       mobile : this.registerForm.value.phone,
-       address : this.registerForm.value.address,
-     }
-     this.accountService.updateUser(value).subscribe(
-       res => {
-         this.loadUser();
-         this.snackBar.open("user details updated", "Close", {duration: 3000})
-       },
-       error => {
-         this.snackBar.open("error updating details", "Close" , {duration : 3000})
-       }
-     )
+    const uploadData = new FormData();
+    uploadData.append('file', this.selectedFile, this.selectedFile.name);
+
+    this.image.UploadImage(uploadData).subscribe(res => {
+      if (res) {
+      const value : IUserUpdateReq = {
+        name : this.registerForm.value.firstName + " " + this.registerForm.value.lastName,
+        mobile : this.registerForm.value.phone,
+        address : this.registerForm.value.address,
+        image: res.url
+      }
+      this.accountService.updateUser(value).subscribe(
+        res => {
+          this.loadUser();
+          console.log(this.userDetail)
+          this.snackBar.open("user details updated", "Close", {duration: 3000})
+        },
+        error => {
+          this.snackBar.open("error updating details", "Close" , {duration : 3000})
+        }
+      )
+      }
+      else {
+        console.log("image not uploaded");
+      }
+    })
   }
 
   protected readonly close = close;

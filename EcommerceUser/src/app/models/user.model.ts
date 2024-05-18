@@ -7,6 +7,7 @@ export interface IUserReq{
   name : string;
   mobile : string;
   email : string;
+ // image : string;
   address : string;
   password: string;
   confirmPassword: string;
@@ -15,6 +16,7 @@ export interface IUserReq{
 export interface IUserUpdateReq{
   name : string;
   mobile : string;
+  image : string;
   address : string;
 }
 
@@ -28,6 +30,7 @@ export interface IUserRes{
     id : number;
     name : string;
     email : string;
+    image : string;
     address : string;
     mobile : string;
     joinedDate : string;

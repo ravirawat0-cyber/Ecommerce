@@ -19,6 +19,6 @@ namespace EcommerceBackend.Repository.Interfaces
         string GetUserEmailbyId(int id);
         int GetUserIdbyEmail(string email);
 
-        UserRes GetNameById(int id);
+        UserRes GetNameImageById(int id);
     }
 }

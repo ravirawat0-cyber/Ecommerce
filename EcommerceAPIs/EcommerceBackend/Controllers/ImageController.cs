@@ -20,8 +20,7 @@ public class UploadController : ControllerBase
         _storageClient = StorageClient.Create(credential);
     }
 
-    [HttpPost("upload")]
-    [Authorize]
+    [HttpPost("")]
     public async Task<IActionResult> UploadImage(IFormFile file)
     {
         if (file == null || file.Length == 0)

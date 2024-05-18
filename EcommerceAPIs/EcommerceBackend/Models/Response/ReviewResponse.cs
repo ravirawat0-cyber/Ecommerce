@@ -3,8 +3,8 @@
     public class UserRes
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-     //  public string UserImage { get; set; }
+        public string Name { get; set; } 
+        public string Image { get; set; }
     }
 
     public class ReviewRes

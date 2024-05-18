@@ -110,6 +110,7 @@ namespace EcommerceBackend.Services
                         Name = userDetails.Name,
                         Mobile = userDetails.Mobile,
                         Address = userDetails.Address,
+                        Image = userDetails.Image,
                         JoinedDate = userDetails.JoinedDate
                     },
                     Token = new Token
@@ -142,6 +143,7 @@ namespace EcommerceBackend.Services
                         Name = userDetail.Name,
                         Mobile = userDetail.Mobile,
                         Address = userDetail.Address,
+                        Image = userDetail.Image,
                         JoinedDate = userDetail.JoinedDate
                     },
                     Token = new Token
@@ -156,9 +158,9 @@ namespace EcommerceBackend.Services
             return userResponse;
         }
 
-        public UserRes GetNameById(int id)
+        public UserRes GetNameImageById(int id)
         {
-            return _accountRepository.GetNameById(id);
+            return _accountRepository.GetNameImageById(id);
         }
         public string GetEmailByUserId(int userId)
         {

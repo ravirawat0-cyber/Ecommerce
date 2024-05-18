@@ -58,7 +58,7 @@ namespace EcommerceBackend.Services
                 {
                     Id = review.Id,
                     ProductId = review.ProductId,
-                    User = _accountServices.GetNameById(review.UserId),
+                    User = _accountServices.GetNameImageById(review.UserId),
                     Rating = review.Rating,
                     Comments = review.Comment
 
@@ -84,7 +84,7 @@ namespace EcommerceBackend.Services
                     {
                         Id = review.Id,
                         ProductId = review.ProductId,
-                        User = _accountServices.GetNameById(review.UserId),
+                        User = _accountServices.GetNameImageById(review.UserId),
                         Rating = review.Rating,
                         Comments = review.Comment
                     }
