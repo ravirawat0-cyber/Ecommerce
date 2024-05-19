@@ -1,49 +1,70 @@
-.main-container {
-   max-width: 80rem;
-  padding: 1rem;
-  margin: 0 auto;
-  margin-top: 7rem;
-}
 
 .product-container--main {
-  padding: 1rem;
-  background: #f9f7fc;
-  height: auto;
+  width: 90%;
+  margin: auto;
+  margin-top: 8rem;
+  padding: 1.5rem 1rem;
+  border-radius: 4px;
+  background: rgb(245, 245, 245);
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  max-width: 100dvw;
 }
 
 .card-container--main {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  height: 50vh;
+  column-gap: 1rem;
+  padding-bottom: 0;
 
 }
 
-.card-container--image {
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+.container--main-img{
+   padding: 1rem;
+  position: relative;
   overflow: hidden;
-  background-color: #ffffff;
-  display : flex;
-  justify-content: center;
-  align-items: center;
-  gap: 4rem;
-  padding: 1rem;
+  height: 50dvh;
 }
 
-.image-container {
-  height: 100%;
+.card-container--image{
+  overflow: hidden;
+  position: relative;
   width: 100%;
+  height: 100%;
 }
 
-.image-container img{
+
+.image-container{
   width: 100%;
   height: 100%;
   object-fit: contain;
 }
 
+.slider-btn {
+  cursor: pointer;
+  text-align: center;
+  padding: 5px;
+  font-size: 1.125rem;
+  background: transparent;
+  color: #090317;
 
+}
+
+.slider-btn-lft {
+  position: absolute;
+  top: 50%;
+  left: 3%;
+  transform: translate(0px, -50%);
+
+}
+.slider-btn-rt {
+  position: absolute;
+  top: 50%;
+  right: 3%;
+  transform: translate(0px, -50%);
+
+}
 .slider-btn mat-icon{
   height: 100%;
   width: 100%;
@@ -51,42 +72,43 @@
 }
 
 .card-container--details {
-  padding: 0 1rem;
   display: flex;
   flex-direction: column;
+  gap: 1rem;
   justify-content: space-between;
-  color: #0e0e0e;
+  height: 100%;
+}
+
+.star-rating{
+  display: inline-block;
 }
 
 .product-name, .product-price{
   margin: 0;
-}
-
-.rating-container{
-  display: flex;
-}
-
-.product-name{
-  font-size: 1.3rem;
+  font-size: 1.25rem;
   font-weight: 500;
+  line-height: 1.6;
+}
 
-}
-.product-rating{
-}
-.product-price{
-  font-size: 1.5rem;
-  font-weight: 500;
-}
 
 .specification-container{
-  color: #0e0e0e;
-  font-size: 0.92rem;
+  display: flex;
+  flex-flow: column wrap;
+  gap: 0.5rem;
+  padding: 0 1rem;
+  margin: 0;
 }
 
 .specification-container ul {
-  padding: 0 0 0 1rem;
+  padding: 0.1rem 0;
   margin: 0;
   color :#555555;
+}
+
+.specification-container ul li {
+  font-size: 0.75rem;
+  line-height: 1.66;
+  letter-spacing: 0.03333em;
 }
 
 .action-container{
@@ -103,6 +125,7 @@
   display: flex;
   justify-content: space-between;
   color :#555555;
+  gap: 1rem;
   border-bottom: 1px solid #9c9c9c;
 
 }
@@ -124,18 +147,22 @@
 }
 
 .description-heading{
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: 500;
 }
 
 .description-info{
-  letter-spacing: 1px;
+  font-size: 0.75rem;
+  line-height: 1.66;
+  letter-spacing: 0.03333em;
   color : #4e4e4e;
 }
 
 .review-heading{
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: 500;
+  margin: 0;
+  line-height: 1.57;
 }
 
 .review-container {
@@ -155,26 +182,35 @@
   display: flex;
   flex-direction: row;
   gap: 1rem;
-  padding: 1rem;
+  padding: 1rem 1rem 0 1rem;
   max-width: 20rem;
   min-width: 20rem;
 }
 
 .img-container{
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 50%;
   overflow: hidden;
   width: 40px;
   height: 40px;
-  background-color: black;
 }
 .img-container img{
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+
 }
 
 .review-info{
-  display: block;
+  display: flex;
+  flex-direction: column;
+
+  margin: 0;
+  padding: 0;
+  color : #4e4e4e;
 
 }
 
@@ -188,7 +224,7 @@
 .reviewer-name{
   font-size: 1.1rem;
   font-weight: 500;
-  color: #303030;
+  color: #555555;
   margin: 0;
 }
 
@@ -212,7 +248,7 @@
 }
 
 .review{
-  font-size: 1.05rem;
+  font-size: 0.9rem;
 }
 
 .hidden{
@@ -241,4 +277,15 @@
 }
 .qus-ans {
   color: #5019a3;
+}
+
+
+@media (max-width: 600px)
+{
+  .card-container--main
+  {
+     display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
 }

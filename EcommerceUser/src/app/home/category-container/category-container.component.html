@@ -7,10 +7,9 @@
     <div class="card-container">
       <ng-container  *ngFor="let subcategory of category.subcategories">
       <a [routerLink]="['/subcategory', subcategory.name, subcategory.id]">
-        <div class="card">
+        <mat-card class="card">
           <div class="img-container">
             <img
-
               src= "{{subcategory.imageUrl}}}"
             />
           </div>
@@ -18,7 +17,7 @@
             <p class="card-title">{{subcategory.name}}</p>
             <p class="card-price"><span>Rs.</span>10,000</p>
           </div>
-        </div>
+        </mat-card>
       </a>
 
       </ng-container>

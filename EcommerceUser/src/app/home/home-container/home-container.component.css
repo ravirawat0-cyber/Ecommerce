@@ -8,3 +8,7 @@
   flex-direction: column;
   gap: 3rem;
 }
+
+.loader{
+   margin-top: 7rem;
+}

@@ -6,7 +6,7 @@
     </div>
 
     <mat-card-content>
-      <form [formGroup]="registerForm" (ngSubmit)="onSubmit(registerForm)">
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
         <div class="firstLastName-container">
           <mat-form-field appearance="outline" class="first-name">
             <mat-label>First Name</mat-label>
@@ -54,9 +54,9 @@
           </mat-form-field>
         </div>
 
-<!--        <div class="image-input">-->
-<!--          <input type="file" formControlName="profilePicture">-->
-<!--        </div>-->
+        <div class="image-input">
+          <input type="file" (change)="onFileChanged($event)" >
+        </div>
 
         <button mat-flat-button color="primary" type="submit">Create Account</button>
 

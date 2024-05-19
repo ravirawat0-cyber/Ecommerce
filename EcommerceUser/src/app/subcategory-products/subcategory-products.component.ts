@@ -13,6 +13,7 @@ import {ICartReq} from "../models/cart.model";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {IWishlistReq} from "../models/wishlist.model";
 import {StarRatingComponent} from "../global/star-rating/star-rating.component";
+import {MatCard} from "@angular/material/card";
 
 
 @Component({
@@ -25,7 +26,8 @@ import {StarRatingComponent} from "../global/star-rating/star-rating.component";
     NgForOf,
     RouterLink,
     RouterOutlet,
-    StarRatingComponent
+    StarRatingComponent,
+    MatCard
   ],
   templateUrl: './subcategory-products.component.html',
   styleUrl: './subcategory-products.component.css'

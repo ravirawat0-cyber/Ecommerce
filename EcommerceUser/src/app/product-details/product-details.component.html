@@ -1,19 +1,20 @@
-<div class="main-container">
+
   <div class="product-container--main">
     <div class="card-container--main">
 
+    <mat-card class="container--main-img">
       <div class="card-container--image">
-        <button class="slider-btn" mat-flat-button (click)="previousImage()">
+        <button class="slider-btn slider-btn-lft" mat-flat-button (click)="previousImage()">
           <mat-icon color="primary">keyboard_arrow_left</mat-icon>
         </button>
-        <div class="image-container">
-          <img
+          <img class="image-container"
             src="{{imageUrls[currentImageIndex]}}"/>
-        </div>
-        <button class="slider-btn" mat-flat-button (click)="nextImage()">
+
+        <button class="slider-btn slider-btn-rt" mat-flat-button (click)="nextImage()">
           <mat-icon color="primary">keyboard_arrow_right</mat-icon>
         </button>
       </div>
+    </mat-card>
 
       <div class="card-container--details">
         <p class="product-name">{{productDetail.name}}</p>
@@ -83,7 +84,9 @@
         <ng-container *ngFor="let review of productReview.data">
         <mat-card class="review-card">
           <div class = "img-container">
-            <img>
+            <img
+              src = "{{review.user.image}}"
+              onerror = "this.src = 'https://img.freepik.com/free-vector/user-circles-set_78370-4704.jpg?w=740&t=st=1714726785~exp=1714727385~hmac=80009fb6c3a56594a1d9bd8c143258e863866ebbee9eed58972d1d568673b09c'"/>
           </div>
           <div class = "review-info">
              <div class="review-info-action">
@@ -96,7 +99,8 @@
             <app-star-rating
               class="star-rating"
               [buttonStyle]="buttonSyle"
-              [parentStyle]="{'marginTop' : '8px'}"
+              [parentStyle]="{'margin' : '0', 'marginTop' : '8px'}"
+              [childStyle]="childStyle"
               [rating]= "review.rating"
               [starCount]="5"
               [readOnly] = "true">
@@ -123,7 +127,6 @@
       </div>
     </div>
   </div>
-</div>
 
 
 <router-outlet></router-outlet>

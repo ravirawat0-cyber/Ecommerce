@@ -12,6 +12,7 @@ import {ICartReq} from "../models/cart.model";
 import {response} from "express";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {error} from "@angular/compiler-cli/src/transformers/util";
+import {MatCard} from "@angular/material/card";
 
 @Component({
   selector: 'app-wishlist',
@@ -21,7 +22,8 @@ import {error} from "@angular/compiler-cli/src/transformers/util";
     MatIcon,
     NgForOf,
     LoaderComponent,
-    NgIf
+    NgIf,
+    MatCard
   ],
   templateUrl: './wishlist.component.html',
   styleUrl: './wishlist.component.css'

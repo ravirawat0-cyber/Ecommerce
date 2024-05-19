@@ -3,7 +3,7 @@
    <div class="card-container--main" *ngIf = "!loading">
         <div class="grid-card-container">
           <ng-container *ngFor="let item of userDetail.wishlist.items">
-          <div class="card-container">
+          <mat-card class="card-container">
             <button>
               <img class="p-image" src="{{item.productImage}}">
               <div class="p-info">
@@ -16,7 +16,7 @@
               <button mat-flat-button color="primary" (click) = "moveToCart(item.productId)"><mat-icon>add_shopping_cart</mat-icon><span>MOVE TO CART</span></button>
               <button mat-flat-button color="primary" (click)="removeProduct(item.productId)" ><mat-icon>delete</mat-icon><span>REMOVE</span></button>
             </div>
-          </div>
+          </mat-card>
           </ng-container>
         </div>
    </div>

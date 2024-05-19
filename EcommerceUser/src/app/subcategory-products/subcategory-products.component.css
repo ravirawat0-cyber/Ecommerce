@@ -1,52 +1,34 @@
 .main-container{
-  max-width: 100rem;
-  padding: 1rem;
+  width: 90%;
+  padding: 1.5rem 1rem;
   margin: auto;
-  margin-top: 7rem;
-  height: 100vh;
-}
-
-.product-container--main{
-  padding: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  background: #f9f7fc;
-}
-
-.heading{
-   font-size: 1.8rem;
-  letter-spacing: -1px;
-  color: #291e49;
-  font-weight: 500;
+  margin-top: 8rem;
+  background-color: rgb(245, 245, 245);
 }
 
 .card-container{
   display: grid;
-  grid-template-columns:1fr 1fr 1fr;
+  grid-template-columns:1fr 1fr 1fr 1fr;
   grid-gap : 1rem;
 }
 
 a {
   text-decoration: none;
-  /*box-shadow: 0 0 0 0 0 rgba(0,0,0,0.3);*/
 }
 
 
 .card{
-  max-width: 100%;
-  max-height: 100%;
   overflow: hidden;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
-  background-color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0;
   border-radius: 4px ;
 }
 
 .img-container{
   overflow: hidden;
-  height: 14rem;
+  height: 150px;
   width: 100%;
-  padding: 1rem;
 }
 
 .img-container img{
@@ -58,7 +40,7 @@ a {
 .card-info-main{
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  justify-content: space-between;
   padding: 1rem 1rem 0 1rem;
 }
 
@@ -68,19 +50,19 @@ a {
 
 .product-name{
    font-size: 1rem;
-  font-weight: 500;
 }
 
 .product-price{
-  font-size: 1.1rem;
-  color: black;
+  font-size: 1.25rem;
+  color: #292929;
   font-weight: 500;
 }
 
 .keyfeature-container{
   display: flex;
-  gap: 0.8rem;
+  gap: 0.5rem;
   flex-wrap: wrap;
+  margin-bottom: 1rem;
 }
 
 
@@ -93,4 +75,31 @@ a {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  color: #3a3a3a;
+}
+
+
+@media (max-width: 1630px) {
+  .card-container{
+    display: grid;
+    grid-template-columns:1fr 1fr 1fr;
+    grid-gap : 1rem;
+  }
+}
+
+
+@media (max-width: 1190px) {
+  .card-container{
+    display: grid;
+    grid-template-columns:1fr 1fr;
+    grid-gap : 1rem;
+  }
+}
+
+@media (max-width: 800px) {
+  .card-container{
+    display: grid;
+    grid-template-columns:1fr ;
+    grid-gap : 1rem;
+  }
 }

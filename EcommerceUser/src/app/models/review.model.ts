@@ -8,7 +8,7 @@ export interface IReviewReq{
 export interface IUserRes {
   id: number;
   name: string;
- // image : IF;
+  image : string;
 }
 
 export interface IReviewRes {

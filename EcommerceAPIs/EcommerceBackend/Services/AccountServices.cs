@@ -51,6 +51,7 @@ namespace EcommerceBackend.Services
                 Email = request.Email,
                 Mobile = request.Mobile,
                 Address = request.Address,
+                Image = request.Image,
                 JoinedDate = DateTime.Now,
                 PasswordHash = passwordHash,
                 PasswordSalt = passwordSalt

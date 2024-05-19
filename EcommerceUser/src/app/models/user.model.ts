@@ -7,7 +7,7 @@ export interface IUserReq{
   name : string;
   mobile : string;
   email : string;
- // image : string;
+  image : string;
   address : string;
   password: string;
   confirmPassword: string;

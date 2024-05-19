@@ -17,6 +17,7 @@
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
+
 }
 
 .profile{
@@ -25,13 +26,12 @@
   overflow: hidden;
   border-radius: 50%;
   border: 1px solid grey;
-  background: #e2ddec;
 }
 
 .profile img{
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: fill;
 }
 .profile-name{
   font-size: 1.2rem;

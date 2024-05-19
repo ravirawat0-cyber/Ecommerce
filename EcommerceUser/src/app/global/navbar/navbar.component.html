@@ -8,12 +8,12 @@
     <span class="spacer"></span>
     <a [routerLink]="'/wishlist'" >
     <button mat-icon-button class="favorite-button" aria-label="icon-button with heart icon">
-      <mat-icon matBadge = "{{TotalWishlistItem}}" matBadgeColor="warn">favorite</mat-icon>
+      <mat-icon matBadge = "{{TotalWishlistItem! > 0 ?  TotalWishlistItem : undefined}}" matBadgeColor="warn">favorite</mat-icon>
     </button>
     </a>
     <a [routerLink]="'/cart'">
     <button mat-icon-button class="share-button" aria-label="icon-button with cart icon">
-      <mat-icon matBadge = "{{TotalCartItem}}" matBadgeColor="warn">add_shopping_cart</mat-icon>
+      <mat-icon matBadge = "{{TotalCartItem! > 0 ? TotalCartItem : undefined}}" matBadgeColor="warn">add_shopping_cart</mat-icon>
     </button>
     </a>
     <a [routerLink]="'/account'">

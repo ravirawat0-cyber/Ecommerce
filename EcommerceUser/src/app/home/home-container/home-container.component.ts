@@ -5,8 +5,7 @@ import {CategoryServicesService} from "../../services/category-services.service"
 import {CommonModule} from "@angular/common";
 import {ICategoryDataRes} from "../../models/category.model";
 import {LoaderComponent} from "../../global/loader/loader.component";
-import {MatSidenavContainer} from "@angular/material/sidenav";
-import {SidenavComponent} from "../../global/sidenav/sidenav.component";
+
 
 @Component({
   selector: 'app-home-container',
@@ -25,18 +24,20 @@ import {SidenavComponent} from "../../global/sidenav/sidenav.component";
 export class HomeContainerComponent implements OnInit {
 
   categorySubcategoryData : ICategoryDataRes[] = [];
-  isLoading : boolean = false;
+  isLoading : boolean = true;
 
   constructor(private categoryService: CategoryServicesService ) {}
 
    ngOnInit()
   {
-     this.fetchCategoryData();
+    setTimeout(() => {this.fetchCategoryData()}, 1000)
+
   }
 
  fetchCategoryData() {
         this.categoryService.getCategoryData().subscribe((response) => {
           this.categorySubcategoryData = response.data;
+          this.isLoading = false;
         },
           error => {
              console.log(error.error);

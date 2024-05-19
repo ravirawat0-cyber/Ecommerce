@@ -36,8 +36,8 @@ export class SidenavComponent implements OnInit{
   isOpen: boolean = false;
   userSubcription ! : Subscription;
   userDetail : IUserRes | null = null;
-  userName : string | undefined = ""
-
+  userName : string | undefined = "";
+  userImage : string | undefined = "";
  constructor(private sidebarService: SidebarService, private accountServices : AccountService,) {
    this.sidebarService.isOpen$.subscribe(isOpen => {
      this.isOpen = isOpen;
@@ -48,6 +48,7 @@ export class SidenavComponent implements OnInit{
        this.userSubcription = this.accountServices.user$.subscribe(user => {
             this.userDetail = user;
             this.userName = user?.user.name;
+            this.userImage = user?.user.image;
        })
     }
 
