@@ -29,45 +29,46 @@ import {IReviewReq} from "../../models/review.model";
   templateUrl: './review-modal.component.html',
   styleUrl: './review-modal.component.css'
 })
-export class ReviewModalComponent implements  OnInit{
-  reviewForm ! : FormGroup;
+export class ReviewModalComponent implements OnInit {
+  reviewForm !: FormGroup;
   productId!: number;
 
-  constructor(public dialogRef : MatDialogRef<ReviewModalComponent>,
+  constructor(public dialogRef: MatDialogRef<ReviewModalComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
               private fb: FormBuilder,
               private reviewService: ReviewService,
-              private snackbar : MatSnackBar) {
+              private snackbar: MatSnackBar) {
 
-    {this.productId = data.productId}
+    {
+      this.productId = data.productId
+    }
   }
 
   ngOnInit(): void {
-        this.reviewForm = this.fb.group({
-          reviewNumber : [1, Validators.required],
-          review : ["", Validators.required],
-        })
-    }
+    this.reviewForm = this.fb.group({
+      reviewNumber: [1, Validators.required],
+      review: ["", Validators.required],
+    })
+  }
 
   addReview() {
-       const req : IReviewReq = {
-         rating : this.reviewForm.value.reviewNumber,
-         comments : this.reviewForm.value.review,
-         productId : this.productId,
-       }
-       this.reviewService.addReview(req).subscribe(
-         res =>{
-           this.dialogRef.close();
-           this.snackbar.open("Review added.", "Close", {duration: 3000})
-         },
-         error => {
-           this.snackbar.open(error.error, 'Close',{duration: 3000});
-         }
-       )
+    const req: IReviewReq = {
+      rating: this.reviewForm.value.reviewNumber,
+      comments: this.reviewForm.value.review,
+      productId: this.productId,
+    }
+    this.reviewService.addReview(req).subscribe(
+      res => {
+        this.dialogRef.close();
+        this.snackbar.open("Review added.", "Close", {duration: 3000})
+      },
+      error => {
+        this.snackbar.open(error.error, 'Close', {duration: 3000});
+      }
+    )
   }
 
   setReviewNumber(rating: number) {
-    this.reviewForm.patchValue({reviewNumber : rating});
-    console.log(this.reviewForm.value.reviewNumber);
+    this.reviewForm.patchValue({reviewNumber: rating});
   }
 }

@@ -25,31 +25,29 @@ import {ReviewModalComponent} from "./review-modal/review-modal.component";
   templateUrl: './orders.component.html',
   styleUrl: './orders.component.css'
 })
-export class OrdersComponent implements OnInit{
-  userOrders : IOrderData = { orderDetails: [] }
+export class OrdersComponent implements OnInit {
+  userOrders: IOrderData = {orderDetails: []}
 
   constructor(private snackBar: MatSnackBar,
-              private orderService : OrderService,
+              private orderService: OrderService,
               private matDialog: MatDialog) {
   }
 
   ngOnInit(): void {
-        this.getAllOrders();
-    }
+    this.getAllOrders();
+  }
 
-  getAllOrders()
-  {
+  getAllOrders() {
     this.orderService.getAllOrderDetail().subscribe(
       res => {
-        console.log(res.data);
         this.userOrders = res.data;
       }
     )
   }
 
   writeReview(productId: number) {
-     this.matDialog.open(ReviewModalComponent, {
-       data : {productId}
-     });
+    this.matDialog.open(ReviewModalComponent, {
+      data: {productId}
+    });
   }
 }

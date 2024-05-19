@@ -1,13 +1,13 @@
 <div class="container">
   <div class="main-container" *ngFor="let order of userOrders.orderDetails">
     <mat-card class="order-detail-container">
-      <p class="order-recipt">Order# : {{order.transactionId}}
+      <p class="order-recipt">Order# : {{ order.transactionId }}
         <a href="{{order.receiptURL}}" class="order-action">
           <mat-icon>launch</mat-icon>
         </a>
       </p>
 
-      <p>Order Date: {{order.orderDate | date: 'MMM, d, yyyy' }}</p>
+      <p>Order Date: {{ order.orderDate | date: 'MMM, d, yyyy' }}</p>
     </mat-card>
 
     <div class="product-detail-container" *ngFor="let items of order.itemDetails">
@@ -15,13 +15,16 @@
         <img
           src="{{items.productImage}}">
         <div class="product-info">
-          <div class="product-name">{{items.productName}}</div>
-          <h6 class="price">{{items.quantity}} x Rs.{{items.price}} /-</h6>
+          <div class="product-name">{{ items.productName }}</div>
+          <h6 class="price">{{ items.quantity }} x Rs.{{ items.price }} /-</h6>
         </div>
 
         <div class="write-review-container">
           <mat-dialog-actions>
-          <button mat-stroked-button color="primary" (click)="writeReview(items.productId)"><mat-icon>rate_review</mat-icon>Write a review</button>
+            <button mat-stroked-button color="primary" (click)="writeReview(items.productId)">
+              <mat-icon>rate_review</mat-icon>
+              Write a review
+            </button>
           </mat-dialog-actions>
         </div>
       </mat-card>
