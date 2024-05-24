@@ -5,7 +5,7 @@ import {MatDivider} from "@angular/material/divider";
 import {IUserRes} from "../models/user.model";
 import {AccountService} from "../services/account.service";
 import {Subscription} from "rxjs";
-import { ICartUpdateReq} from "../models/cart.model";
+import {ICartUpdateReq} from "../models/cart.model";
 import {NgForOf, NgIf} from "@angular/common";
 import {MatProgressBar} from "@angular/material/progress-bar";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
@@ -13,6 +13,7 @@ import {LoaderComponent} from "../global/loader/loader.component";
 import {CartService} from "../services/cart.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {v4 as uuidv4} from 'uuid';
+import {LoginRequiredComponent} from "../global/login-required/login-required.component";
 
 
 @Component({
@@ -27,22 +28,25 @@ import {v4 as uuidv4} from 'uuid';
     NgIf,
     MatProgressBar,
     MatProgressSpinner,
-    LoaderComponent
+    LoaderComponent,
+    LoginRequiredComponent
   ],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css'
 })
 export class CartComponent implements OnInit, OnDestroy {
-  userDetail!: IUserRes;
+  userDetail: IUserRes  = {} as IUserRes;
   userSubscription!: Subscription;
   loading = true;
   quantities: { [key: number]: number } = {};
+  isLoggedOff = true;
 
   constructor(
     private accountService: AccountService,
     private cartService: CartService,
     private snackBar: MatSnackBar
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.loadUser();
@@ -56,11 +60,12 @@ export class CartComponent implements OnInit, OnDestroy {
     this.userSubscription = this.accountService.user$.subscribe(user => {
       if (user) {
         this.userDetail = user;
-
         this.userDetail.cart.items.forEach(item => {
           this.quantities[item.productId] = item.quantity;
         });
         this.loading = false;
+        this.isLoggedOff = false;
+
       }
     });
     this.accountService.loadUserFromToken().subscribe();
@@ -84,11 +89,11 @@ export class CartComponent implements OnInit, OnDestroy {
 
     this.cartService.UpdateToCart(req).subscribe(
       () => {
-        this.snackBar.open('Quantity Updated.', 'Close', { duration: 3000 });
+        this.snackBar.open('Quantity Updated.', 'Close', {duration: 3000});
         this.loadUser();
       },
       error => {
-        this.snackBar.open('Error Occurred,', 'Close', { duration: 3000 });
+        this.snackBar.open('Error Occurred,', 'Close', {duration: 3000});
       }
     );
   }
@@ -96,11 +101,11 @@ export class CartComponent implements OnInit, OnDestroy {
   deleteCart(id: number): void {
     this.cartService.DeleteToCart(id).subscribe(
       () => {
-        this.snackBar.open('Product removed.', 'Close', { duration: 3000 });
+        this.snackBar.open('Product removed.', 'Close', {duration: 3000});
         this.loadUser();
       },
       error => {
-        this.snackBar.open('Error Occurred.', 'Close', { duration: 3000 });
+        this.snackBar.open('Error Occurred.', 'Close', {duration: 3000});
       }
     );
   }
@@ -108,26 +113,25 @@ export class CartComponent implements OnInit, OnDestroy {
   clearCart(): void {
     this.cartService.DeleteCart().subscribe(
       () => {
-        this.snackBar.open('Cart Cleared.', 'Close', { duration: 3000 });
+        this.snackBar.open('Cart Cleared.', 'Close', {duration: 3000});
         this.loadUser();
       },
       error => {
-        this.snackBar.open('Error Occurred.', 'Close', { duration: 3000 });
+        this.snackBar.open('Error Occurred.', 'Close', {duration: 3000});
       }
     );
   }
 
   checkout() {
     const UUID = uuidv4()
-     this.accountService.CartPurchase(UUID).subscribe(
-       res => {
-         window.open(res.url);
+    this.accountService.CartPurchase(UUID).subscribe(
+      res => {
+        window.open(res.url);
 
-       },
-       error => {
-         this.snackBar.open(`Error Occurred`, 'Close', {duration: 3000});
-       }
-
-     )
+      },
+      error => {
+        this.snackBar.open(`Error Occurred`, 'Close', {duration: 3000});
+      }
+    )
   }
 }

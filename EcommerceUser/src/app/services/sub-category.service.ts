@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {IHttp, ISubcategoryRes} from "../models/subCategory.model";
 
@@ -7,13 +7,13 @@ import {IHttp, ISubcategoryRes} from "../models/subCategory.model";
 })
 export class SubCategoryService {
 
-  baserUrl = 'https://localhost:7195/subcategory';
+  baserUrl = 'http://ecommercerv.azurewebsites.net/subcategory';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
 
-  getByParentId(parentId: number)
-  {
+  getByParentId(parentId: number) {
     return this.http.get<IHttp<ISubcategoryRes[]>>(`${this.baserUrl}/parentCategory/${parentId}`)
   }
 }

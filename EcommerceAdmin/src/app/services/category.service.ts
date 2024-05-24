@@ -6,7 +6,7 @@ import { ICategoryForm, ICategoryRes, IHttp } from '../models/category.model';
   providedIn: 'root',
 })
 export class CategoryService {
-  baserUrl = 'https://localhost:7195/category';
+  baserUrl = 'http://ecommercerv.azurewebsites.net/category';
 
   constructor(private http: HttpClient) {}
 

@@ -1,11 +1,11 @@
-<div class="main-container" *ngIf="userDetail.cart.items.length">
+<div class="main-container" *ngIf="userDetail?.cart?.items?.length">
   <app-loader *ngIf="loading"></app-loader>
   <div class="grid-container" *ngIf="!loading">
     <div class="product-detail-container">
       <div class="product-card" *ngFor="let item of userDetail.cart.items">
         <div class="product-details">
           <div class="product-image-container">
-            <img src="{{item.productImage}}" />
+            <img src="{{item.productImage}}"/>
           </div>
           <div class="product-info">
             <h6 class="info">{{ item.productName }}</h6>
@@ -50,7 +50,7 @@
         </div>
       </div>
       <div class="overview-actions">
-        <button class="checkout" (click) = "checkout()">
+        <button class="checkout" (click)="checkout()">
           <mat-icon>credit_card</mat-icon>
           <span>CHECKOUT</span>
         </button>
@@ -63,7 +63,7 @@
   </div>
 </div>
 
-<div class="empty-cart-container" *ngIf="!userDetail.cart.items.length" >
+<div class="empty-cart-container" *ngIf="!isLoggedOff && !userDetail?.cart?.items?.length">
   <svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" width="300" height="300" viewBox="0 0 896 747.97143"
        xmlns:xlink="http://www.w3.org/1999/xlink"><title>empty_cart</title>
     <path
@@ -172,4 +172,6 @@
     <rect x="218.2485" y="134.90779" width="2" height="18.5" fill="#f2f2f2"/>
     <rect x="279.2485" y="134.90779" width="2" height="18.5" fill="#f2f2f2"/>
   </svg>
-</div>
+</div >
+
+<app-login-required *ngIf="isLoggedOff"></app-login-required>

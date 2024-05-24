@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Subject} from "rxjs";
 
 @Injectable({
@@ -8,7 +8,7 @@ export class SidebarService {
   private isOpenSubject = new Subject<boolean>();
   isOpen$ = this.isOpenSubject.asObservable();
 
-  toogleSidebar(){
+  toogleSidebar() {
     this.isOpenSubject.next(true);
   }
 }

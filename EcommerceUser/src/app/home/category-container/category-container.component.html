@@ -1,24 +1,23 @@
-
 <div class="category-container">
-  <div class="heading">Best of {{category.category}}</div>
+  <div class="heading">Best of {{ category.category }}</div>
   <div class="category-detail">
 
 
     <div class="card-container">
-      <ng-container  *ngFor="let subcategory of category.subcategories">
-      <a [routerLink]="['/subcategory', subcategory.name, subcategory.id]">
-        <mat-card class="card">
-          <div class="img-container">
-            <img
-              src= "{{subcategory.imageUrl}}}"
-            />
-          </div>
-          <div class="card-info">
-            <p class="card-title">{{subcategory.name}}</p>
-            <p class="card-price"><span>Rs.</span>10,000</p>
-          </div>
-        </mat-card>
-      </a>
+      <ng-container *ngFor="let subcategory of category.subcategories">
+        <a [routerLink]="['/subcategory', subcategory.name, subcategory.id]">
+          <mat-card class="card">
+            <div class="img-container">
+              <img
+                src="{{subcategory.imageUrl}}}"
+              />
+            </div>
+            <div class="card-info">
+              <p class="card-title">{{ subcategory.name }}</p>
+              <p class="card-price"><span>Rs.</span>10,000</p>
+            </div>
+          </mat-card>
+        </a>
 
       </ng-container>
 

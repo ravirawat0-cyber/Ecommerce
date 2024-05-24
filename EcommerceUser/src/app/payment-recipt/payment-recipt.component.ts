@@ -21,22 +21,18 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 export class PaymentReciptComponent {
   uuid: string = "";
 
-  constructor (private route : ActivatedRoute, private orderService: OrderService, private snackbar : MatSnackBar) {
-   this.route.params.subscribe(params => {
-     this.uuid = params['uuid'];
-   })
-    console.log(this.uuid);
+  constructor(private route: ActivatedRoute, private orderService: OrderService, private snackbar: MatSnackBar) {
+    this.route.params.subscribe(params => {
+      this.uuid = params['uuid'];
+    })
   }
 
   openRecipt() {
-    console.log("clicked open recipt")
-    console.log(this.uuid);
-    this.orderService.getRecipt(this.uuid).subscribe( res => {
-     window.open(res.data.receiptURL);
-    },
+    this.orderService.getRecipt(this.uuid).subscribe(res => {
+        window.open(res.data.receiptURL);
+      },
       error => {
-           console.log("recipt : ",error.error);
-            this.snackbar.open(error.error, "Close", {duration: 3000});
+        this.snackbar.open(error.error, "Close", {duration: 3000});
       })
   }
 }

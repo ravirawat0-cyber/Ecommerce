@@ -31,33 +31,33 @@ import {RouterLink} from "@angular/router";
 })
 export class AccountComponent implements OnInit, OnDestroy {
 
-  userDetails! : IUserRes
-  userSubscritption! : Subscription;
-  formatedDate : string | null = "";
-  userOrders : IOrderData = {
+  userDetails!: IUserRes
+  userSubscritption!: Subscription;
+  formatedDate: string | null = "";
+  userOrders: IOrderData = {
     orderDetails: []
-  } ;
+  };
 
   constructor(
     private datePipe: DatePipe,
     private matDialog: MatDialog,
     private snackBar: MatSnackBar,
-    private accountService : AccountService,
-    private orderService : OrderService) {
+    private accountService: AccountService,
+    private orderService: OrderService) {
   }
 
   ngOnInit(): void {
-        this.loadUser();
-        this.getAllOrders();
-    }
+    this.loadUser();
+    this.getAllOrders();
+  }
 
   ngOnDestroy(): void {
-        this.userSubscritption.unsubscribe();
-    }
+    this.userSubscritption.unsubscribe();
+  }
 
-  loadUser():void {
-    this.userSubscritption = this.accountService.user$.subscribe( user => {
-      if(user){
+  loadUser(): void {
+    this.userSubscritption = this.accountService.user$.subscribe(user => {
+      if (user) {
         this.userDetails = user;
         this.formatedDate = this.datePipe.transform(this.userDetails.user.joinedDate, 'MMMM d, yyyy');
       }
@@ -65,18 +65,16 @@ export class AccountComponent implements OnInit, OnDestroy {
     this.accountService.loadUserFromToken().subscribe();
   }
 
-  openDialog(){
+  openDialog() {
     this.matDialog.open(AccountmodelComponent
     )
   }
 
-  getAllOrders()
-  {
+  getAllOrders() {
     this.orderService.getAllOrderDetail().subscribe(
-       res => {
-         this.userOrders = res.data;
-         console.log(this.userOrders);
-       }
+      res => {
+        this.userOrders = res.data;
+      }
     )
   }
 }

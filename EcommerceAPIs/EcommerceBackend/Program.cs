@@ -13,6 +13,8 @@ using Swashbuckle.AspNetCore.Filters;
 using System.Text;
 using FirebaseAdmin;
 using Google.Apis.Auth.OAuth2;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.Identity.Web;
 
 namespace EcommerceBackend
 {
@@ -36,18 +38,12 @@ namespace EcommerceBackend
                     In = Microsoft.OpenApi.Models.ParameterLocation.Header,
                     Name = "Authorization",
                     Type = Microsoft.OpenApi.Models.SecuritySchemeType.ApiKey
-
                 });
                 options.OperationFilter<SecurityRequirementsOperationFilter>();
-
             });
 
-            FirebaseApp.Create(new AppOptions()
-            {
-                Credential = GoogleCredential.FromFile("C:\\Users\\ravir\\OneDrive\\Desktop\\DotNet\\Ecommerce\\EcommerceAPIs\\EcommerceBackend\\firebaseKey.json")
-            });
 
-            builder.Services.AddScoped<DbContext>(); 
+            builder.Services.AddScoped<DbContext>();
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
             builder.Services.AddScoped<IProductServices, ProductServices>();
             builder.Services.AddScoped<ISubCategoryServices, SubCategoryServices>();
@@ -70,54 +66,55 @@ namespace EcommerceBackend
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowSpecificOrigin",
-                    builder => builder.WithOrigins("http://localhost:4200")
-                        .AllowAnyMethod().
-                        AllowAnyHeader().
-                        AllowCredentials());
+                    builder => builder.WithOrigins("http://ecommerce-prod-ravi.s3-website-us-east-1.amazonaws.com")
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials());
             });
-
+          
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                     .AddJwtBearer(options =>
-                     {                                                
-                         options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
-                         {
-                             ValidateIssuerSigningKey = true,
-                             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8
-                                .GetBytes(builder.Configuration.GetSection("AppSettings:Token").Value)),
-                             ValidateIssuer = false,
-                             ValidateAudience = false,
-                             ValidateLifetime = true,
-                             ClockSkew = TimeSpan.Zero
-                         };
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(
+                            Encoding.UTF8.GetBytes(builder.Configuration.GetSection("AppSettings:Token").Value)),
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                        ValidateLifetime = true,
+                        ClockSkew = TimeSpan.Zero
+                    };
 
-                         //handle jwt token validation failures with a custom response
-                         options.Events = new JwtBearerEvents
-                         {
-                             OnAuthenticationFailed = context =>
-                             {
-                                 if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
-                                 {
-                                     context.Response.Headers.Add("Token-Expired", "true");
-                                     context.Response.StatusCode = 401;
-                                     context.Response.ContentType = "application/json";
-                                     return context.Response.WriteAsync(
-                                         "{'message': 'Your session has expired. Please log in again'}");
-                                 }
+                    // Handle JWT token validation failures with a custom response
+                    options.Events = new JwtBearerEvents
+                    {
+                        OnAuthenticationFailed = context =>
+                        {
+                            if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
+                            {
+                                context.Response.Headers.Add("Token-Expired", "true");
+                                context.Response.StatusCode = 401;
+                                context.Response.ContentType = "application/json";
+                                return context.Response.WriteAsync(
+                                    "{'message': 'Your session has expired. Please log in again'}");
+                            }
 
-                                 return Task.CompletedTask;
-                             }
-                         };
-                     });
+                            return Task.CompletedTask;
+                        }
+                    };
+                });
 
-            builder.Services.AddHttpContextAccessor();
+            //  builder.Services.AddMicrosoftIdentityWebApiAuthentication(builder.Configuration, "AzureAd");
 
+            //    builder.Services.AddHttpContextAccessor();
 
             var app = builder.Build();
 
             app.UseCors("AllowSpecificOrigin");
             // Configure the HTTP request pipeline.
 
-            if (app.Environment.IsDevelopment())
+            if (app.Environment.IsProduction())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();

@@ -1,0 +1,20 @@
+{
+  "dependencies": {
+    "apis1": {
+      "apiEndpoint": "https://ecommercebackendapi.azure-api.net/",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.ApiManagement/service/EcommerceBackendapi/apis/EcommerceBackend",
+      "type": "apis.azure"
+    },
+    "identityapp1": {
+      "connectionInfo": "App registration: ravi, Tenant: Default Directory (ravirawat0outlook.onmicrosoft.com - Microsoft Entra ID)",
+      "type": "identityapp.default"
+    },
+    "mssql1": {
+      "serviceConnectorResourceId": "",
+      "secretStore": "AzureAppSettings",
+      "type": "mssql.onprem",
+      "connectionId": "ConnectionStrings:EcommerceDb",
+      "dynamicId": null
+    }
+  }
+}

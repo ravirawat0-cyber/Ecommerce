@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {ImageResponse} from "../models/image.model";
 
@@ -6,12 +6,13 @@ import {ImageResponse} from "../models/image.model";
   providedIn: 'root'
 })
 export class ImageService {
-  baseUrl = "https://localhost:7195/Upload"
+  baseUrl = "http://ecommercerv.azurewebsites.net/Upload"
+
   constructor(private http: HttpClient) {
   }
-    UploadImage(image  : FormData)
-    {
-      return this.http.post<ImageResponse>(this.baseUrl, image)
-    }
+
+  UploadImage(image: FormData) {
+    return this.http.post<ImageResponse>(this.baseUrl, image)
+  }
 
 }

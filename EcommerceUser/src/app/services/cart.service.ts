@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {ICartReq} from "../models/cart.model";
 
@@ -7,27 +7,25 @@ import {ICartReq} from "../models/cart.model";
 })
 export class CartService {
 
-  baseUrl = "https://localhost:7195/Cart"
-  constructor(private http: HttpClient) { }
+  baseUrl = "http://ecommercerv.azurewebsites.net/Cart"
+
+  constructor(private http: HttpClient) {
+  }
 
 
-  AddToCart(Item: ICartReq)
-  {
+  AddToCart(Item: ICartReq) {
     return this.http.post(`${this.baseUrl}/add`, Item);
   }
 
-  UpdateToCart(Item: ICartReq)
-  {
+  UpdateToCart(Item: ICartReq) {
     return this.http.put(`${this.baseUrl}`, Item);
   }
 
-  DeleteToCart(prouductId : number)
-  {
+  DeleteToCart(prouductId: number) {
     return this.http.delete(`${this.baseUrl}/${prouductId}`);
   }
 
-  DeleteCart()
-  {
+  DeleteCart() {
     return this.http.delete(`${this.baseUrl}/deletecart`)
   }
 

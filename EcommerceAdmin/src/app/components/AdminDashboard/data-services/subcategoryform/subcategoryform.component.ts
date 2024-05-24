@@ -7,6 +7,7 @@ import {ICategoryRes} from "../../../../models/category.model";
 import {CategoryService} from "../../../../services/category.service";
 import {SubcategoryService} from "../../../../services/subcategory.service";
 import {ISubcategoryForm} from "../../../../models/subcategory.model";
+import {v4 as uuidv4} from "uuid";
 
 @Component({
     selector: 'app-subcategoryform',
@@ -41,7 +42,7 @@ export class SubcategoryformComponent {
         const file = event.target.files[0];
 
         if (file) {
-            const path = `subCategorys/${file.name}`;
+            const path = `subCategorys/${uuidv4()}/${file.name}`;
             const uploadTask: AngularFireUploadTask = this.fireStorage.upload(path, file);
 
             uploadTask

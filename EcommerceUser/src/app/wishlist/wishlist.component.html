@@ -1,28 +1,32 @@
-<div class="main-container" *ngIf = "userDetail.wishlist.items.length">
+<div class="main-container" *ngIf="userDetail?.wishlist?.items?.length">
   <app-loader *ngIf="loading"></app-loader>
-   <div class="card-container--main" *ngIf = "!loading">
-        <div class="grid-card-container">
-          <ng-container *ngFor="let item of userDetail.wishlist.items">
-          <mat-card class="card-container">
-            <button>
-              <img class="p-image" src="{{item.productImage}}">
-              <div class="p-info">
-                <div class="p-name">{{item.productName}}</div>
-                <h6 class="p-price">Rs.{{item.productPrice}} /-</h6>
-              </div>
-            </button>
-
-            <div class="p-actions">
-              <button mat-flat-button color="primary" (click) = "moveToCart(item.productId)"><mat-icon>add_shopping_cart</mat-icon><span>MOVE TO CART</span></button>
-              <button mat-flat-button color="primary" (click)="removeProduct(item.productId)" ><mat-icon>delete</mat-icon><span>REMOVE</span></button>
+  <div class="card-container--main" *ngIf="!loading">
+    <div class="grid-card-container">
+      <ng-container *ngFor="let item of userDetail.wishlist.items">
+        <mat-card class="card-container">
+          <button>
+            <img class="p-image" src="{{item.productImage}}">
+            <div class="p-info">
+              <div class="p-name">{{ item.productName }}</div>
+              <h6 class="p-price">Rs.{{ item.productPrice }} /-</h6>
             </div>
-          </mat-card>
-          </ng-container>
-        </div>
-   </div>
+          </button>
+
+          <div class="p-actions">
+            <button mat-flat-button color="primary" (click)="moveToCart(item.productId)">
+              <mat-icon>add_shopping_cart</mat-icon>
+              <span>MOVE TO CART</span></button>
+            <button mat-flat-button color="primary" (click)="removeProduct(item.productId)">
+              <mat-icon>delete</mat-icon>
+              <span>REMOVE</span></button>
+          </div>
+        </mat-card>
+      </ng-container>
+    </div>
+  </div>
 </div>
 
-<div class="empty-cart-container" *ngIf="!userDetail.wishlist.items.length" >
+<div class="empty-cart-container" *ngIf="!isLoggedoff && !userDetail?.wishlist?.items?.length">
   <svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" width="300" height="300" viewBox="0 0 896 747.97143"
        xmlns:xlink="http://www.w3.org/1999/xlink"><title>empty_cart</title>
     <path
@@ -132,3 +136,6 @@
     <rect x="279.2485" y="134.90779" width="2" height="18.5" fill="#f2f2f2"/>
   </svg>
 </div>
+
+
+<app-login-required *ngIf="isLoggedoff"></app-login-required>

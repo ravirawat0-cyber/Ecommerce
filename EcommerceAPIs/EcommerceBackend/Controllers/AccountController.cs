@@ -19,7 +19,7 @@ namespace EcommerceBackend.Controllers
         private readonly ICartServices _cartServices;
         private readonly IOrderServices _orderServices;
         private readonly IDataHelper _dataHelper;
-        const string endpointSecret = "whsec_f78dc11d4f2170c6d5259edfebbfd5baf54a8fa0c3de6d525894ee9eb1e1410a";
+        private const string endpointSecret = "whsec_q9eqrJne1TSrFpyKC1BAl4LJoSVQ8cvN";
      
 
         public AccountController(IAccountServices accountServices,

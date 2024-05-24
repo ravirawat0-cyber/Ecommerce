@@ -1,6 +1,5 @@
-export interface IHttp<T>
-{
-  data : T;
+export interface IHttp<T> {
+  data: T;
   statusMessage: string;
 }
 
@@ -25,13 +24,12 @@ export interface IOrderItem {
   productName: string;
 }
 
-
 export interface IOrder {
   id: number;
-  userEmail : string;
-  transactionId : string;
-  userId : number;
-  receiptURL : string;
-  totalPrice : number;
-  orderDate : string;
+  userEmail: string;
+  transactionId: string;
+  userId: number;
+  receiptURL: string;
+  totalPrice: number;
+  orderDate: string;
 }

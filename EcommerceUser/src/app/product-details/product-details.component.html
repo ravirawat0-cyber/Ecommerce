@@ -1,14 +1,13 @@
-
-  <div class="product-container--main">
-    <div class="card-container--main">
+<div class="product-container--main">
+  <div class="card-container--main">
 
     <mat-card class="container--main-img">
       <div class="card-container--image">
         <button class="slider-btn slider-btn-lft" mat-flat-button (click)="previousImage()">
           <mat-icon color="primary">keyboard_arrow_left</mat-icon>
         </button>
-          <img class="image-container"
-            src="{{imageUrls[currentImageIndex]}}"/>
+        <img class="image-container"
+             src="{{imageUrls[currentImageIndex]}}"/>
 
         <button class="slider-btn slider-btn-rt" mat-flat-button (click)="nextImage()">
           <mat-icon color="primary">keyboard_arrow_right</mat-icon>
@@ -16,117 +15,118 @@
       </div>
     </mat-card>
 
-      <div class="card-container--details">
-        <p class="product-name">{{productDetail.name}}</p>
-        <div class="rating-container">
-          <app-star-rating
-            class="star-rating"
-            [buttonStyle]="buttonSyle"
-            [parentStyle]="starStyle"
-            [childStyle]="childStyle"
-            [rating]= "productDetail.averageRating"
-                           [starCount]="5"
-                           [readOnly] = "true">
-          </app-star-rating>
-        </div>
-        <p class="product-price">Rs.{{productDetail.price}} /-</p>
+    <div class="card-container--details">
+      <p class="product-name">{{ productDetail.name }}</p>
+      <div class="rating-container">
+        <app-star-rating
+          class="star-rating"
+          [buttonStyle]="buttonSyle"
+          [parentStyle]="starStyle"
+          [childStyle]="childStyle"
+          [rating]="productDetail.averageRating"
+          [starCount]="5"
+          [readOnly]="true">
+        </app-star-rating>
+      </div>
+      <p class="product-price">Rs.{{ productDetail.price }} /-</p>
 
-        <div class="specification-container" >
-          <ul  *ngFor="let keyfeature of keyFeatures">
-            <li>{{keyfeature}}</li>
-          </ul>
-        </div>
+      <div class="specification-container">
+        <ul *ngFor="let keyfeature of keyFeatures">
+          <li>{{ keyfeature }}</li>
+        </ul>
+      </div>
 
-        <div class="action-container">
-          <button mat-flat-button color="primary" (click) = "addToCart()">
-            <mat-icon>add_shopping_cart</mat-icon>
-            ADD TO CART
-          </button>
+      <div class="action-container">
+        <button mat-flat-button color="primary" (click)="addToCart()">
+          <mat-icon>add_shopping_cart</mat-icon>
+          ADD TO CART
+        </button>
 
-          <button mat-flat-button color="primary" (click)="addToCart()" [routerLink]="'/cart'">
-            <mat-icon>shopping_basket</mat-icon>
-            BUY NOW
-          </button>
-
-        </div>
-
-        <div class="keyfeature-container">
-          <div class="feature">
-            <mat-icon> local_shipping</mat-icon>
-            <p>Free and Fast Delivery</p>
-          </div>
-          <div class="feature">
-            <mat-icon> local_atm</mat-icon>
-            <p>Pay on Delivery</p>
-          </div>
-          <div class="feature">
-            <mat-icon>stars</mat-icon>
-            <p>Top Brand</p>
-          </div>
-          <div class="feature">
-            <mat-icon> beenhere</mat-icon>
-            <p>12 Month Hassle Free Warranty</p>
-          </div>
-        </div>
-
+        <button mat-flat-button color="primary" (click)="addToCart()" [routerLink]="'/cart'">
+          <mat-icon>shopping_basket</mat-icon>
+          BUY NOW
+        </button>
 
       </div>
-    </div>
 
-    <div class="description-container">
-      <p class="description-heading">Description</p>
-      <p class="description-info">{{productDetail.description}}</p>
+      <div class="keyfeature-container">
+        <div class="feature">
+          <mat-icon> local_shipping</mat-icon>
+          <p>Free and Fast Delivery</p>
+        </div>
+        <div class="feature">
+          <mat-icon> local_atm</mat-icon>
+          <p>Pay on Delivery</p>
+        </div>
+        <div class="feature">
+          <mat-icon>stars</mat-icon>
+          <p>Top Brand</p>
+        </div>
+        <div class="feature">
+          <mat-icon> beenhere</mat-icon>
+          <p>12 Month Hassle Free Warranty</p>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <div class="review-container-main">
-      <p class = "review-heading">Product Reviews</p>
-      <div class="review-container" >
-        <ng-container *ngFor="let review of productReview.data">
+  <div class="description-container">
+    <p class="description-heading">Description</p>
+    <p class="description-info">{{ productDetail.description }}</p>
+  </div>
+
+  <div class="review-container-main">
+    <p class="review-heading">Product Reviews</p>
+
+    <div class="review-container" *ngIf="productReview.data && productReview.data.length > 0">
+      <ng-container *ngFor="let review of productReview.data">
         <mat-card class="review-card">
-          <div class = "img-container">
+          <div class="img-container">
             <img
-              src = "{{review.user.image}}"
-              onerror = "this.src = 'https://img.freepik.com/free-vector/user-circles-set_78370-4704.jpg?w=740&t=st=1714726785~exp=1714727385~hmac=80009fb6c3a56594a1d9bd8c143258e863866ebbee9eed58972d1d568673b09c'"/>
+              src="{{review.user.image}}"
+              onerror="this.src = 'https://img.freepik.com/free-vector/user-circles-set_78370-4704.jpg?w=740&t=st=1714726785~exp=1714727385~hmac=80009fb6c3a56594a1d9bd8c143258e863866ebbee9eed58972d1d568673b09c'"/>
           </div>
-          <div class = "review-info">
-             <div class="review-info-action">
-               <h6 class="reviewer-name">{{review.user.name}}</h6>
-               <div class="actions" *ngIf="isReviewOwner(review.user.id)">
-                 <button class="review-btn" (click)="updateReview(productId)" ><mat-icon>edit</mat-icon></button>
-                 <button class="review-btn" (click)="deleteReview(productId)"><mat-icon>delete_outline</mat-icon></button>
-               </div>
-             </div>
+          <div class="review-info">
+            <div class="review-info-action">
+              <h6 class="reviewer-name">{{ review.user.name }}</h6>
+              <div class="actions" *ngIf="isReviewOwner(review.user.id)">
+                <button class="review-btn" (click)="updateReview(productId)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button class="review-btn" (click)="deleteReview(productId)">
+                  <mat-icon>delete_outline</mat-icon>
+                </button>
+              </div>
+            </div>
             <app-star-rating
               class="star-rating"
               [buttonStyle]="buttonSyle"
               [parentStyle]="{'margin' : '0', 'marginTop' : '8px'}"
               [childStyle]="childStyle"
-              [rating]= "review.rating"
+              [rating]="review.rating"
               [starCount]="5"
-              [readOnly] = "true">
+              [readOnly]="true">
             </app-star-rating>
-            <p class = "review">{{review.comments}}</p>
+            <p class="review">{{ review.comments }}</p>
           </div>
         </mat-card>
-        </ng-container>
-      </div>
+      </ng-container>
+    </div>
 
 
-
-
-      <div class="review-container hidden">
-        <mat-card class="review-card-ins">
-          <div class="review-instruction">
-            <div>
+    <div class="review-container" *ngIf = "!productReview.data || productReview.data.length === 0">
+      <mat-card class="review-card-ins">
+        <div class="review-instruction">
+          <div>
             <mat-icon class="qus-ans" style="width: 24px; height: 24px;">question_answer</mat-icon>
-            </div>
-            <p class="instruction">Be the first one to review this product. To add review, head on to your order page</p>
           </div>
-          <button class="btn-goto" mat-stroked-button color="primary" [routerLink]="'/orders'">GO TO ACCOUNT</button>
-        </mat-card>
-      </div>
+          <p class="instruction">Be the first one to review this product. To add review, head on to your order page</p>
+        </div>
+        <button class="btn-goto" mat-stroked-button color="primary" [routerLink]="'/orders'">GO TO ACCOUNT</button>
+      </mat-card>
     </div>
   </div>
+</div>
 
 
 <router-outlet></router-outlet>

@@ -1,204 +1,50 @@
 <div class="main-container">
 
-    <div class="card-container">
-      <ng-container *ngFor="let product of productDetails">
-        <mat-card class="card">
+  <div class="card-container">
+    <ng-container *ngFor="let product of productDetails">
+      <mat-card class="card">
 
-          <div class="img-container">
-            <img src="{{product.coverImage}}" alt = "product-image"/>
-          </div>
-          <div class="card-info-main">
-            <a [routerLink]="['/product', product.name, product.id]">
-          <div class="card-info">
-            <p class="product-name">{{product.name}}</p>
-            <p class="product-price">Rs.{{product.price}}</p>
-            <div class="keyfeature-container">
-              <ng-container *ngFor="let feature of splitKeyFeature(product.keyFeature)">
-                <div class="keyfeature">{{feature}}</div>
-              </ng-container>
+        <div class="img-container">
+          <img src="{{product.coverImage}}" alt="product-image"/>
+        </div>
+        <div class="card-info-main">
+          <a [routerLink]="['/product', product.name, product.id]">
+            <div class="card-info">
+              <p class="product-name">{{ product.name }}</p>
+              <p class="product-price">Rs.{{ product.price }}</p>
+              <div class="keyfeature-container">
+                <ng-container *ngFor="let feature of splitKeyFeature(product.keyFeature)">
+                  <div class="keyfeature">{{ feature }}</div>
+                </ng-container>
 
-            </div>
-          </div>
-            </a>
-            <div class="action-container">
-              <div class="action-buttons">
-                <button mat-icon-button class="favorite-button" aria-label="icon-button with heart icon" (click) = "addToWishlist(product.id)">
-                  <mat-icon >favorite</mat-icon>
-                </button>
-                <button mat-icon-button class="share-button" aria-label="icon-button with cart icon" (click)="addToCart(product.id)">
-                  <mat-icon>add_shopping_cart</mat-icon>
-                </button>
-              </div>
-              <div class="raiting-container">
-                     <app-star-rating
-                       [buttonStyle]="buttonSyle"
-                       [parentStyle]="parentStyle"
-                       [rating]="product.averageRating"
-                       [readOnly]  = "true"
-                      ></app-star-rating>
               </div>
             </div>
-          </div>
-        </mat-card>
-
-        <mat-card class="card">
-
-          <div class="img-container">
-            <img src="{{product.coverImage}}" alt = "product-image"/>
-          </div>
-          <div class="card-info-main">
-            <a [routerLink]="['/product', product.name, product.id]">
-              <div class="card-info">
-                <p class="product-name">{{product.name}}</p>
-                <p class="product-price">Rs.{{product.price}}</p>
-                <div class="keyfeature-container">
-                  <ng-container *ngFor="let feature of splitKeyFeature(product.keyFeature)">
-                    <div class="keyfeature">{{feature}}</div>
-                  </ng-container>
-
-                </div>
-              </div>
-            </a>
-            <div class="action-container">
-              <div class="action-buttons">
-                <button mat-icon-button class="favorite-button" aria-label="icon-button with heart icon" (click) = "addToWishlist(product.id)">
-                  <mat-icon >favorite</mat-icon>
-                </button>
-                <button mat-icon-button class="share-button" aria-label="icon-button with cart icon" (click)="addToCart(product.id)">
-                  <mat-icon>add_shopping_cart</mat-icon>
-                </button>
-              </div>
-              <div class="raiting-container">
-                <app-star-rating
-                  [buttonStyle]="buttonSyle"
-                  [parentStyle]="parentStyle"
-                  [rating]="product.averageRating"
-                  [readOnly]  = "true"
-                ></app-star-rating>
-              </div>
+          </a>
+          <div class="action-container">
+            <div class="action-buttons">
+              <button mat-icon-button class="favorite-button" aria-label="icon-button with heart icon"
+                      (click)="addToWishlist(product.id)">
+                <mat-icon>favorite</mat-icon>
+              </button>
+              <button mat-icon-button class="share-button" aria-label="icon-button with cart icon"
+                      (click)="addToCart(product.id)">
+                <mat-icon>add_shopping_cart</mat-icon>
+              </button>
+            </div>
+            <div class="raiting-container">
+              <app-star-rating
+                [buttonStyle]="buttonSyle"
+                [parentStyle]="parentStyle"
+                [rating]="product.averageRating"
+                [readOnly]="true"
+              ></app-star-rating>
             </div>
           </div>
-        </mat-card>
-
-        <mat-card class="card">
-
-          <div class="img-container">
-            <img src="{{product.coverImage}}" alt = "product-image"/>
-          </div>
-          <div class="card-info-main">
-            <a [routerLink]="['/product', product.name, product.id]">
-              <div class="card-info">
-                <p class="product-name">{{product.name}}</p>
-                <p class="product-price">Rs.{{product.price}}</p>
-                <div class="keyfeature-container">
-                  <ng-container *ngFor="let feature of splitKeyFeature(product.keyFeature)">
-                    <div class="keyfeature">{{feature}}</div>
-                  </ng-container>
-
-                </div>
-              </div>
-            </a>
-            <div class="action-container">
-              <div class="action-buttons">
-                <button mat-icon-button class="favorite-button" aria-label="icon-button with heart icon" (click) = "addToWishlist(product.id)">
-                  <mat-icon >favorite</mat-icon>
-                </button>
-                <button mat-icon-button class="share-button" aria-label="icon-button with cart icon" (click)="addToCart(product.id)">
-                  <mat-icon>add_shopping_cart</mat-icon>
-                </button>
-              </div>
-              <div class="raiting-container">
-                <app-star-rating
-                  [buttonStyle]="buttonSyle"
-                  [parentStyle]="parentStyle"
-                  [rating]="product.averageRating"
-                  [readOnly]  = "true"
-                ></app-star-rating>
-              </div>
-            </div>
-          </div>
-        </mat-card>
-
-        <mat-card class="card">
-
-          <div class="img-container">
-            <img src="{{product.coverImage}}" alt = "product-image"/>
-          </div>
-          <div class="card-info-main">
-            <a [routerLink]="['/product', product.name, product.id]">
-              <div class="card-info">
-                <p class="product-name">{{product.name}}</p>
-                <p class="product-price">Rs.{{product.price}}</p>
-                <div class="keyfeature-container">
-                  <ng-container *ngFor="let feature of splitKeyFeature(product.keyFeature)">
-                    <div class="keyfeature">{{feature}}</div>
-                  </ng-container>
-
-                </div>
-              </div>
-            </a>
-            <div class="action-container">
-              <div class="action-buttons">
-                <button mat-icon-button class="favorite-button" aria-label="icon-button with heart icon" (click) = "addToWishlist(product.id)">
-                  <mat-icon >favorite</mat-icon>
-                </button>
-                <button mat-icon-button class="share-button" aria-label="icon-button with cart icon" (click)="addToCart(product.id)">
-                  <mat-icon>add_shopping_cart</mat-icon>
-                </button>
-              </div>
-              <div class="raiting-container">
-                <app-star-rating
-                  [buttonStyle]="buttonSyle"
-                  [parentStyle]="parentStyle"
-                  [rating]="product.averageRating"
-                  [readOnly]  = "true"
-                ></app-star-rating>
-              </div>
-            </div>
-          </div>
-        </mat-card>
-
-        <mat-card class="card">
-
-          <div class="img-container">
-            <img src="{{product.coverImage}}" alt = "product-image"/>
-          </div>
-          <div class="card-info-main">
-            <a [routerLink]="['/product', product.name, product.id]">
-              <div class="card-info">
-                <p class="product-name">{{product.name}}</p>
-                <p class="product-price">Rs.{{product.price}}</p>
-                <div class="keyfeature-container">
-                  <ng-container *ngFor="let feature of splitKeyFeature(product.keyFeature)">
-                    <div class="keyfeature">{{feature}}</div>
-                  </ng-container>
-
-                </div>
-              </div>
-            </a>
-            <div class="action-container">
-              <div class="action-buttons">
-                <button mat-icon-button class="favorite-button" aria-label="icon-button with heart icon" (click) = "addToWishlist(product.id)">
-                  <mat-icon >favorite</mat-icon>
-                </button>
-                <button mat-icon-button class="share-button" aria-label="icon-button with cart icon" (click)="addToCart(product.id)">
-                  <mat-icon>add_shopping_cart</mat-icon>
-                </button>
-              </div>
-              <div class="raiting-container">
-                <app-star-rating
-                  [buttonStyle]="buttonSyle"
-                  [parentStyle]="parentStyle"
-                  [rating]="product.averageRating"
-                  [readOnly]  = "true"
-                ></app-star-rating>
-              </div>
-            </div>
-          </div>
-        </mat-card>
-      </ng-container>
-    </div>
+        </div>
+      </mat-card>
+    </ng-container>
   </div>
+</div>
 
 <router-outlet></router-outlet>
 

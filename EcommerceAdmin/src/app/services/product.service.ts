@@ -6,7 +6,7 @@ import {IHttp, IProductForm, IProductRes} from '../models/product.model';
   providedIn: 'root',
 })
 export class ProductService {
-  baseUrl = 'https://localhost:7195/product';
+  baseUrl = 'http://ecommercerv.azurewebsites.net/product';
 
   constructor(private http: HttpClient) {}
 

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {ICategoryDataRes, ICategoryRes, IHttp} from "../models/category.model";
 
@@ -8,16 +8,16 @@ import {ICategoryDataRes, ICategoryRes, IHttp} from "../models/category.model";
 })
 export class CategoryServicesService {
 
-  baserUrl = 'https://localhost:7195/category';
-  constructor(private https: HttpClient) { }
+  baserUrl = 'http://ecommercerv.azurewebsites.net/category';
 
-  getCategoryData()
-  {
+  constructor(private https: HttpClient) {
+  }
+
+  getCategoryData() {
     return this.https.get<IHttp<ICategoryDataRes[]>>(`${this.baserUrl}/data`);
   }
 
-  getCategory()
-  {
+  getCategory() {
     return this.https.get<IHttp<ICategoryRes[]>>(`${this.baserUrl}`);
   }
 }

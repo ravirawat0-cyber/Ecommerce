@@ -27,48 +27,46 @@ import {IReviewReq} from "../../models/review.model";
   templateUrl: './review-update-model.component.html',
   styleUrl: './review-update-model.component.css'
 })
-export class ReviewUpdateModelComponent implements OnInit{
-  reviewForm ! : FormGroup;
-  productId! : number;
+export class ReviewUpdateModelComponent implements OnInit {
+  reviewForm !: FormGroup;
+  productId!: number;
 
-  constructor(public dialogRef : MatDialogRef<ReviewUpdateModelComponent>,
+  constructor(public dialogRef: MatDialogRef<ReviewUpdateModelComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
               private fb: FormBuilder,
               private reviewService: ReviewService,
-              private snackBar : MatSnackBar,
-              ) {
+              private snackBar: MatSnackBar,
+  ) {
     this.productId = data.productId;
   }
 
   ngOnInit(): void {
     this.reviewForm = this.fb.group({
-      reviewNumber : [1, Validators.required],
-      review : ["", Validators.required],
+      reviewNumber: [1, Validators.required],
+      review: ["", Validators.required],
     })
   }
 
 
   setReviewNumber(rating: number) {
-    this.reviewForm.patchValue({reviewNumber : rating});
-    console.log("update" , this.reviewForm.value.reviewNumber);
+    this.reviewForm.patchValue({reviewNumber: rating});
   }
 
   updateReview() {
-    console.log("prod",this.productId);
-    const req : IReviewReq = {
-      rating : this.reviewForm.value.reviewNumber,
-      comments : this.reviewForm.value.review,
-      productId : this.productId,
+    const req: IReviewReq = {
+      rating: this.reviewForm.value.reviewNumber,
+      comments: this.reviewForm.value.review,
+      productId: this.productId,
     }
 
     this.reviewService.UpdateReview(req).subscribe(
       res => {
         this.dialogRef.close();
         this.snackBar.open("Review updated successfully.", "Close", {duration: 3000})
-    },
-    error => {
-      this.snackBar.open("Something went wrong", 'Close', {duration: 3000})
-    }
+      },
+      error => {
+        this.snackBar.open("Something went wrong", 'Close', {duration: 3000})
+      }
     )
   }
 }

@@ -1,15 +1,17 @@
 <mat-dialog-content>
   <header>
     <h6>Edit Review</h6>
-    <button mat-icon-button class="close-btn" (click)= "dialogRef.close()"><mat-icon>close</mat-icon></button>
+    <button mat-icon-button class="close-btn" (click)="dialogRef.close()">
+      <mat-icon>close</mat-icon>
+    </button>
   </header>
   <form [formGroup]="reviewForm" (ngSubmit)="updateReview()">
-    <app-star-rating class="star-rating" (ratingChange)="setReviewNumber($event)" ></app-star-rating>
+    <app-star-rating class="star-rating" (ratingChange)="setReviewNumber($event)"></app-star-rating>
     <mat-form-field appearance="outline">
       <mat-label>Review</mat-label>
-      <input matInput  class="review-input" formControlName = "review">
+      <input matInput class="review-input" formControlName="review">
     </mat-form-field>
-    <button type="submit" class="add-btn" mat-flat-button color = "primary">UPDATE REVIEW</button>
+    <button type="submit" class="add-btn" mat-flat-button color="primary">UPDATE REVIEW</button>
   </form>
 
 </mat-dialog-content>

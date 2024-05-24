@@ -63,7 +63,7 @@ export class ReviewModalComponent implements OnInit {
         this.snackbar.open("Review added.", "Close", {duration: 3000})
       },
       error => {
-        this.snackbar.open(error.error, 'Close', {duration: 3000});
+        this.snackbar.open("Something went wrong", 'Close', {duration: 30000});
       }
     )
   }

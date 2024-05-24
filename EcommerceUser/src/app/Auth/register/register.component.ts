@@ -1,16 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { MatError, MatFormField, MatLabel } from "@angular/material/form-field";
-import { MatCard, MatCardContent, MatCardTitle } from "@angular/material/card";
-import { MatInput } from "@angular/material/input";
-import { MatButton } from "@angular/material/button";
-import { MatIcon } from "@angular/material/icon";
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
-import { Router, RouterLink, RouterOutlet } from "@angular/router";
-import { IUserReq } from "../../models/user.model";
-import { AccountService } from "../../services/account.service";
+import {Component, OnInit} from '@angular/core';
+import {MatError, MatFormField, MatLabel} from "@angular/material/form-field";
+import {MatCard, MatCardContent, MatCardTitle} from "@angular/material/card";
+import {MatInput} from "@angular/material/input";
+import {MatButton} from "@angular/material/button";
+import {MatIcon} from "@angular/material/icon";
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {Router, RouterLink, RouterOutlet} from "@angular/router";
+import {IUserReq} from "../../models/user.model";
+import {AccountService} from "../../services/account.service";
 import {catchError, first, Observable, tap} from "rxjs";
-import { MatSnackBar } from "@angular/material/snack-bar";
-import { ImageService } from "../../services/image.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {ImageService} from "../../services/image.service";
 
 
 @Component({
@@ -37,10 +37,10 @@ import { ImageService } from "../../services/image.service";
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
   selectedFile!: File;
-  imageUrl : string = "https://img.freepik.com/free-vector/user-circles-set_78370-4704.jpg?w=740&t=st=1714726785~exp=1714727385~hmac=80009fb6c3a56594a1d9bd8c143258e863866ebbee9eed58972d1d568673b09c";
+  imageUrl: string = "https://img.freepik.com/free-vector/user-circles-set_78370-4704.jpg?w=740&t=st=1714726785~exp=1714727385~hmac=80009fb6c3a56594a1d9bd8c143258e863866ebbee9eed58972d1d568673b09c";
 
-  constructor(private fb: FormBuilder ,
-              private accountService: AccountService ,
+  constructor(private fb: FormBuilder,
+              private accountService: AccountService,
               private imageService: ImageService,
               private snackBar: MatSnackBar,
               private router: Router) {
@@ -54,7 +54,7 @@ export class RegisterComponent implements OnInit {
       password: ["", Validators.required],
       confirmPassword: ["", Validators.required],
       address: ["", Validators.required],
-      phone : ["", Validators.required],
+      phone: ["", Validators.required],
     });
   }
 
@@ -77,10 +77,7 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     if (this.selectedFile) {
       this.uploadImage().subscribe(
-        () => this.registerUser(),
-        error => {
-          console.error('Image upload failed', error);
-        }
+        () => this.registerUser()
       );
     } else {
       this.registerUser();
@@ -100,7 +97,6 @@ export class RegisterComponent implements OnInit {
     this.accountService.register(value).subscribe(
       res => {
         this.router.navigate(['/home']);
-        console.log(res);
         localStorage.setItem('user', res.data.token.jwt);
         this.snackBar.open("Register successful", "Close", {duration: 3000});
       },
@@ -109,7 +105,6 @@ export class RegisterComponent implements OnInit {
       }
     );
   }
-
   onFileChanged(event: any) {
     this.selectedFile = event.target.files[0];
   }

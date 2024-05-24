@@ -1,4 +1,4 @@
-mat-dialog-content{
+mat-dialog-content {
   width: 300px;
   height: auto;
   overflow: hidden;
@@ -7,18 +7,18 @@ mat-dialog-content{
   gap: 1rem;
 }
 
-h6{
+h6 {
   font-size: 1rem;
   font-weight: 500;
 }
 
-header{
+header {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-mat-form-field, .add-btn{
+mat-form-field, .add-btn {
   width: 100%;
 }
 

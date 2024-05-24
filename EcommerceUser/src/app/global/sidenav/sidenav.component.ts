@@ -7,7 +7,7 @@ import {MatSidenav, MatSidenavContainer, MatSidenavContent} from "@angular/mater
 import {HomeContainerComponent} from "../../home/home-container/home-container.component";
 import {RouterLink, RouterOutlet} from "@angular/router";
 import {NgClass, NgIf} from "@angular/common";
-import {SidebarService} from "./sidebar.service";
+import {SidebarService} from "../../services/sidebar.service";
 import {AccountService} from "../../services/account.service";
 import {Subscription} from "rxjs";
 import {IUserRes} from "../../models/user.model";
@@ -32,29 +32,32 @@ import {IUserRes} from "../../models/user.model";
   templateUrl: './sidenav.component.html',
   styleUrl: './sidenav.component.css'
 })
-export class SidenavComponent implements OnInit{
+export class SidenavComponent implements OnInit {
   isOpen: boolean = false;
-  userSubcription ! : Subscription;
-  userDetail : IUserRes | null = null;
-  userName : string | undefined = "";
-  userImage : string | undefined = "";
- constructor(private sidebarService: SidebarService, private accountServices : AccountService,) {
-   this.sidebarService.isOpen$.subscribe(isOpen => {
-     this.isOpen = isOpen;
-   })
- }
+  userSubcription !: Subscription;
+  userDetail: IUserRes | null = null;
+  userName: string | undefined = "";
+  userImage: string | undefined = "";
+
+  constructor(private sidebarService: SidebarService,
+              private accountServices: AccountService,) {
+
+    this.sidebarService.isOpen$.subscribe(isOpen => {
+      this.isOpen = isOpen;
+    })
+  }
 
   ngOnInit(): void {
-       this.userSubcription = this.accountServices.user$.subscribe(user => {
-            this.userDetail = user;
-            this.userName = user?.user.name;
-            this.userImage = user?.user.image;
-       })
-    }
+    this.userSubcription = this.accountServices.user$.subscribe(user => {
+      this.userDetail = user;
+      this.userName = user?.user.name;
+      this.userImage = user?.user.image;
+    })
+  }
 
-    ngOnDestroy() {
-     this.userSubcription.unsubscribe();
-    }
+  ngOnDestroy() {
+    this.userSubcription.unsubscribe();
+  }
 
   closeSideNavbar() {
     this.isOpen = false;
@@ -63,5 +66,4 @@ export class SidenavComponent implements OnInit{
   userlogout() {
     this.accountServices.logout();
   }
-
 }

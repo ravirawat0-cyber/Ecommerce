@@ -12,6 +12,7 @@ import {ISubcategoryRes} from "../../../../models/subcategory.model";
 import {SubcategoryService} from "../../../../services/subcategory.service";
 import {ProductService} from "../../../../services/product.service";
 import {IProductForm} from "../../../../models/product.model";
+import {v4 as uuidv4} from 'uuid';
 
 @Component({
     selector: 'app-productform',
@@ -56,7 +57,7 @@ export class ProductformComponent {
         const file = event.target.files[0];
 
         if (file) {
-            const path = `products/${file.name}`;
+            const path = `products/${uuidv4()}/${file.name}`;
             const uploadTask: AngularFireUploadTask = this.fireStorage.upload(
                 path,
                 file
@@ -88,7 +89,7 @@ export class ProductformComponent {
 
         if (files && files.length > 0) {
             for (let i = 0; i < files.length; i++) {
-                const path = `products/${files[i].name}`;
+                const path = `products/${uuidv4()}/${files[i].name}`;
                 const uploadTask: AngularFireUploadTask = this.fireStorage.upload(
                     path,
                     files[i]

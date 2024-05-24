@@ -9,10 +9,9 @@ import {NgForOf, NgIf} from "@angular/common";
 import {LoaderComponent} from "../global/loader/loader.component";
 import {CartService} from "../services/cart.service";
 import {ICartReq} from "../models/cart.model";
-import {response} from "express";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {error} from "@angular/compiler-cli/src/transformers/util";
 import {MatCard} from "@angular/material/card";
+import {LoginRequiredComponent} from "../global/login-required/login-required.component";
 
 @Component({
   selector: 'app-wishlist',
@@ -23,17 +22,19 @@ import {MatCard} from "@angular/material/card";
     NgForOf,
     LoaderComponent,
     NgIf,
-    MatCard
+    MatCard,
+    LoginRequiredComponent,
   ],
   templateUrl: './wishlist.component.html',
   styleUrl: './wishlist.component.css'
 })
 export class WishlistComponent implements OnInit, OnDestroy {
-  userDetail!: IUserRes;
+  userDetail!: IUserRes ;
+  isLoggedoff = true;
   userSubscription!: Subscription;
   loading: boolean = true;
 
-  constructor(private accounttService: AccountService,
+  constructor(private accountService: AccountService,
               private wishlistService: WishlistService,
               private cartServices: CartService,
               private snackbar: MatSnackBar) {
@@ -44,14 +45,14 @@ export class WishlistComponent implements OnInit, OnDestroy {
   }
 
   loadUser() {
-    this.userSubscription = this.accounttService.user$.subscribe(user => {
+    this.userSubscription = this.accountService.user$.subscribe(user => {
       if (user) {
         this.userDetail = user;
-        console.log("wis", this.userDetail);
         this.loading = false;
+        this.isLoggedoff = false;
       }
     });
-    this.accounttService.loadUserFromToken().subscribe();
+    this.accountService.loadUserFromToken().subscribe();
   }
 
   ngOnDestroy(): void {
@@ -59,39 +60,39 @@ export class WishlistComponent implements OnInit, OnDestroy {
   }
 
 
-  moveToCart(id : number): void {
-       const item: ICartReq = {
-         productId: id,
-       }
-       this.cartServices.AddToCart(item).subscribe(
-         response => {
-           if (response) {
-             this.removeProduct(item.productId);
-             this.loadUser();
-             this.snackbar.open("Added to cart.", "Close",
-               { duration: 3000 });
+  moveToCart(id: number): void {
+    const item: ICartReq = {
+      productId: id,
+    }
+    this.cartServices.AddToCart(item).subscribe(
+      response => {
+        if (response) {
+          this.removeProduct(item.productId);
+          this.loadUser();
+          this.snackbar.open("Added to cart.", "Close",
+            {duration: 3000});
 
-           }
-         },
-         error =>{
-           this.snackbar.open(error.error, 'Close',
-             {duration: 3000 });
+        }
+      },
+      error => {
+        this.snackbar.open(error.error, 'Close',
+          {duration: 3000});
 
-         }
-       )
+      }
+    )
   }
 
   removeProduct(id: number) {
-      this.wishlistService.DeleteWislist(id).subscribe(
-        response => {
-          this.snackbar.open('Product removed.', 'Close',
-            { duration: 3000 });
-          this.loadUser();
-        },
-        error => {
-          this.snackbar.open("Error occurred.", 'Close',
-            { duration: 3000 });
-        }
-      )
+    this.wishlistService.DeleteWislist(id).subscribe(
+      response => {
+        this.snackbar.open('Product removed.', 'Close',
+          {duration: 3000});
+        this.loadUser();
+      },
+      error => {
+        this.snackbar.open("Error occurred.", 'Close',
+          {duration: 3000});
+      }
+    )
   }
 }

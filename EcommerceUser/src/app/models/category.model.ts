@@ -1,20 +1,18 @@
-export interface IHttp<T>
-{
+export interface IHttp<T> {
   data: T;
-  statusMessage : string;
+  statusMessage: string;
 }
 
-export interface ICategoryRes{
-  id : number;
-  name : string;
+export interface ICategoryRes {
+  id: number;
+  name: string;
 }
 
-export interface ICategoryDataRes
-{
+export interface ICategoryDataRes {
   id: number;
   category: string;
-  subcategories : {
-    id : number;
-    name : string;
+  subcategories: {
+    id: number;
+    name: string;
   }
 }

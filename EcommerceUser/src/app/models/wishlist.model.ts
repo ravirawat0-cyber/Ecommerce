@@ -1,3 +1,3 @@
-export interface IWishlistReq{
-  productId : number;
+export interface IWishlistReq {
+  productId: number;
 }

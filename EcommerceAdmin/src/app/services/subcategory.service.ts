@@ -11,7 +11,7 @@ import { tap } from 'rxjs';
   providedIn: 'root',
 })
 export class SubcategoryService {
-  baserUrl = 'https://localhost:7195/subcategory';
+  baserUrl = 'http://ecommercerv.azurewebsites.net/subcategory';
 
 
   constructor(private http: HttpClient) {}

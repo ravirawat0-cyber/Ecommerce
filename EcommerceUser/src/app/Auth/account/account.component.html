@@ -3,7 +3,9 @@
     <div class="user-view-container">
       <div class="user-img-container">
         <mat-dialog-actions>
-        <button class="update-btn" (click)="openDialog()" ><mat-icon>edit</mat-icon></button>
+          <button class="update-btn" (click)="openDialog()">
+            <mat-icon>edit</mat-icon>
+          </button>
         </mat-dialog-actions>
         <div class="image">
           <img src="{{userDetails.user.image}}"/>
@@ -12,13 +14,13 @@
 
       <div class="user-info-container">
         <div class="user-detail">
-          <h5>{{userDetails.user.name}}</h5>
-          <h6>Email: {{userDetails.user.email}}</h6>
-          <h6>Mobile: {{userDetails.user.mobile}}</h6>
-          <h6>Address: {{userDetails.user.address}}</h6>
+          <h5>{{ userDetails.user.name }}</h5>
+          <h6>Email: {{ userDetails.user.email }}</h6>
+          <h6>Mobile: {{ userDetails.user.mobile }}</h6>
+          <h6>Address: {{ userDetails.user.address }}</h6>
         </div>
         <div class="user-joining">
-          <span>Joined on: {{formatedDate}}</span>
+          <span>Joined on: {{ formatedDate }}</span>
         </div>
       </div>
 
@@ -31,21 +33,23 @@
         <a [routerLink]="'/orders'" class="view-all">VIEW ALL</a>
       </div>
 
-      <div class = "order-detail-container">
-      <mat-card  *ngFor="let order of userOrders.orderDetails" >
-        <mat-card-content class="order-detail-card" >
+      <div class="order-detail-container">
+        <mat-card *ngFor="let order of userOrders.orderDetails">
+          <mat-card-content class="order-detail-card">
 
-          <div class="order-info">
-            Order#: {{order.transactionId}}
-          </div>
-          <a href="{{order.receiptURL}}" class="order-action"><mat-icon>launch</mat-icon></a>
+            <div class="order-info">
+              Order#: {{ order.transactionId }}
+            </div>
+            <a href="{{order.receiptURL}}" class="order-action">
+              <mat-icon>launch</mat-icon>
+            </a>
 
-        <div class="order-price">
-          Total price: Rs.{{order.totalPrice}} /-
-        </div>
-        <div class="order-purchased">Purchased On: {{order.orderDate | date: 'MMMM d, yyyy'}}</div>
-        </mat-card-content>
-      </mat-card>
+            <div class="order-price">
+              Total price: Rs.{{ order.totalPrice }} /-
+            </div>
+            <div class="order-purchased">Purchased On: {{ order.orderDate | date: 'MMMM d, yyyy' }}</div>
+          </mat-card-content>
+        </mat-card>
       </div>
     </div>
   </div>

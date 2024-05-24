@@ -2,7 +2,7 @@
   flex: 1 1 auto;
 }
 
-.centered-form{
+.centered-form {
   display: flex;
   gap: 2rem;
   width: 20rem;
@@ -10,17 +10,9 @@
   justify-content: center;
 }
 
-/*.navbar-container{*/
-/*  position: sticky;*/
-/*  top: 0;*/
-/*  left: 0;*/
-/*  right: 0;*/
-/*  width: 100%;*/
-/*  z-index: 9999;*/
-
-/*}*/
-
-a{
+a {
   text-decoration: none;
   color: inherit;
 }
+
+

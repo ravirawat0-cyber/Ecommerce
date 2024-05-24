@@ -1,4 +1,4 @@
-.main-container{
+.main-container {
   display: flex;
   flex-direction: column;
   margin-top: 8rem;
@@ -6,22 +6,21 @@
   gap: 1rem;
 }
 
-.card-container--main{
+.card-container--main {
   width: 90%;
-  margin : auto;
-  background-color: rgb(245,245,245);
+  margin: auto;
+  background-color: rgb(245, 245, 245);
   padding: 1.5rem 1rem;
   border-radius: 4px;
-
 }
 
-.grid-card-container{
+.grid-card-container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 1rem;
 }
 
-.card-container{
+.card-container {
   overflow: hidden;
   border-radius: 4px;
   padding: 1rem;
@@ -31,20 +30,21 @@
   overflow: hidden;
 }
 
-.card-container button{
+.card-container button {
   border: none;
 }
-.p-image{
+
+.p-image {
   width: 100%;
   height: 150px;
   object-fit: contain;
 }
 
-.p-info{
+.p-info {
   padding: 1rem;
 }
 
-.p-name{
+.p-name {
   margin: 0px 0px 0.35em;
   font-family: Roboto, Helvetica, Arial, sans-serif;
   font-weight: 400;
@@ -53,14 +53,14 @@
   letter-spacing: 0.01071em;
 }
 
-.p-price{
+.p-price {
   font-size: 1rem;
   line-height: 1.75;
   letter-spacing: 0.00938em;
   color: rgba(0, 0, 0, 0.6);
 }
 
-.p-actions{
+.p-actions {
   display: flex;
   align-items: center;
   padding: 8px 0;
@@ -68,7 +68,7 @@
 
 }
 
-.empty-cart-container{
+.empty-cart-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -76,13 +76,13 @@
 }
 
 @media (max-width: 900px) {
-  .grid-card-container{
+  .grid-card-container {
     grid-template-columns: 1fr 1fr;
   }
 }
 
 @media (max-width: 600px) {
-  .grid-card-container{
+  .grid-card-container {
     grid-template-columns: 1fr;
   }
 }

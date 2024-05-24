@@ -1,25 +1,27 @@
 <div class="navbar-container">
   <mat-toolbar color="primary">
 
-    <button  mat-icon-button class="menu-button" aria-label="icon-button with menu icon" (click)="toggleSidebar()">
+    <button mat-icon-button class="menu-button" aria-label="icon-button with menu icon" (click)="toggleSidebar()">
       <mat-icon>menu</mat-icon>
     </button>
     <a href="#"> <span>Ecommerce</span></a>
     <span class="spacer"></span>
-    <a [routerLink]="'/wishlist'" >
-    <button mat-icon-button class="favorite-button" aria-label="icon-button with heart icon">
-      <mat-icon matBadge = "{{TotalWishlistItem! > 0 ?  TotalWishlistItem : undefined}}" matBadgeColor="warn">favorite</mat-icon>
-    </button>
+    <a [routerLink]="'/wishlist'">
+      <button mat-icon-button class="favorite-button" aria-label="icon-button with heart icon">
+        <mat-icon matBadge="{{TotalWishlistItem! > 0 ?  TotalWishlistItem : undefined}}" matBadgeColor="warn">favorite
+        </mat-icon>
+      </button>
     </a>
     <a [routerLink]="'/cart'">
-    <button mat-icon-button class="share-button" aria-label="icon-button with cart icon">
-      <mat-icon matBadge = "{{TotalCartItem! > 0 ? TotalCartItem : undefined}}" matBadgeColor="warn">add_shopping_cart</mat-icon>
-    </button>
+      <button mat-icon-button class="share-button" aria-label="icon-button with cart icon">
+        <mat-icon matBadge="{{TotalCartItem! > 0 ? TotalCartItem : undefined}}" matBadgeColor="warn">add_shopping_cart
+        </mat-icon>
+      </button>
     </a>
     <a [routerLink]="'/account'">
-    <button mat-icon-button class="acount-button" aria-label="icon-button with account icon">
-      <mat-icon>account_circle</mat-icon>
-    </button>
+      <button mat-icon-button class="acount-button" aria-label="icon-button with account icon">
+        <mat-icon>account_circle</mat-icon>
+      </button>
     </a>
   </mat-toolbar>
 </div>

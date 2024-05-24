@@ -1,14 +1,24 @@
 .home-container--main {
-  height: 100vh;
   max-width: 100rem;
-  padding: 2rem;
+  padding: 2.8rem 0.8rem;
   margin: 0 auto;
-  margin-top: 7rem;
+  margin-top: 5.2rem;
   display: flex;
   flex-direction: column;
-  gap: 3rem;
+  gap: 1.5rem;
 }
 
-.loader{
-   margin-top: 7rem;
+.loader {
+  margin-top: 7rem;
+}
+
+@media (max-width: 600px) {
+
+  .home-container--main{
+    padding-top: 1.8rem;
+    gap: 1rem;
+
+  }
+
+
 }

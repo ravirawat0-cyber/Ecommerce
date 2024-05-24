@@ -23,24 +23,23 @@ import {LoaderComponent} from "../../global/loader/loader.component";
 })
 export class HomeContainerComponent implements OnInit {
 
-  categorySubcategoryData : ICategoryDataRes[] = [];
-  isLoading : boolean = true;
+  categorySubcategoryData: ICategoryDataRes[] = [];
+  isLoading: boolean = true;
 
-  constructor(private categoryService: CategoryServicesService ) {}
+  constructor(private categoryService: CategoryServicesService) {
+  }
 
-   ngOnInit()
-  {
-    setTimeout(() => {this.fetchCategoryData()}, 1000)
+  ngOnInit() {
+    setTimeout(() => {
+      this.fetchCategoryData()
+    }, 1000)
 
   }
 
- fetchCategoryData() {
-        this.categoryService.getCategoryData().subscribe((response) => {
-          this.categorySubcategoryData = response.data;
-          this.isLoading = false;
-        },
-          error => {
-             console.log(error.error);
-        })
-    }
+  fetchCategoryData() {
+    this.categoryService.getCategoryData().subscribe((response) => {
+      this.categorySubcategoryData = response.data;
+      this.isLoading = false;
+    })
+  }
 }

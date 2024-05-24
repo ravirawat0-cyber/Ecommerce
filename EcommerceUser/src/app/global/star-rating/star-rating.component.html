@@ -1,11 +1,11 @@
-<div class="star-rating"  [ngStyle]="parentStyle" >
-  <button type = "button"
+<div class="star-rating" [ngStyle]="parentStyle">
+  <button type="button"
           *ngFor="let star of stars; let i = index"
-          (click) = "rate(i + 1)"
-          [disabled] = "readOnly"
-           [ngStyle]="buttonStyle" >
+          (click)="rate(i + 1)"
+          [disabled]="readOnly"
+          [ngStyle]="buttonStyle">
     <mat-icon class="star-icon" [ngStyle]="childStyle">
-      {{i < rating ? 'star' : 'star_border'}}
+      {{ i < rating ? 'star' : 'star_border' }}
     </mat-icon>
   </button>
 </div>

@@ -37,38 +37,38 @@ import {ReviewUpdateModelComponent} from "./review-update-model/review-update-mo
 export class ProductDetailsComponent implements OnInit {
 
   productDetail!: IProductProfileRes;
-  productId! : number;
-  imageUrls : string [] = [];
-  keyFeatures : string[] = [];
+  productId!: number;
+  imageUrls: string [] = [];
+  keyFeatures: string[] = [];
   currentImageIndex = 0;
   productReview!: IReviewResponse;
-  userId! : string;
+  userId!: string;
 
   starStyle = {
     'margin': '0',
-    'alignItems' : 'center',
+    'alignItems': 'center',
     'background': '#e8e8e8',
-      'borderRadius': '4px',
+    'borderRadius': '4px',
   };
 
-  childStyle  = {
+  childStyle = {
     fontSize: '20px',
-}
+  }
   buttonSyle = {
-    'cursor' : 'default'
+    'cursor': 'default'
   }
 
 
-  constructor(private accountService : AccountService,
-              private snackbar : MatSnackBar,
-              private productService :ProductsService,
-              private cartServices : CartService,
-              private activatedRoute : ActivatedRoute,
+  constructor(private accountService: AccountService,
+              private snackbar: MatSnackBar,
+              private productService: ProductsService,
+              private cartServices: CartService,
+              private activatedRoute: ActivatedRoute,
               private reviewService: ReviewService,
               private matDialog: MatDialog) {
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
       this.productId = params['id'];
     })
@@ -78,53 +78,52 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   fetchProductDetail() {
-        this.productService.getByProductId(this.productId).subscribe(
-          (response) => {
-            this.productDetail = response.products;
+    this.productService.getByProductId(this.productId).subscribe(
+      (response) => {
+        this.productDetail = response.products;
 
-            if (this.productDetail.imageUrls) {
-              this.imageUrls = this.productDetail.imageUrls.split('|');
-            }
+        if (this.productDetail.imageUrls) {
+          this.imageUrls = this.productDetail.imageUrls.split('|');
+        }
 
-            if (this.productDetail.keyFeature) {
-              this.keyFeatures = this.productDetail.keyFeature.split('\\n');
-            }
+        if (this.productDetail.keyFeature) {
+          this.keyFeatures = this.productDetail.keyFeature.split('\\n');
+        }
 
 
-          },
-          error => {
-            console.log(error.error);
-          }
-        )
-    }
-
-  nextImage(){
-    this.currentImageIndex = (this.currentImageIndex + 1)% this.imageUrls.length;
+      }
+    )
   }
-  previousImage(){
-    this.currentImageIndex = (this.currentImageIndex - 1 + this.imageUrls.length)% this.imageUrls.length;
+
+  nextImage() {
+    this.currentImageIndex = (this.currentImageIndex + 1) % this.imageUrls.length;
+  }
+
+  previousImage() {
+    this.currentImageIndex = (this.currentImageIndex - 1 + this.imageUrls.length) % this.imageUrls.length;
   }
 
   addToCart() {
-      const item : ICartReq ={
-        productId: this.productId,
+    const item: ICartReq = {
+      productId: this.productId,
     }
-      this.cartServices.AddToCart(item).subscribe(
-         (response) => {
-           if (response) {
-             this.accountService.loadUserFromToken().subscribe();
-             this.snackbar.open("Added to cart.", "Close",
-               { duration: 3000}
-             )}
-         },
-        error => {
-           this.snackbar.open(error.error, 'Close',
-             {duration: 3000});
+    this.cartServices.AddToCart(item).subscribe(
+      (response) => {
+        if (response) {
+          this.accountService.loadUserFromToken().subscribe();
+          this.snackbar.open("Added to cart.", "Close",
+            {duration: 3000}
+          )
         }
-      )
+      },
+      error => {
+        this.snackbar.open(error.error, 'Close',
+          {duration: 3000});
+      }
+    )
   }
 
-  getReview(){
+  getReview() {
     this.reviewService.GetReviewById(this.productId).subscribe(
       res => {
         this.productReview = res;
@@ -132,34 +131,34 @@ export class ProductDetailsComponent implements OnInit {
     )
   }
 
-  extractUserIdFromToken(){
+  extractUserIdFromToken() {
     const token = localStorage.getItem("user");
-    if(token){
+    if (token) {
       const decodedToken: any = jwtDecode(token);
       this.userId = decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/userdata'];
     }
   }
 
-  isReviewOwner(reviewUserId: number):boolean {
+  isReviewOwner(reviewUserId: number): boolean {
     return reviewUserId === parseInt(this.userId);
   }
 
-  updateReview(productId : number){
+  updateReview(productId: number) {
     const dialogRef = this.matDialog.open(ReviewUpdateModelComponent, {
       data: {productId}
     });
     dialogRef.afterClosed().subscribe(result => {
-        this.getReview();
+      this.getReview();
     });
 
   }
 
   deleteReview(productId: number) {
-        this.reviewService.DeleteReview(productId).subscribe(
-          res => {
-            this.snackbar.open("Review Deleted", 'Close', { duration: 3000});
-            this.getReview();
-          }
-        )
+    this.reviewService.DeleteReview(productId).subscribe(
+      res => {
+        this.snackbar.open("Review Deleted", 'Close', {duration: 3000});
+        this.getReview();
+      }
+    )
   }
 }

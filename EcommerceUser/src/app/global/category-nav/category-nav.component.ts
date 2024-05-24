@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {MatToolbar} from "@angular/material/toolbar";
 import {MatDivider} from "@angular/material/divider";
 import {RouterLink, RouterLinkActive, RouterOutlet} from "@angular/router";
@@ -28,17 +28,18 @@ import {MatMenu} from "@angular/material/menu";
 })
 export class CategoryNavComponent {
 
-   categories : ICategoryRes[] = []
-   constructor(private categoryService : CategoryServicesService) {
-   }
+  categories: ICategoryRes[] = []
 
-   ngOnInit(): void{
-     this.fetchDetails();
-   }
+  constructor(private categoryService: CategoryServicesService) {
+  }
+
+  ngOnInit(): void {
+    this.fetchDetails();
+  }
 
   fetchDetails() {
-       this.categoryService.getCategory().subscribe((response) => {
-         this.categories = response.data;
-       });
-    }
+    this.categoryService.getCategory().subscribe((response) => {
+      this.categories = response.data;
+    });
+  }
 }

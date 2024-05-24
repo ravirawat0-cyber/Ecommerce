@@ -1,4 +1,4 @@
-export interface IReviewReq{
+export interface IReviewReq {
   productId: number;
   rating: number;
   comments: string;
@@ -8,7 +8,7 @@ export interface IReviewReq{
 export interface IUserRes {
   id: number;
   name: string;
-  image : string;
+  image: string;
 }
 
 export interface IReviewRes {

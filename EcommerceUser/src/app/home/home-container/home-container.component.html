@@ -1,10 +1,9 @@
-
-<div class="home-container--main"  *ngIf="!isLoading">
-  <ng-container *ngFor="let category of categorySubcategoryData" >
-      <app-category-container [category] = "category"></app-category-container>
+<div class="home-container--main" *ngIf="!isLoading">
+  <ng-container *ngFor="let category of categorySubcategoryData">
+    <app-category-container [category]="category"></app-category-container>
   </ng-container>
 </div>
 
 <div class="loader">
-<app-loader *ngIf="isLoading" ></app-loader>
+  <app-loader *ngIf="isLoading"></app-loader>
 </div>

@@ -13,6 +13,7 @@ import {LoaderComponent} from "../../global/loader/loader.component";
 })
 export class CategoryContainerComponent implements OnInit {
   @Input() category: any;
+
   ngOnInit(): void {
   }
 }

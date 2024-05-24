@@ -41,8 +41,8 @@ export class SubcategoryProductsComponent implements OnInit {
     'margin': '0'
   }
   buttonSyle = {
-    'cursor' : 'default'
-}
+    'cursor': 'default'
+  }
 
   constructor(private activatedRoute: ActivatedRoute,
               private productService: ProductsService,
@@ -66,11 +66,7 @@ export class SubcategoryProductsComponent implements OnInit {
     this.productService.getBySubCategoryId(this.subCategoyrId).subscribe(
       (response) => {
         this.productDetails = response.products;
-        console.log(this.productDetails);
       },
-      error => {
-        console.log(error.error);
-      }
     )
   }
 
