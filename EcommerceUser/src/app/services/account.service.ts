@@ -15,6 +15,7 @@ export class AccountService {
   user$ = this.userSubject.asObservable();
 
   constructor(private http: HttpClient, private snakbar: MatSnackBar) {
+
   }
 
   loadUserFromToken() {
