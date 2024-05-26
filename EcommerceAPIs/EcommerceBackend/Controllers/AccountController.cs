@@ -19,7 +19,7 @@ namespace EcommerceBackend.Controllers
         private readonly ICartServices _cartServices;
         private readonly IOrderServices _orderServices;
         private readonly IDataHelper _dataHelper;
-        private const string endpointSecret = "whsec_q9eqrJne1TSrFpyKC1BAl4LJoSVQ8cvN";
+        private const string endpointSecret = "your stripe key";
      
 
         public AccountController(IAccountServices accountServices,
@@ -80,7 +80,7 @@ namespace EcommerceBackend.Controllers
         public IActionResult PurchaseCart(string uuid)
         {
             StripeConfiguration.ApiKey =
-                "sk_test_51PErUmSItTq9yJF65Pe7CStTmwqDj2W9aPEIZR71k7BwcyrfBx75kFavzG63aFxIsUJ5qPNJPjlKtnYtTreazVXZ0099XF23Am";
+                "your stripe key";
 
         var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.UserData).Value;
 
