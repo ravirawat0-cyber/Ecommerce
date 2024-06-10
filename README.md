@@ -54,10 +54,16 @@ EcommerceBackend/
 │   ├── Request/
 ├── Services/
 │   ├── Interfaces/
-│   └── Implementations/
+│   └──Business Logic Implementations/
+├── Repository/
+│   ├── Interfaces/
+│   └── Databae Query Implementations/
 ├── Helper/
-├── Startup.cs
+├── Enums/
+├── CustomMiddleware/
+         ├── ExceptionHandlingMiddleware
 ├── Program.cs
+├── DbContext.cs
 └── appsettings.json
 ```
 
